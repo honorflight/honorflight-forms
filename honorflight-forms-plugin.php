@@ -9,6 +9,20 @@ Author URI: http://wustl.edu
 License: GPL2
 */
 
+/*  Admin Menu */
+class options_page {
+  function __construct() {
+    add_action( 'admin_menu', array( $this, 'admin_menu' ) );
+  }
+  function admin_menu () {
+    add_options_page( 'Honor Flight Options','Honor Flight Options','manage_options','options_page_slug', array( $this, 'settings_page' ) );
+  }
+  function  settings_page () {
+    include 'honorflight-forms-plugin/admin/settings.php';
+  }
+}
+new options_page;
+/* End Admin Menu */
 
 include 'honorflight-forms-plugin/php/salesforce-api.php';
 include 'honorflight-forms-plugin/php/honorflight-data.php';
