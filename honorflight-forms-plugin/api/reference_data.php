@@ -10,11 +10,11 @@ Output: Json Array representation of the data
 /*
 Let's restrict the objects that can be called from this file
 */
-$accessible_objects = array("Contact", "SERVICE_BRANCH__c");
+$accessible_objects = array("SHIRT_SIZE__c");
 if (in_array($_GET["sobject_type"], $accessible_objects) && isset($_GET["fields"])) {
   define("SALESFORCE_TOOLKIT_ROOT", "../../Force.com-Toolkit-for-PHP/");
   ini_set('soap.wsdl_cache_enabled', '0');
-  require_once "../WSDL/wsdl.jsp.xml";
+  require_once SALESFORCE_TOOLKIT_ROOT . "soapclient/SforceEnterpriseClient.php";
 
   $sforce_cfg = parse_ini_file("../../api/salesforce.ini");
   /* Load sforce_cfg */
@@ -29,31 +29,21 @@ if (in_array($_GET["sobject_type"], $accessible_objects) && isset($_GET["fields"
 
 
   $sforce_connection = new SforceEnterpriseClient();
-  $sforce_connection->createConnection(SALESFORCE_TOOLKIT_ROOT . "soapclient/enterprise.wsdl.xml");
+
+  // $sforce_connection->createConnection(SALESFORCE_TOOLKIT_ROOT . "soapclient/enterprise.wsdl.xml");
+  $sforce_connection->createConnection("../WSDL/wsdl.jsp.xml");
 
   // $sforce_connection->login(get_option('sforce_api_user'), get_option('sforce_api_password').get_option('sforce_api_secret'));
   $sforce_connection->login($sforce_cfg["username"], $sforce_cfg["password"].$sforce_cfg["token"]);
 
-  $safe_fields = array_map("mysql_real_escape_string", $_GET["fields"]);
-
-  // var_dump($_GET["fields"]);
-  var_dump($safe_fields);
-
-  // $fields_string = explode(",",$_GET["fields"]);
-
-  // $fields_string = implode(", ", $safe_fields);
-  
-  // var_dump($fields_string);
+  $safe_fields = mysql_real_escape_string($_GET["fields"]);
+  $safe_object = mysql_real_escape_string($_GET["sobject_type"]);
 
   // $query = sprintf("SELECT %s from %s", $fields_string, mysql_real_escape_string($_GET["sobject_type"]));
-  $query = "SELECT C.Id, C.SHIRT_SIZE_CD__c FROM SHIRT_SIZE__c C";
+  $query = "SELECT $safe_fields FROM $safe_object";
 
   try {
-    $result = $sforce_connection->query($query);
-
-    for($i = 0; $i < count($result->records); $i++) {
-      var_dump($result->records[$i]); 
-    }
+    $response = $sforce_connection->query($query);
   } catch(Exception $e) {
     header("HTTP/1.1 400 Bad Request");
 
@@ -62,8 +52,8 @@ if (in_array($_GET["sobject_type"], $accessible_objects) && isset($_GET["fields"
     return;
   }
   
-
-  echo "TRUE";
+  header("Content-Type: application/json");
+  echo json_encode($response->records);
 } else {
   die("No script kiddies please!");
 }
