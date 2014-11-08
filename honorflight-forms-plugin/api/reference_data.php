@@ -14,7 +14,7 @@ $accessible_objects = array("Contact", "SERVICE_BRANCH__c");
 if (in_array($_GET["sobject_type"], $accessible_objects) && isset($_GET["fields"])) {
   define("SALESFORCE_TOOLKIT_ROOT", "../../Force.com-Toolkit-for-PHP/");
   ini_set('soap.wsdl_cache_enabled', '0');
-  require_once SALESFORCE_TOOLKIT_ROOT . "soapclient/SforceEnterpriseClient.php";
+  require_once "../WSDL/wsdl.jsp.xml";
 
   $sforce_cfg = parse_ini_file("../../api/salesforce.ini");
   /* Load sforce_cfg */
