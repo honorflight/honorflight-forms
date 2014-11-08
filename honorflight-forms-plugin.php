@@ -9,5 +9,6 @@ Author URI: http://wustl.edu
 License: GPL2
 */
 
+require_once "api/routes.php";
 
 ?>
