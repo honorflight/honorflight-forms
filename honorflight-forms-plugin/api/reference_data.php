@@ -16,17 +16,8 @@ if (in_array($_GET["sobject_type"], $accessible_objects) && isset($_GET["fields"
   ini_set('soap.wsdl_cache_enabled', '0');
   require_once SALESFORCE_TOOLKIT_ROOT . "soapclient/SforceEnterpriseClient.php";
 
-  $sforce_cfg = parse_ini_file("../../api/salesforce.ini");
   /* Load sforce_cfg */
-  // $sforce_cfg = array(
-  //   "username" =>get_option('sforce_api_user'),
-  //   "password" =>get_option('sforce_api_password'),
-  //   "token" =>get_option('sforce_api_secret') 
-  // );
-  // define('SALESFORCE_CONFIG', $sforce_cfg);
-
-  // // $sforce_cfg = parse_ini_file("salesforce.ini");
-
+  $sforce_cfg = parse_ini_file("../../api/salesforce.ini");
 
   $sforce_connection = new SforceEnterpriseClient();
 
@@ -52,6 +43,7 @@ if (in_array($_GET["sobject_type"], $accessible_objects) && isset($_GET["fields"
     return;
   }
   
+  header("Access-Control-Allow-Origin: *");
   header("Content-Type: application/json");
   echo json_encode($response->records);
 } else {
