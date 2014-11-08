@@ -27,8 +27,8 @@ if (in_array($_GET["sobject_type"], $accessible_objects) && isset($_GET["fields"
   // $sforce_connection->login(get_option('sforce_api_user'), get_option('sforce_api_password').get_option('sforce_api_secret'));
   $sforce_connection->login($sforce_cfg["username"], $sforce_cfg["password"].$sforce_cfg["token"]);
 
-  $safe_fields = mysql_real_escape_string($_GET["fields"]);
-  $safe_object = mysql_real_escape_string($_GET["sobject_type"]);
+  $safe_fields = $_GET["fields"];
+  $safe_object = $_GET["sobject_type"];
 
   // $query = sprintf("SELECT %s from %s", $fields_string, mysql_real_escape_string($_GET["sobject_type"]));
   $query = "SELECT $safe_fields FROM $safe_object";
