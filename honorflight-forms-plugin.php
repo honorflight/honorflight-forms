@@ -10,4 +10,7 @@ License: GPL2
 */
 
 
+include 'php/salesforce-api.php';
+include 'php/honorflight-data.php';
+
 ?>
