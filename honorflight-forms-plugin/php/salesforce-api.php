@@ -18,6 +18,7 @@ require_once SALESFORCE_TOOLKIT_ROOT . "soapclient/SforceEnterpriseClient.php";
  */
 function contactForm($data)
 {
+    $data = json_decode($data);
 
     /* Load sforce_cfg */
     $sforce_cfg = parse_ini_file("../../api/salesforce.ini");
