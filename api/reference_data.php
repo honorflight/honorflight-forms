@@ -10,20 +10,23 @@ Output: Json Array representation of the data
 Let's restrict the objects that can be called from this file
 */
 //url request, vetren, guardian, or volunteer, simply add tables to array to get them
-$request = array("Veteran"=>array("SHIRT_SIZE__c",
-                                  "SERVICE_BRANCH__c",
-                                 "SERVICE_RANK__c",
+$request = array("Veteran"=>array(
+                                // "SHIRT_SIZE__c",
+                                //   "SERVICE_BRANCH__c",
+                                //  "SERVICE_RANK__c",
                                  'WAR__c',
-                                 "SERVICE_AWARD__c",
-                                "MEDICAL_CONDITION_TYPE__c",
-                                 "MEDICAL_CONDITION__c" ),
+                                //  "SERVICE_AWARD__c",
+                                // "MEDICAL_CONDITION_TYPE__c",
+                                //  "MEDICAL_CONDITION__c" ),
 
                  "Guardian"=>array("SHIRT_SIZE__c",
                                     "SERVICE_BRANCH__c",
                                     "WAR__c"));
 
 //Maps a table name to the fields of that table. field ID is implicit
-$accessible_objects = array("SHIRT_SIZE__c"=>array("SHIRT_SIZE_CD__c"),"SERVICE_BRANCH__c"=>array("SERVICE_BRANCH_NAME__c"),
+$accessible_objects = array(
+                            "SHIRT_SIZE__c"=>array("SHIRT_SIZE_CD__c"),
+                            "SERVICE_BRANCH__c"=>array("SERVICE_BRANCH_NAME__c"),
                             "SERVICE_RANK__c"=>array("NAME"),
                              "WAR__c"=>array("WAR_NAME__c"),
                              "SERVICE_AWARD__c"=>array("SERVICE_AWARD_NM__c"),
@@ -31,15 +34,18 @@ $accessible_objects = array("SHIRT_SIZE__c"=>array("SHIRT_SIZE_CD__c"),"SERVICE_
                              "MEDICAL_CONDITION__c"=>array("Name"),
                              );
 
+
+
 function getReference($requestType){
   //echo "$requestType, $requestField";
-  global $request, $accessible_objects, $sforce_connection;
+  // global $request, $accessible_objects, $sforce_connection;
 
   if(array_key_exists($requestType, $request)){
     //Tables
     $safe_objects = $request[$requestType];
+
     //Fields of those tables
-    $safe_fields = array_map(function ($safe_object) use(&$accessible_objects){
+    $safe_fields = array_map(function ($safe_object) use($accessible_objects){
                                   return $accessible_objects[$safe_object];
                                 }, $safe_objects);
     //field index
@@ -67,9 +73,9 @@ function getReference($requestType){
       $i++;
     }
 
-    header("Access-Control-Allow-Origin: *");
-    header("Content-Type: application/json");
-    echo json_encode($responses);
+    // header("Access-Control-Allow-Origin: *");
+    // header("Content-Type: application/json");
+    // echo json_encode($responses);
 
   } else {
     header("HTTP/1.1 400 Bad Request");
