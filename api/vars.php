@@ -4,7 +4,7 @@
 
 
 // Customize this variable as needed
-define("SALESFORCE_TOOLKIT_ROOT", "wp-content/plugins/honorflight-form/Force.com-Toolkit-for-PHP/");
+define("SALESFORCE_TOOLKIT_ROOT", dirname(__FILE__)."/../Force.com-Toolkit-for-PHP/");
 
 require_once SALESFORCE_TOOLKIT_ROOT . "soapclient/SforceEnterpriseClient.php";
 
