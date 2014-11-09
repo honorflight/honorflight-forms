@@ -24,4 +24,9 @@ Ask Jancel for the credentials (we don't want to check them into source control)
 
 3. You should now be able to visit the following URL and see JSON data from Salesforce:
 
+4.
+Enable Mod Rewrite on Apache server
+In termminal
+sudo a2enmod rewrite
+service apache2 restart #this is for ubuntu restart apache in general
 	http://hostname/path/to/wordpress/api/sforce/Contact?fields%5B%5D=FirstName&fields%5B%5D=LastName&fields%5B%5D=Phone
