@@ -19,7 +19,10 @@ require_once "handles.php";
 //replace empty functions with handles
 add_action("slim_mapping", function($app){
 	header("Slim: Remap");
-	$app->post('/api/:form_name/submit', function(){echo "Unhandled url";});
+	$app->post('/api/:form_name/submit', function($method)use($app){
+    //Pass App context to routing method
+    $method($app);
+  });
 	$app->get('/api/:form_name/variables', function(){echo "Unhandled url";});
 	$app->get('/api/reference_data/:type', 'getReference');
 	$app->get('/api/sforce/:model', 'sforce_get');

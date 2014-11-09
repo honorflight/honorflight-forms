@@ -11,13 +11,13 @@ Let's restrict the objects that can be called from this file
 */
 //url request, vetren, guardian, or volunteer, simply add tables to array to get them
 $request = array("Veteran"=>array(
-                                // "SHIRT_SIZE__c",
-                                //   "SERVICE_BRANCH__c",
-                                //  "SERVICE_RANK__c",
+                                "SHIRT_SIZE__c",
+                                  "SERVICE_BRANCH__c",
+                                 "SERVICE_RANK__c",
                                  'WAR__c',
-                                //  "SERVICE_AWARD__c",
-                                // "MEDICAL_CONDITION_TYPE__c",
-                                //  "MEDICAL_CONDITION__c" ),
+                                 "SERVICE_AWARD__c",
+                                "MEDICAL_CONDITION_TYPE__c",
+                                 "MEDICAL_CONDITION__c" ),
 
                  "Guardian"=>array("SHIRT_SIZE__c",
                                     "SERVICE_BRANCH__c",

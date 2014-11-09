@@ -6,6 +6,17 @@
  * Time: 7:15 PM
  */
 
+// [POST]       /path/to/api/testmethod/submit 
+function testmethod($app){
+    $response = array("hello" => "world", "body" => json_decode($app->request->getBody()));
+
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Methods: POST");
+    header("Content-Type: application/json");
+    echo json_encode($response);
+
+}
+
 define("SALESFORCE_TOOLKIT_ROOT", "../../Force.com-Toolkit-for-PHP/");
 ini_set('soap.wsdl_cache_enabled', '0');
 require_once SALESFORCE_TOOLKIT_ROOT . "soapclient/SforceEnterpriseClient.php";
