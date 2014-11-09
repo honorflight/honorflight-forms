@@ -20,8 +20,12 @@ include 'honorflight-forms-plugin/php/salesforce-api.php';
 add_action("slim_mapping", function($app){
 	header("Slim: Remap");
 	$app->post('/api/:form_name/submit', function(){echo "Unhandled url";});
-    $app->post('/api/guardianContact/submit:', function(){
-        contactForm(Slim::getInstance()->request->getBody());
+    $app->post('/api/guardianContact/submit', function($app){
+         $app->response->setBody("test". guardianContactForm(Slim::getInstance()->request->getBody()));
+    });
+
+    $app->post('/api/veteranContact/submit', function($app){
+        return veteranContactForm(Slim::getInstance()->request->getBody());
     });
 	$app->get('/api/:form_name/variables', function(){echo "Unhandled url";});
 	$app->get('/api/reference_data/:type', 'getReference');
