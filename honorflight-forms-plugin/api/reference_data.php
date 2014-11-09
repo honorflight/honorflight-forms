@@ -12,7 +12,9 @@ Let's restrict the objects that can be called from this file
 */
 //url request, vetren, guardian, or volunteer, simply add tables to array to get them
 $request = array("Veteran"=>array("SHIRT_SIZE__c",
+                                  "RELATIONSHIP_TYPE__c",
                                   "SERVICE_BRANCH__c",
+                                 "SERVICE_RANK_TYPE__c",
                                  "SERVICE_RANK__c",
                                  'WAR__c',
                                  "SERVICE_AWARD__c",
@@ -24,8 +26,10 @@ $request = array("Veteran"=>array("SHIRT_SIZE__c",
                                     "WAR__c"));
 
 //Maps a table name to the fields of that table. field ID is implicit
-$accessible_objects = array("SHIRT_SIZE__c"=>array("SHIRT_SIZE_CD__c"),"SERVICE_BRANCH__c"=>array("SERVICE_BRANCH_NAME__c"),
-                            "SERVICE_RANK__c"=>array("NAME"),
+$accessible_objects = array("SHIRT_SIZE__c"=>array("SHIRT_SIZE_CD__c"),
+                            "RELATIONSHIP_TYPE__c"=>array("RELATIONSHIP_TYPE_NM__c"),
+                            "SERVICE_BRANCH__c"=>array("SERVICE_BRANCH_NAME__c"),
+                            "SERVICE_RANK_TYPE__c"=>array("Service_Rank_Type_Name__c"), "SERVICE_RANK__c"=>array("NAME"),
                              "WAR__c"=>array("WAR_NAME__c"),
                              "SERVICE_AWARD__c"=>array("SERVICE_AWARD_NM__c"),
                              "MEDICAL_CONDITION_TYPE__c"=>array("Name"),
