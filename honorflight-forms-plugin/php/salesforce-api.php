@@ -34,7 +34,7 @@ function contactForm($data)
     $newAccount = array();
     $newAccount[0] = new stdClass();
 // account
-    $newAccount[0]->Name = "Unique Key Here";              // Account Primary Key : Generate unique key
+    $newAccount[0]->Name = time();              // Account Primary Key : Generate unique key
     $newAccount[0]->FIRST_NM__c = $data["firstName"];      // Text(50)
     $newAccount[0]->LAST_NM__c = $data["lastName"];        // Text(50)
     $newAccount[0]->MIDDLE_NM__C = $data["middleName"];    // Text(50)
@@ -54,7 +54,7 @@ function contactForm($data)
     $newGuardian[0] = new stdClass();
 
 // guardian
-    $newGuardian[0]->SERVICE_BRACH_NM__c = $data["branch"];
+//    $newGuardian[0]->SERVICE_BRACH_NM__c = $data["branch"];
     $newGuardian[0]->MILITARY_SERVICE_LOCATION__c = $data["whereServed"];
     $newGuardian[0]->MILITARY_SERVICE_DATE_TXT__c = $data["whenServed"];
 
@@ -67,15 +67,24 @@ function contactForm($data)
     $newAddress[0]->ZIP_CD__c = $data["zip"];
 
 
-    $response = $sforce_connection->create($newAddress, 'ADDRESS');
+
+
+    //
+    $response = $sforce_connection->create($newAddress, 'ADDRESS__c');
     print_r($response);
 
-    $accountID = $response[0]->id;
-    $newAccount[0]->address_id__c = $response[0]->id;
+    $addressReference = $response[0]->id;
+    $newAccount[0]->address_id__c = $addressReference;
+    echo $addressReference;
 
 
+    $response = $sforce_connection->create($newGuardian, 'GUARDIAN__c');
+    print_r($response);
 
+    $response = $sforce_connection->create($newAccount, 'ACCOUNT');
+    print_r($response);
 
+    $accountID= $response[0]->id;
     return $accountID;
 }
 ?>
