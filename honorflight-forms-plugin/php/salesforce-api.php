@@ -7,7 +7,8 @@
  */
 
 // [POST]       /path/to/api/testmethod/submit 
-function testmethod($app){
+function testmethod($app)
+{
     $response = array("hello" => "world", "body" => json_decode($app->request->getBody()));
 
     header("Access-Control-Allow-Origin: *");
@@ -42,7 +43,7 @@ function guardianContactForm($data)
     $sforce_connection->createConnection("../WSDL/wsdl.jsp.xml");
 
     // $sforce_connection->login(get_option('sforce_api_user'), get_option('sforce_api_password').get_option('sforce_api_secret'));
-    $sforce_connection->login($sforce_cfg["username"], $sforce_cfg["password"].$sforce_cfg["token"]);
+    $sforce_connection->login($sforce_cfg["username"], $sforce_cfg["password"] . $sforce_cfg["token"]);
 
 
     $newAccount = array();
@@ -81,8 +82,6 @@ function guardianContactForm($data)
     $newAddress[0]->ZIP_CD__c = $data["zip"];
 
 
-
-
     //
     $response = $sforce_connection->create($newAddress, 'ADDRESS__c');
     print_r($response);
@@ -98,10 +97,9 @@ function guardianContactForm($data)
     $response = $sforce_connection->create($newAccount, 'ACCOUNT');
     print_r($response);
 
-    $accountID= $response[0]->id;
+    $accountID = $response[0]->id;
     return $accountID;
 }
-
 
 
 /**
@@ -125,7 +123,7 @@ function veteranContactForm($data)
     $sforce_connection->createConnection("../WSDL/wsdl.jsp.xml");
 
     // $sforce_connection->login(get_option('sforce_api_user'), get_option('sforce_api_password').get_option('sforce_api_secret'));
-    $sforce_connection->login($sforce_cfg["username"], $sforce_cfg["password"].$sforce_cfg["token"]);
+    $sforce_connection->login($sforce_cfg["username"], $sforce_cfg["password"] . $sforce_cfg["token"]);
 
 
     $newAccount = array();
@@ -147,8 +145,6 @@ function veteranContactForm($data)
 //    $newAccount[0]->VETERAN = $data["veteranName"];
 
 
-
-
     $newAddress = array();
     $newAddress[0] = new stdClass();
 // address
@@ -156,8 +152,6 @@ function veteranContactForm($data)
     $newAddress[0]->CITY_NM__c = $data["city"];
     $newAddress[0]->STATE_CD__c = $data["state"];
     $newAddress[0]->ZIP_CD__c = $data["zip"];
-
-
 
 
     //
@@ -169,12 +163,99 @@ function veteranContactForm($data)
     echo $addressReference;
 
 
-
-
     $response = $sforce_connection->create($newAccount, 'ACCOUNT');
     print_r($response);
 
-    $accountID= $response[0]->id;
+    $accountID = $response[0]->id;
     return $accountID;
+}
+
+
+/**
+ * @param $data : JSON Guardian Personal Information
+ * @param $sforceClient : SforceEnterpriseClient
+ *
+ *{
+ * "firstName": "",
+ * "lastName": "",
+ * "middleName": "",
+ * "nickName": "",
+ * "address": "",
+ * "city": "",
+ * "state": "",
+ * "zip": "",
+ * "homePhone": "",
+ * "cellPhone": "",
+ * "email": "",
+ * "occupation": "",
+ * "age": "age",
+ * "dateOfBirth": "",
+ * "branch": "",
+ * "whereServed": "",
+ * "whenServed": "",
+ * "veteranName": ""
+ * }
+ *
+ * @return //TOOO ???
+ */
+function guardianPersonalInformation($data)
+{
+    echo "<h3>Guardian Personal Information</h3>";
+
+    $data = json_decode($data);
+
+    /* Load sforce_cfg */
+    $sforce_cfg = parse_ini_file("../../api/salesforce.ini");
+
+    $sforce_connection = new SforceEnterpriseClient();
+
+    // $sforce_connection->createConnection(SALESFORCE_TOOLKIT_ROOT . "soapclient/enterprise.wsdl.xml");
+    $sforce_connection->createConnection("../WSDL/wsdl.jsp.xml");
+
+    // $sforce_connection->login(get_option('sforce_api_user'), get_option('sforce_api_password').get_option('sforce_api_secret'));
+    $sforce_connection->login($sforce_cfg["username"], $sforce_cfg["password"] . $sforce_cfg["token"]);
+
+
+    $newGuardian = array();
+    $newGuardian[0] = new stdClass();
+
+    $newGuardian[0]->Name = time();              // Account Primary Key : Generate unique key
+    $newGuardian[0]->FIRST_NM__c = $data["firstName"];      // Text(50)
+    $newGuardian[0]->LAST_NM__c = $data["lastName"];        // Text(50)
+    $newGuardian[0]->MIDDLE_NM__C = $data["middleName"];    // Text(50)
+    $newGuardian[0]->NICK_NM__c = $data["nickName"];        // Text(50)
+
+
+    $newGuardian[0]->ADDRESS_LINE_1_TXT__c = $data["address"];
+    $newGuardian[0]->CITY_NM__c = $data["city"];
+    $newGuardian[0]->STATE_CD__c = $data["state"];
+    $newGuardian[0]->ZIP_CD__c = $data["zip"];
+
+
+    $newGuardian[0]->HOME_PHONE_NBR__c = $data["homePhone"];// Phone
+    $newGuardian[0]->CELL_PHONE_NBR__c = $data["cellPhone"]; // Phone
+    $newGuardian[0]->EMAIL_ADDRESS_TXT__c = $data["email"];  // Email
+    $newGuardian[0]->OCCUPATION_NM__c = $data["occupation"]; // Text(50)
+    $newGuardian[0]->BIRTH_DT__c = $data["dateOfBirth"];     // Date : YYYY-MM-DD
+
+
+    $newGuardian[0]->AGE = $data["age"];
+    $newGuardian[0]->BRANCH = $data["branch"];
+    $newGuardian[0]->AGE = $data["age"];
+    $newGuardian[0]->WHERE_SERVED = $data["whereServed"];
+    $newGuardian[0]->WHEN_SERVED = $data["whenServed"];
+    $newGuardian[0]->VERTERAN_NAME = $data["verteranName"];
+
+
+    $response = $sforce_connection->create($newGuardian, 'GuardianForm');
+    print_r($response);
+
+
+    $objectReference = $response[0]->id;
+    return $objectReference;
+
+    $_SESSION['objectReference'] = $objectReference;
+
+    return "temp return value";
 }
 ?>
