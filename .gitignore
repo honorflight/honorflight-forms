@@ -3,3 +3,4 @@ build/
 api/salesforce.ini
 salesforce.ini
 .DS_Store
+dist/

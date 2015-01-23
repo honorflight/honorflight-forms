@@ -11,8 +11,8 @@ function inject_css() {
     if (is_page('Application')) {
         /* Jeff\'s CRAP */;
         /* PUKE */
-        $custom_bootstrap_path = "/wp-content/plugins/honorflight-forms/honorflight-forms-plugin/css/hf-bootstrap.css";
-        ?><link rel='stylesheet' href='<?php echo $custom_bootstrap_path; ?>' type='text/css' /> <?php
+        $custom_css_path = "/wp-content/plugins/honorflight-forms/honorflight-forms-plugin/dist/app.full.min.css";
+        ?><link rel='stylesheet' href='<?php echo $custom_css_path; ?>' type='text/css' /> <?php
         echo '';
     }
 }
@@ -20,12 +20,13 @@ add_filter('css_injection', 'inject_css');
 
 function inject_javascripts() {
     if (is_page('Application')) {
-        echo '';
-        echo '<style>/* JEFF */</style>';
-        echo '';
+        $custom_js_path = "/wp-content/plugins/honorflight-forms/honorflight-forms-plugin/dist/app.full.min.js";
+        ?><script type='text/javascript' src='<?php echo $custom_js_path; ?>'></script> <?php
     }
 }
 add_filter('javascript_injection', 'inject_javascripts');
+
+
 
 function skip_title($title, $id){
     if (is_page('Application')) {
