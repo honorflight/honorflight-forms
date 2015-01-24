@@ -51,7 +51,7 @@ function app_type($content)
             //Adding custom content to end of post.
 
         if (strpos($content, $vet) !== false) {
-            return str_replace("[[vetapp]]", "<div ng-app='hfApp' ng-controller='MainController as main' class='bootstrap'><div ui-view=''></div></div>", $content);
+            return str_replace("[[vetapp]]", "<div ng-app='hf' ng-controller='MainController as main' class='bootstrap'><div id='content' class='container'><div class='row'><div ui-view=''></div></div></div></div>", $content);
         } 
         else {
             //else on blog page / home page etc, just return content as usual.

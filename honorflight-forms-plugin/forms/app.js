@@ -1,23 +1,33 @@
-angular.module('hfApp', ['ui.bootstrap','ui.utils','ui.router','ngAnimate']);
+angular.module('hf', ['ui.bootstrap','ui.utils','ui.router','ngAnimate']);
 
 function MainController($log){
+  $log.debug("MainController::Begin");
 
+  /* This is where we will add 'global-ish' function */
+
+  $log.debug("MainController::End");
 }
-angular.module('hfApp').controller('MainController', MainController);
+angular.module('hf').controller('MainController', MainController);
 
-angular.module('hfApp').config(function($stateProvider, $urlRouterProvider) {
+angular.module('hf').config(function($stateProvider, $urlRouterProvider) {
 
-    $stateProvider.state('application', {
-        url: '/application',
-        templateUrl: 'templates/application.html'
+    $stateProvider.state('applications', {
+        url: '/applications',
+        template: "<div ui-view=''></div>",
+        abstract: true
+    });
+
+    $stateProvider.state('applications.home', {
+      url: '/home',
+      templateUrl: 'templates/application.html'
     });
 
     /* Add New States Above */
-    $urlRouterProvider.otherwise('/application');
+    $urlRouterProvider.otherwise('/applications/home');
 
 });
 
-angular.module('hfApp').run(function($rootScope) {
+angular.module('hf').run(function($rootScope) {
 
     $rootScope.safeApply = function(fn) {
         var phase = $rootScope.$$phase;
