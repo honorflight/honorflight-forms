@@ -127,7 +127,7 @@ module.exports = function (grunt) {
     cssmin: {
       main: {
         src:['temp/app.css','<%= dom_munger.data.appcss %>'],
-        dest:'honorflight-forms-plugin/dist/app.full.min.css'
+        dest:'../honorflight-forms-plugin/dist/app.full.min.css'
       }
     },
     concat: {
@@ -145,7 +145,7 @@ module.exports = function (grunt) {
     uglify: {
       main: {
         src: 'temp/app.full.js',
-        dest:'honorflight-forms-plugin/dist/app.full.min.js'
+        dest:'../honorflight-forms-plugin/dist/app.full.min.js'
       }
     },
     htmlmin: {
