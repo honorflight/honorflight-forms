@@ -3,7 +3,7 @@ build/
 api/salesforce.ini
 salesforce.ini
 .DS_Store
-dist/
+#dist/
 node_modules/
 .idea
 npm-debug.log
