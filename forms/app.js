@@ -25,7 +25,9 @@ angular.module('hf').config(function($stateProvider, $urlRouterProvider) {
 
     $stateProvider.state('applications.home', {
       url: '/home',
-      templateUrl: 'templates/application.html'
+      templateUrl: 'templates/veteran/General_Information.html',
+        controller: 'GeneralInformationController',
+        controllerAs: 'GeneralInfoController'
     });
 
     /* Add New States Above */
