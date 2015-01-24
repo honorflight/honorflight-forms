@@ -18,6 +18,15 @@ function testmethod($app)
 
 }
 
+function reference($app)
+{
+    var_dump($app);
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Methods: GET");
+    header("Content-Type: application/json");
+    echo json_encode(array("hello" => "world"));
+}
+
 define("SALESFORCE_TOOLKIT_ROOT", "../../Force.com-Toolkit-for-PHP/");
 ini_set('soap.wsdl_cache_enabled', '0');
 require_once SALESFORCE_TOOLKIT_ROOT . "soapclient/SforceEnterpriseClient.php";

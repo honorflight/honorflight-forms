@@ -47,6 +47,8 @@ function sforce_get($model){
   }
 
   // Print the response
+  header("Access-Control-Allow-Origin: *");
+  header("Access-Control-Allow-Methods: POST");
   header("Content-Type: application/json");
   echo json_encode($response->records);
 }

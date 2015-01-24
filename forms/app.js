@@ -1,4 +1,4 @@
-angular.module('hf', ['ui.bootstrap','ui.utils','ui.router','ngAnimate']);
+angular.module('hf', ['ui.bootstrap','ui.utils','ui.router','ngAnimate', 'ngResource']);
 
 function MainController($log){
   $log.debug("MainController::Begin");
@@ -14,7 +14,13 @@ angular.module('hf').config(function($stateProvider, $urlRouterProvider) {
     $stateProvider.state('applications', {
         url: '/applications',
         template: "<div ui-view=''></div>",
-        abstract: true
+        abstract: true,
+        resolve: {
+          referenceResource: 'ReferenceData',
+          referenceData: function(referenceResource){
+            return referenceResource.query();
+          }
+        }
     });
 
     $stateProvider.state('applications.home', {

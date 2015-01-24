@@ -23,6 +23,10 @@ add_action("slim_mapping", function($app){
     //Pass App context to routing method
     $method($app);
   });
+
+  $app->get('/api/reference', function($method)use($app){
+    $method($app);
+  });
 // =======
 // 	$app->post('/api/:form_name/submit', function(){echo "Unhandled url";});
 //     $app->post('/api/guardianContact/submit', function($app){
