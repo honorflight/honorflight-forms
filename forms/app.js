@@ -1,4 +1,4 @@
-angular.module('hf', ['ui.bootstrap', 'ui.utils', 'ui.router', 'ui.select2', 'ngAnimate', 'ngResource', 'contact']);
+angular.module('hf', ['ui.bootstrap', 'ui.utils', 'ui.router', 'ui.select', 'ngAnimate', 'ngResource', 'contact']);
 
 function MainController($log){
   $log.debug("MainController::Begin");
@@ -38,6 +38,11 @@ angular.module('hf').config(function($stateProvider, $urlRouterProvider) {
     /* Add New States Above */
     $urlRouterProvider.otherwise('/applications/home');
 
+});
+
+angular.module('hf').config(function(uiSelectConfig) {
+  uiSelectConfig.theme = 'bootstrap';
+  uiSelectConfig.resetSearchInput = true;
 });
 
 angular.module('hf').run(function($rootScope) {
