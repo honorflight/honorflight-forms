@@ -33,7 +33,8 @@ add_action("slim_mapping", function($app){
   //   $method($app);
   // });
   $app->get('/api/force/:obj_type', function($object){
-    
+    // call salesforce with $object
+    query_salesforce($object);
   });
 // =======
 // 	$app->post('/api/:form_name/submit', function(){echo "Unhandled url";});

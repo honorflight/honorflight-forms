@@ -34,7 +34,7 @@ function getReference($requestType){
                               "SHIRT_SIZE__c"=>array("SHIRT_SIZE_CD__c"),
                               "SERVICE_BRANCH__c"=>array("SERVICE_BRANCH_NAME__c"),
                               "SERVICE_RANK__c"=>array("NAME"),
-                               "WAR__c"=>array("WAR_NAME__c"),
+                               "WAR__c"=>array("WAR_NM__c"),
                                "SERVICE_AWARD__c"=>array("SERVICE_AWARD_NM__c"),
                                "MEDICAL_CONDITION_TYPE__c"=>array("Name"),
                                "MEDICAL_CONDITION__c"=>array("Name"),
