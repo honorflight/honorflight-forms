@@ -1,4 +1,4 @@
-angular.module('hf', ['ui.bootstrap','ui.utils','ui.router','ngAnimate', 'ngResource']);
+angular.module('hf', ['ui.bootstrap', 'ui.utils', 'ui.router', 'ui.select2', 'ngAnimate', 'ngResource', 'contact']);
 
 function MainController($log){
   $log.debug("MainController::Begin");
@@ -12,22 +12,27 @@ angular.module('hf').controller('MainController', MainController);
 angular.module('hf').config(function($stateProvider, $urlRouterProvider) {
 
     $stateProvider.state('applications', {
-        url: '/applications',
-        template: "<div ui-view=''></div>",
+        url: '/applications?{contactType}',
+        templateUrl: "templates/form.html",
+        controller: 'ContactController as contact',
         abstract: true,
-        resolve: {
-          referenceResource: 'ReferenceData',
-          referenceData: function(referenceResource){
-            return referenceResource.query();
-          }
-        }
+        // resolve: {
+        //   referenceResource: 'ReferenceData',
+        //   referenceData: function(referenceResource){
+        //     return referenceResource.query();
+        //   }
+        // }
     });
 
     $stateProvider.state('applications.home', {
       url: '/home',
-      templateUrl: 'templates/veteran/General_Information.html',
-        controller: 'GeneralInformationController',
-        controllerAs: 'GeneralInfoController'
+      templateUrl: 'templates/home.html',
+      // controller: 'GeneralInformationController as info'
+    });
+
+    $stateProvider.state('applications.contactInfo', {
+      url: '/contactInfo',
+      templateUrl: 'templates/contactInfo.html', 
     });
 
     /* Add New States Above */
