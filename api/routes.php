@@ -10,22 +10,30 @@
  *   -> https://github.com/codeguy/Slim/
  *   -> https://github.com/Botnary/wp-slim-framework
  */
+require 'force/force.php';
+// require 'vars.php';
 
+// define("SALESFORCE_TOOLKIT_ROOT", dirname(__FILE__)."/../Force.com-Toolkit-for-PHP/");
+// require_once SALESFORCE_TOOLKIT_ROOT . "soapclient/SforceEnterpriseClient.php";
 
 // A controller file
-require_once "handles.php";
-include 'honorflight-forms-plugin/php/salesforce-api.php';
+// require_once "handles.php";
+// include 'honorflight-forms-plugin/php/salesforce-api.php';
 
 //replace empty functions with handles
 add_action("slim_mapping", function($app){
 	header("Slim: Remap");
-	$app->post('/api/:form_name/submit', function($method)use($app){
-    //Pass App context to routing method
-    $method($app);
-  });
+// Removing example of generic mapping
+  // $app->post('/api/:form_name/submit', function($method)use($app){
+  //    //Pass App context to routing method
+  //    $method($app);
+  //  });
 
-  $app->get('/api/reference', function($method)use($app){
-    $method($app);
+  // $app->get('/api/:object', function($method)use($app){
+  //   $method($app);
+  // });
+  $app->get('/api/force/:obj_type', function($object){
+    
   });
 // =======
 // 	$app->post('/api/:form_name/submit', function(){echo "Unhandled url";});
@@ -37,9 +45,9 @@ add_action("slim_mapping", function($app){
 //         return veteranContactForm(Slim::getInstance()->request->getBody());
 //     });
 // >>>>>>> 6f4432de63d8287fd986ea5672f28da0356b9e09
-	$app->get('/api/:form_name/variables', function(){echo "Unhandled url";});
-	$app->get('/api/reference_data/:type', 'getReference');
-	$app->get('/api/sforce/:model', 'sforce_get');
+// $app->get('/api/:form_name/variables', function(){echo "Unhandled url";});
+// $app->get('/api/reference_data/:type', 'getReference');
+// $app->get('/api/sforce/:model', 'sforce_get');
 });
 
 ?>
