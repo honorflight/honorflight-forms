@@ -11,7 +11,7 @@ Follow these instructions to set up the RESTful API that helps connect Angular w
 	b. Under "Settings -> Slim Framework", set the base path to `api/`.  Click "Update".
 	c. Under "Settings -> Permalinks", choose any of the options other than default (for example, "Post name").  Click "Save changes".
 
-3. Create a file called "salesforce.ini" in this directory.  Put in the following content:
+3. (DEPRECATED/REMOVED)Create a file called "salesforce.ini" in this directory.  Put in the following content:
 
 	; Salesforce Login Credentials Here
 
@@ -19,6 +19,8 @@ Follow these instructions to set up the RESTful API that helps connect Angular w
 	username = "xxx"
 	password = "xxx"
 	token = "xxx"
+
+SET THESE VALUES IN WORDPRESS Admin under Honorflight-Forms plugin settings
 
 Ask Jancel for the credentials (we don't want to check them into source control).
 
