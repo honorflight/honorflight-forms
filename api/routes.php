@@ -10,32 +10,14 @@
  *   -> https://github.com/codeguy/Slim/
  *   -> https://github.com/Botnary/wp-slim-framework
  */
-
-
-// A controller file
-require_once "handles.php";
-include 'honorflight-forms-plugin/php/salesforce-api.php';
+require 'force/force.php';
 
 //replace empty functions with handles
 add_action("slim_mapping", function($app){
 	header("Slim: Remap");
-	$app->post('/api/:form_name/submit', function($method)use($app){
-    //Pass App context to routing method
-    $method($app);
+  $app->get('/api/force/:obj_type', function($object)use($app){
+    query_salesforce($object);
   });
-// =======
-// 	$app->post('/api/:form_name/submit', function(){echo "Unhandled url";});
-//     $app->post('/api/guardianContact/submit', function($app){
-//          $app->response->setBody("test". guardianContactForm(Slim::getInstance()->request->getBody()));
-//     });
-
-//     $app->post('/api/veteranContact/submit', function($app){
-//         return veteranContactForm(Slim::getInstance()->request->getBody());
-//     });
-// >>>>>>> 6f4432de63d8287fd986ea5672f28da0356b9e09
-	$app->get('/api/:form_name/variables', function(){echo "Unhandled url";});
-	$app->get('/api/reference_data/:type', 'getReference');
-	$app->get('/api/sforce/:model', 'sforce_get');
 });
 
 ?>
