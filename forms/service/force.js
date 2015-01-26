@@ -5,6 +5,7 @@ function Force($resource){
   });
 
   // force.query({object_type: 'wars'});
+  // force.query({object_type: 'shirt_sizes'});
 
   return force;
 }
