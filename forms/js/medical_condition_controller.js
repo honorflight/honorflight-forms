@@ -6,7 +6,7 @@ function MedicalConditionController($log, $state){//, conditionInfo){
     model.contactType = $state.params.contactType;
 
     model.goTo = function() {
-        //$state.transitionTo('applications.address', {contactType: model.contactType});
+        $state.transitionTo('applications.serviceHistory', {contactType: model.contactType});
     };
 
     $log.debug("MedicalConditionController::End");

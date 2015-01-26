@@ -25,8 +25,20 @@ function ContactController($log, $state, person) {
         model.medicalConditions.push(new MedicalCondition());
     };
 
-    model.canAddCondition = function() {
-        return model.medicalConditions.length >= 5;
+    model.canAddToList = function(listType) {
+        return model[listType].length >= 5;
+    };
+
+    function Award() {
+        this.name = "";
+        this.quantity = "";
+        this.comment = "";
+    }
+
+    model.serviceAwards = [new Award()];
+
+    model.addAward = function() {
+        model.serviceAwards.push(new Award());
     };
 
     model.goTo = function(contactType){
