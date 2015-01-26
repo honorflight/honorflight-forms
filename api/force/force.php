@@ -50,7 +50,6 @@ function query_salesforce($object_name){
   } catch (Exception $e) {
     header("HTTP/1.1 400 Bad Request");
     error_log($e);
-    echo $e;
   }
 
 }

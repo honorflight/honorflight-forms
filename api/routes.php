@@ -32,8 +32,11 @@ add_action("slim_mapping", function($app){
   // $app->get('/api/:object', function($method)use($app){
   //   $method($app);
   // });
-  $app->get('/api/force/:obj_type', function($object){
+  $app->get('/api/force/:obj_type', function($object)use($app){
     // call salesforce with $object
+    // header("Access-Control-Allow-Origin: *");
+    // header("Access-Control-Allow-Methods: GET");
+    // header("Content-Type: application/json");
     query_salesforce($object);
   });
 // =======

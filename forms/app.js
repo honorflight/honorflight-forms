@@ -9,6 +9,16 @@ function MainController($log){
 }
 angular.module('hf').controller('MainController', MainController);
 
+function ContactInfoController($log, wars){
+  var model = this;
+  $log.debug("ContactInfoController::Begin");
+
+  model.wars = wars;
+
+  $log.debug("ContactInfoController::End");
+}
+angular.module('hf').controller('ContactInfoController', ContactInfoController);
+
 angular.module('hf').config(function($stateProvider, $urlRouterProvider) {
 
     $stateProvider.state('applications', {
@@ -32,7 +42,14 @@ angular.module('hf').config(function($stateProvider, $urlRouterProvider) {
 
     $stateProvider.state('applications.contactInfo', {
       url: '/contactInfo',
-      templateUrl: 'templates/contactInfo.html', 
+      templateUrl: 'templates/contactInfo.html',
+      controller: 'ContactInfoController as contactInfo',
+      resolve: {
+        forceResource: 'Force',
+        wars: function(forceResource){
+          return forceResource.query({object_type: 'wars'});
+        }
+      }
     });
 
     /* Add New States Above */

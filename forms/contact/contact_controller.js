@@ -15,10 +15,6 @@ function ContactController($log, $state, person) {
       $state.transitionTo('applications.contactInfo', {contactType: contactType});
     };
 
-    model.wars = [{id: 1, name:"WW2"},{id: 2, name:"Korea"},{id: 3, name:"Vietnam"}];
-    model.war = model.wars[0];
-
-
     $log.debug("Contact type is: " + model.contactType);
     $log.debug("ContactController::Begin");
 }
