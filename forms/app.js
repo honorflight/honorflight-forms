@@ -9,40 +9,23 @@ function MainController($log){
 }
 angular.module('hf').controller('MainController', MainController);
 
-function ContactInfoController($log, wars){
-  var model = this;
-  $log.debug("ContactInfoController::Begin");
-
-  model.wars = wars;
-
-  $log.debug("ContactInfoController::End");
-}
-angular.module('hf').controller('ContactInfoController', ContactInfoController);
-
 angular.module('hf').config(function($stateProvider, $urlRouterProvider) {
 
     $stateProvider.state('applications', {
         url: '/applications?{contactType}',
         templateUrl: "templates/form.html",
         controller: 'ContactController as contact',
-        abstract: true,
-        // resolve: {
-        //   referenceResource: 'ReferenceData',
-        //   referenceData: function(referenceResource){
-        //     return referenceResource.query();
-        //   }
-        // }
+        abstract: true
     });
 
     $stateProvider.state('applications.home', {
       url: '/home',
-      templateUrl: 'templates/home.html',
-      // controller: 'GeneralInformationController as info'
+      templateUrl: 'templates/home.html'
     });
 
     $stateProvider.state('applications.contactInfo', {
       url: '/contactInfo',
-      templateUrl: 'templates/contactInfo.html',
+      templateUrl: 'templates/contact_info.html',
       controller: 'ContactInfoController as contactInfo',
       resolve: {
         forceResource: 'Force',
@@ -50,6 +33,25 @@ angular.module('hf').config(function($stateProvider, $urlRouterProvider) {
           return forceResource.query({object_type: 'wars'});
         }
       }
+    });
+
+    $stateProvider.state('applications.address', {
+        url: '/address',
+        templateUrl: 'templates/address.html',
+        controller: 'AddressController as address'
+    });
+
+    $stateProvider.state('applications.medicalCondition', {
+        url: '/medicalCondition',
+        templateUrl: 'templates/medical_condition.html',
+        controller: 'MedicalConditionController as medicalCondition'
+        //,
+        //resolve: {
+        //    forceResource: 'Force',
+        //    conditionInfo: function(forceResource){
+        //        return forceResource.query({object_type: 'conditionInfo'});
+        //    }
+        //}
     });
 
     /* Add New States Above */
