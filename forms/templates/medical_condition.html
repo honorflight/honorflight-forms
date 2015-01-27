@@ -50,7 +50,7 @@
                 ng-model="contact.conditionType"
                 required
                 tabindex="6"
-                ng-options="type.id as type.name for type in medicalCondition.types">
+                ng-options="type.name for type in medicalCondition.types">
             <option value="">Select One</option>
         </select>
     </div>
@@ -59,7 +59,7 @@
                 ng-model="contact.conditionName"
                 required
                 tabindex="6"
-                ng-options="conditionName.id as conditionName.name for conditionName in medicalCondition.conditionNames">
+                ng-options="conditionName.name for conditionName in medicalCondition.conditionNames">
             <option value="">Select One</option>
         </select>
     </div>

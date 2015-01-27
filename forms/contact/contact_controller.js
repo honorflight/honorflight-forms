@@ -25,7 +25,7 @@ function ContactController($log, $state, person) {
     model.medicalConditions = [];
 
     model.addCondition = function() {
-        model.medicalConditions.push(new MedicalCondition(model.conditionType, model.conditionName, formatDate(model.conditionDate), model.conditionComment));
+        model.medicalConditions.push(new MedicalCondition(model.conditionType.name, model.conditionName.name, formatDate(model.conditionDate), model.conditionComment));
         model.conditionType = model.conditionName = model.conditionDate = model.conditionComment = "";
         conditionCount++;
     };
@@ -53,7 +53,7 @@ function ContactController($log, $state, person) {
     }
 
     model.addAward = function() {
-        model.serviceAwards.push(new Award(model.awardName, model.awardQuantity, model.awardComment));
+        model.serviceAwards.push(new Award(model.awardName.name, model.awardQuantity, model.awardComment));
         model.awardName = model.awardQuantity = model.awardComment = "";
         awardCount++;
     };
