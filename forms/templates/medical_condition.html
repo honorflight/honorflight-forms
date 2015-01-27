@@ -18,8 +18,8 @@
     <div class="col-xs-3 col-sm-3">
         <label class="control-label">Condition Name</label>
     </div>
-    <div class="col-xs-3 col-sm-3">
-        <label class="control-label">Date of Last Occurrence (if applicable)</label>
+    <div class="col-xs-2 col-sm-2">
+        <label class="control-label">Last Date</label>
     </div>
     <div class="col-xs-3 col-sm-3">
         <label class="control-label">Comments</label>
@@ -33,11 +33,14 @@
         <div class="col-xs-3 col-sm-3">
             {{medicalCondition.conditionName}}
         </div>
-        <div class="col-xs-3 col-sm-3">
+        <div class="col-xs-2 col-sm-2">
             {{medicalCondition.conditionDate}}
         </div>
         <div class="col-xs-3 col-sm-3">
             {{medicalCondition.conditionComment}}
+        </div>
+        <div class="col-xs-1 col-sm-1">
+            <button class="btn btn-primary" ng-click="contact.deleteCondition(medicalCondition)">Delete</button>
         </div>
     </div>
 </div>
@@ -62,7 +65,7 @@
             <option value="">Select One</option>
         </select>
     </div>
-    <div class="col-xs-3 col-sm-3">
+    <div class="col-xs-2 col-sm-2">
         <input type="text" ng-model="contact.conditionDate" class="form-control" placeholder="MM/YYYY" ui-mask="99/9999">
     </div>
     <div class="col-xs-3 col-sm-3">

@@ -3,11 +3,11 @@
         <h3>Awards</h3>
     </div>
 </div>
-<div class="row">
+<div class="row pad-bottom">
     <div class="col-xs-4 col-sm-4">
         <label class="control-label">Name</label>
     </div>
-    <div class="col-xs-4 col-sm-4">
+    <div class="col-xs-3 col-sm-3">
         <label class="control-label">Quantity</label>
     </div>
     <div class="col-xs-4 col-sm-4">
@@ -15,56 +15,51 @@
     </div>
 </div>
 <div ng-repeat="award in contact.serviceAwards">
-    <div class="row">
+    <div class="row pad-bottom">
         <div class="col-xs-4 col-sm-4">
             {{award.awardName}}
         </div>
-        <div class="col-xs-4 col-sm-4">
+        <div class="col-xs-3 col-sm-3">
             {{award.awardQuantity}}
         </div>
         <div class="col-xs-4 col-sm-4">
             {{award.awardComment}}
         </div>
+        <div class="col-xs-1 col-sm-1">
+            <button class="btn btn-primary" ng-click="contact.deleteAward(award)">Delete</button>
+        </div>
     </div>
 </div>
 
 <div class="row pad-bottom">
     <div class="col-xs-4 col-sm-4">
         <div>
-            <select name="name" id="name" ui-select2="selectOptions"
-                    class="form-control"
+            <select class="form-control"
                     ng-model="contact.awardName"
-                    placeholder="Choose award" style="width:100%;">
-                <option value=""></option>
-                <option value="other">Other</option>
-                <option ng-repeat="serviceAward in serviceAwards.serviceAwards" value="{{serviceAward.Id}}">
-                    {{serviceAward.SERVICE_AWARD_NM__c}}
-                </option>
+                    style="width:100%;"
+                    required
+                    tabindex="1"
+                    ng-options="award.id as award.name for award in serviceAwards.awards">
+                <option value="">Select One</option>
             </select>
         </div>
     </div>
-    <div class="col-xs-4 col-sm-4">
+    <div class="col-xs-3 col-sm-3">
         <div>
-            <input type="text" name="quantity" id="quantity" ng-model="contact.awardQuantity" class="form-control">
+            <input type="text" ng-model="contact.awardQuantity" class="form-control">
         </div>
     </div>
     <div class="col-xs-4 col-sm-4">
         <div>
-            <input type="text" name="comment" id="comment" ng-model="contact.awardComment" class="form-control">
+            <input type="text" ng-model="contact.awardComment" class="form-control">
         </div>
     </div>
 </div>
 <div class="row pad-bottom">
+    <div class="col-xs-1 col-sm-1">
+        <button class="btn btn-primary" ng-click="contact.addAward()" ng-disabled="contact.canAddToList('serviceAwards')">Add Award</button>
+    </div>
     <div class="col-xs-10 col-sm-10">
-        &nbsp;
-    </div>
-    <div class="col-xs-2 col-sm-2">
-        <input type="button" class="btn btn-primary" id="addAward" ng-click="contact.addAward()" ng-disabled="contact.canAddToList('serviceAwards')" value="Add Award">
-    </div>
-</div>
-
-<div class="row pad-bottom">
-    <div class="col-xs-11 col-sm-11">
     </div>
     <div class="col-xs-1 col-sm-1">
         <button class="btn btn-primary" ng-click="serviceAward.goTo()">Next</button>

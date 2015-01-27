@@ -8,52 +8,49 @@
     <div class="col-xs-4 col-sm-4">
         <div>
             <label class="control-label">Branch</label>
-            <select name="branch" id="branch" ui-select2="selectOptions"
-                    class="form-control"
+            <select class="form-control"
                     ng-model="contact.branch"
-                    placeholder="Choose branch" style="width:100%;" required tabindex="7">
-                <option value=""></option>
-                <option ng-repeat="branch in serviceHistory.branches" value="{{branch.Id}}">
-                    {{branch.Service_Branch_Name__c}}
-                </option>
+                    style="width:100%;"
+                    required
+                    tabindex="1"
+                    ng-options="branch.id as branch.name for branch in serviceHistory.branches">
+                <option value="">Select One</option>
             </select>
         </div>
     </div>
     <div class="col-xs-4 col-sm-4">
         <div>
             <label class="control-label">Rank Type</label>
-            <select name="rankType" id="rankType" ui-select2="selectOptions"
-                    class="form-control"
+            <select class="form-control"
                     ng-model="contact.rankType"
-                    placeholder="Choose rank type" style="width:100%;" tabindex="7">
-                <option value=""></option>
-                <option ng-repeat="rankType in serviceHistory.rankTypes" value="{{rankType.Id}}">
-                    {{rankType.Service_Rank_Type_Name__c}}
-                </option>
+                    style="width:100%;"
+                    required
+                    tabindex="2"
+                    ng-options="type.id as type.name for type in serviceHistory.rankTypes">
+                <option value="">Select One</option>
             </select>
         </div>
     </div>
     <div class="col-xs-4 col-sm-4">
         <div>
             <label class="control-label">Rank</label>
-            <select name="rank" id="rank" ui-select2="selectOptions"
-                    class="form-control"
+            <select class="form-control"
                     ng-model="contact.rank"
-                    placeholder="Choose rank" style="width:100%;" tabindex="7">
-                <option value=""></option>
-                <option ng-repeat="rank in serviceHistory.ranks" value="{{rank.Id}}">
-                    {{rank.Name}}
-                </option>
+                    style="width:100%;"
+                    required
+                    tabindex="3"
+                    ng-options="rank.id as rank.name for rank in serviceHistory.ranks">
+                <option value="">Select One</option>
             </select>
         </div>
     </div>
 </div>
 <div class="row pad-bottom">
-    <div class="col-xs-6 col-sm-6">
+    <div class="col-xs-12 col-sm-12">
         <div>
             <label class="control-label">Theater (Location of Duty)</label>
-            <input type="text" name="theater" id="theater" ng-model="contact.theater" class="form-control"
-                   tabindex="1" ng-trim="true">
+            <input type="text" ng-model="contact.theater" class="form-control"
+                   tabindex="4" ng-trim="true">
         </div>
     </div>
 </div>
@@ -61,9 +58,9 @@
     <div class="col-xs-12 col-sm-12">
         <div>
             <label class="control-label">Activity</label>
-            <input type="text" name="activity" id="activity" ng-model="contact.activity"
+            <input type="text" ng-model="contact.activity"
                    class="form-control"
-                   tabindex="1" ng-trim="true">
+                   tabindex="5" ng-trim="true">
         </div>
     </div>
 </div>
@@ -72,14 +69,14 @@
     <div class="col-xs-6 col-sm-6">
         <div>
             <label class="control-label">Start date</label>
-            <input type="text" name="startDate" id="startDate" ng-model="contact.startDate" class="form-control"
+            <input type="text" ng-model="contact.startDate" class="form-control"
                    placeholder="MM/YYYY" ui-mask="99/9999">
         </div>
     </div>
     <div class="col-xs-6 col-sm-6">
         <div>
             <label class="control-label">End date</label>
-            <input type="text" name="endDate" id="endDate" ng-model="contact.endDate" class="form-control"
+            <input type="text" ng-model="contact.endDate" class="form-control"
                    placeholder="MM/YYYY" ui-mask="99/9999">
         </div>
     </div>

@@ -1,6 +1,8 @@
 function ContactController($log, $state, person) {
     $log.debug("ContactController::Begin");
     var model = this;
+    var conditionCount = 0;
+    var awardCount = 0;
 
     model.applicationTypes = ['veteran', 'guardian', 'volunteer'];
     model.contactType = $state.params.contactType;
@@ -17,13 +19,24 @@ function ContactController($log, $state, person) {
         this.conditionName = name;
         this.conditionDate = date;
         this.conditionComment = comment;
+        this.conditionId = conditionCount;
     }
 
     model.medicalConditions = [];
 
     model.addCondition = function() {
-        model.medicalConditions.push(new MedicalCondition(model.conditionType, model.conditionName, model.conditionDate, model.conditionComment));
+        model.medicalConditions.push(new MedicalCondition(model.conditionType, model.conditionName, formatDate(model.conditionDate), model.conditionComment));
         model.conditionType = model.conditionName = model.conditionDate = model.conditionComment = "";
+        conditionCount++;
+    };
+
+    model.deleteCondition = function(condition) {
+        for(var i=0; i<model.medicalConditions.length; i++) {
+            if(model.medicalConditions[i].conditionId === condition.conditionId) {
+                model.medicalConditions.splice(i, 1);
+                break;
+            }
+        }
     };
 
     model.canAddToList = function(listType) {
@@ -36,12 +49,27 @@ function ContactController($log, $state, person) {
         this.awardName = name;
         this.awardQuantity = quantity;
         this.awardComment = comment;
+        this.awardId = awardCount;
     }
 
     model.addAward = function() {
         model.serviceAwards.push(new Award(model.awardName, model.awardQuantity, model.awardComment));
         model.awardName = model.awardQuantity = model.awardComment = "";
+        awardCount++;
     };
+
+    model.deleteAward = function(award) {
+        for(var i=0; i<model.serviceAwards.length; i++) {
+            if(model.serviceAwards[i].awardId === award.awardId) {
+                model.serviceAwards.splice(i, 1);
+                break;
+            }
+        }
+    };
+
+    function formatDate(date) {
+        return date.substring(0,2) + "/" + date.substring(2);
+    }
 
     model.goTo = function(contactType){
       $state.transitionTo('applications.contactInfo', {contactType: contactType});
