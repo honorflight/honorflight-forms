@@ -1,4 +1,0 @@
-/api/form_name/submit //post
-/api/form_name/variables // get
-/api/model/ //get calls reference_data.php
-/api/model/:field_name //get calls reference_data.php
