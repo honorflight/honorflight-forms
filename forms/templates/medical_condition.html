@@ -28,36 +28,50 @@
 <div ng-repeat="medicalCondition in contact.medicalConditions">
     <div class="row pad-bottom">
         <div class="col-xs-3 col-sm-3">
-            <select class="form-control"
-                    ng-model="contact.type"
-                    style="width:100%;"
-                    required
-                    tabindex="6"
-                    ng-options="type.id as type.name for type in medicalCondition.types">
-                <option value="">Select One</option>
-            </select>
+            {{medicalCondition.conditionType}}
         </div>
         <div class="col-xs-3 col-sm-3">
-            <select class="form-control"
-                    ng-model="contact.conditionName"
-                    style="width:100%;"
-                    required
-                    tabindex="6"
-                    ng-options="conditionName.id as conditionName.name for conditionName in medicalCondition.conditionNames">
-                <option value="">Select One</option>
-            </select>
+            {{medicalCondition.conditionName}}
         </div>
         <div class="col-xs-3 col-sm-3">
-            <input type="text" ng-model="contact.date" class="form-control" placeholder="MM/YYY" ui-mask="99/9999">
+            {{medicalCondition.conditionDate}}
         </div>
         <div class="col-xs-3 col-sm-3">
-            <input type="text" ng-model="contact.comment" class="form-control">
+            {{medicalCondition.conditionComment}}
         </div>
+    </div>
+</div>
+<div class="row pad-bottom">
+    <div class="col-xs-3 col-sm-3">
+        <select class="form-control"
+                ng-model="contact.conditionType"
+                style="width:100%;"
+                required
+                tabindex="6"
+                ng-options="type.id as type.name for type in medicalCondition.types">
+            <option value="">Select One</option>
+        </select>
+    </div>
+    <div class="col-xs-3 col-sm-3">
+        <select class="form-control"
+                ng-model="contact.conditionName"
+                style="width:100%;"
+                required
+                tabindex="6"
+                ng-options="conditionName.id as conditionName.name for conditionName in medicalCondition.conditionNames">
+            <option value="">Select One</option>
+        </select>
+    </div>
+    <div class="col-xs-3 col-sm-3">
+        <input type="text" ng-model="contact.conditionDate" class="form-control" placeholder="MM/YYYY" ui-mask="99/9999">
+    </div>
+    <div class="col-xs-3 col-sm-3">
+        <input type="text" ng-model="contact.conditionComment" class="form-control">
     </div>
 </div>
 <div class="row">
     <div class="col-xs-1 col-sm-1">
-        <button class="btn btn-primary" ng-click="contact.addCondition()" ng-disabled="contact.canAddCondition()">Add Condition</button>
+        <button class="btn btn-primary" ng-click="contact.addCondition()" ng-disabled="contact.canAddToList('medicalConditions')">Add Condition</button>
     </div>
     <div class="col-xs-10 col-sm-10">
     </div>

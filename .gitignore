@@ -6,5 +6,4 @@ salesforce.ini
 .DS_Store
 #dist/
 node_modules/
-.idea
 npm-debug.log
