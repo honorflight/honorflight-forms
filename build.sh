@@ -4,12 +4,12 @@ rm -rf build/*
 mkdir build/tmp
 
 # Don't copy build folder
-rsync -av . --exclude 'build*' build/tmp/honorflight-forms
-
-
-# Remove unnecessary directorys
-rm -rf build/tmp/honorflight-forms/.git
-rm -rf build/tmp/honorflight-forms/build
+rsync -av . --exclude 'build*' \
+  --exclude '.idea*' \
+  --exclude '.git*' \
+  --exclude 'documentation*' \
+  --exclude 'forms*' \
+  build/tmp/honorflight-forms
 
 cd build/tmp/
 zip -r  ../honorflight-forms.zip honorflight-forms/

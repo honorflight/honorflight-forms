@@ -12,21 +12,35 @@ function ContactController($log, $state, person) {
     };
 
 
-    function MedicalCondition(){
-        this.conditionType = "";
-        this.conditionName = "";
-        this.conditionDate = "";
-        this.comment = "";
+    function MedicalCondition(type, name, date, comment){
+        this.conditionType = type;
+        this.conditionName = name;
+        this.conditionDate = date;
+        this.conditionComment = comment;
     }
 
-    model.medicalConditions = [new MedicalCondition()];
+    model.medicalConditions = [];
 
     model.addCondition = function() {
-        model.medicalConditions.push(new MedicalCondition());
+        model.medicalConditions.push(new MedicalCondition(model.conditionType, model.conditionName, model.conditionDate, model.conditionComment));
+        model.conditionType = model.conditionName = model.conditionDate = model.conditionComment = "";
     };
 
-    model.canAddCondition = function() {
-        return model.medicalConditions.length >= 5;
+    model.canAddToList = function(listType) {
+        return model[listType].length >= 5;
+    };
+
+    model.serviceAwards = [];
+
+    function Award(name, quantity, comment) {
+        this.awardName = name;
+        this.awardQuantity = quantity;
+        this.awardComment = comment;
+    }
+
+    model.addAward = function() {
+        model.serviceAwards.push(new Award(model.awardName, model.awardQuantity, model.awardComment));
+        model.awardName = model.awardQuantity = model.awardComment = "";
     };
 
     model.goTo = function(contactType){
