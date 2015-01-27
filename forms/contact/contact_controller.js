@@ -30,16 +30,17 @@ function ContactController($log, $state, person) {
         return model[listType].length >= 5;
     };
 
-    function Award() {
-        this.name = "";
-        this.quantity = "";
-        this.comment = "";
+    model.serviceAwards = [];
+
+    function Award(name, quantity, comment) {
+        this.awardName = name;
+        this.awardQuantity = quantity;
+        this.awardComment = comment;
     }
 
-    model.serviceAwards = [new Award()];
-
     model.addAward = function() {
-        model.serviceAwards.push(new Award());
+        model.serviceAwards.push(new Award(model.awardName, model.awardQuantity, model.awardComment));
+        model.awardName = model.awardQuantity = model.awardComment = "";
     };
 
     model.goTo = function(contactType){
