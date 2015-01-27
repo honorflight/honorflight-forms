@@ -7,3 +7,5 @@ salesforce.ini
 #dist/
 node_modules/
 npm-debug.log
+**/*.iml
+*.iml
