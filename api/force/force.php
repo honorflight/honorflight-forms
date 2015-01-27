@@ -17,6 +17,7 @@ function query_salesforce($object_name){
   $queries["shirt_sizes"] = "SELECT Id, Name, SHIRT_SIZE_CD__c from SHIRT_SIZE__c";
   $queries["service_awards"] = "SELECT Id, SERVICE_AWARD_NM__c from SERVICE_AWARD__c";
   $queries["relationship_types"] = "SELECT Id, RELATIONSHIP_TYPE_NM__c from RELATIONSHIP_TYPE__c";
+  $queries["service_branches"] = "SELECT Id, SERVICE_BRANCH_NM__c from SERVICE_BRANCH__c";
 
   $query = $queries[$object_name];
 
@@ -26,11 +27,11 @@ function query_salesforce($object_name){
   $names["wars"] = "WAR_NM__c"; 
   $names["service_awards"] = "SERVICE_AWARD_NM__c"; 
   $names["relationship_types"] = "RELATIONSHIP_TYPE_NM__c";
+  $names["service_branches"] = "SERVICE_BRANCH_NM__c";
   
   // $query = sprintf("SELECT %s from %s", "id, RELATIONSHIP_TYPE_NM__c", addslashes("RELATIONSHIP_TYPE__c"));
   $result;$error;
   try {
-
     $sforce_connection->login(get_option('sforce_api_user'), get_option('sforce_api_password').get_option('sforce_api_secret'));
     $response = $sforce_connection->query($query);
 
