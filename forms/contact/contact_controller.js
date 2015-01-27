@@ -12,17 +12,18 @@ function ContactController($log, $state, person) {
     };
 
 
-    function MedicalCondition(){
-        this.conditionType = "";
-        this.conditionName = "";
-        this.conditionDate = "";
-        this.comment = "";
+    function MedicalCondition(type, name, date, comment){
+        this.conditionType = type;
+        this.conditionName = name;
+        this.conditionDate = date;
+        this.conditionComment = comment;
     }
 
-    model.medicalConditions = [new MedicalCondition()];
+    model.medicalConditions = [];
 
     model.addCondition = function() {
-        model.medicalConditions.push(new MedicalCondition());
+        model.medicalConditions.push(new MedicalCondition(model.conditionType, model.conditionName, model.conditionDate, model.conditionComment));
+        model.conditionType = model.conditionName = model.conditionDate = model.conditionComment = "";
     };
 
     model.canAddToList = function(listType) {
