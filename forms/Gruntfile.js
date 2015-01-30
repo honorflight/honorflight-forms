@@ -30,7 +30,7 @@ var createFolderGlobs = function(fileTypePatterns) {
           .concat(fileTypePatterns);
 };
 
-var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
+var modRewrite = require('connect-modrewrite');
 
 module.exports = function (grunt) {
 
@@ -44,22 +44,36 @@ module.exports = function (grunt) {
         options: {
           port: 9001,
           middleware: function(connect, options){
-            return [
-              proxySnippet,
-              connect.static(options.base),
-              connect.directory(options.base)
-            ];
+            if (!Array.isArray(options.base)) {
+                options.base = [options.base];
+            }
+
+            var middlewares = [];
+
+            // Setup the proxy
+            middlewares.push(modRewrite(['^/api/(.*)$ http://bigblur.com/api/$1 [P]']));
+
+            // Serve static files.
+            options.base.forEach(function(base) {
+                middlewares.push(connect.static(base));
+            });
+
+            // Make directory browse-able.
+            var directory = options.directory || options.base[options.base.length - 1];
+            middlewares.push(connect.directory(directory));
+
+            return middlewares;
           }
         },
         proxies: [
-          {
-            context: "/api",
-            host: 'bigblur.com',
-            port: 80,
-            https: false,
-            changeOrigin: false
-          }
-        ]
+        {
+          context: "/api",
+          host: 'bigblur.com',
+          https: false,
+          changeOrigin: true,
+          xforward: true
+        }
+      ],
       },
     },
     watch: {

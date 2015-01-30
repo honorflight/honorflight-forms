@@ -12,6 +12,7 @@ Wordpress Installation
 ===========================
 
 1. Install wp-slim-framework [Our Forked Slim Framework Plugin](https://github.com/jancel/wp-slim-framework) --Follow ALL Installation instructions (include activating)
+2. Browse to Settings -> Slim Framework and set the url to /api
 2. Upload the Theme replacement files (header and footer.php) in theme_updates to their honorflightstl theme
 3. Compile plugin
 4. Install plugin through uploading zip file in build/
