@@ -30,8 +30,6 @@ var createFolderGlobs = function(fileTypePatterns) {
           .concat(fileTypePatterns);
 };
 
-var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
-
 module.exports = function (grunt) {
 
   // load all grunt tasks
@@ -42,25 +40,9 @@ module.exports = function (grunt) {
     connect: {
       main: {
         options: {
-          port: 9001,
-          middleware: function(connect, options){
-            return [
-              proxySnippet,
-              connect.static(options.base),
-              connect.directory(options.base)
-            ];
-          }
-        },
-        proxies: [
-          {
-            context: "/api",
-            host: 'bigblur.com',
-            port: 80,
-            https: false,
-            changeOrigin: false
-          }
-        ]
-      },
+          port: 9001
+        }
+      }
     },
     watch: {
       main: {
@@ -219,7 +201,7 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('build',['jshint','clean:before','less','dom_munger','ngtemplates','cssmin','concat','ngAnnotate','uglify','copy','htmlmin','clean:after']);
-  grunt.registerTask('serve', ['dom_munger:read','jshint','connect','watch']);
+  grunt.registerTask('serve', ['dom_munger:read','jshint','connect', 'watch']);
   grunt.registerTask('test',['dom_munger:read','karma:all_tests']);
 
   grunt.event.on('watch', function(action, filepath) {

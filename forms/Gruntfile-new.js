@@ -43,18 +43,18 @@ module.exports = function (grunt) {
       main: {
         options: {
           port: 9001,
-          middleware: function(connect, options){
+          middleware: function(connect){
             return [
               proxySnippet,
-              connect.static(options.base),
-              connect.directory(options.base)
+              connect.static('.tmp'),
+              connect.static('src/main/webapp')
             ];
           }
         },
         proxies: [
           {
             context: "/api",
-            host: 'bigblur.com',
+            host: 'localhost',
             port: 80,
             https: false,
             changeOrigin: false
