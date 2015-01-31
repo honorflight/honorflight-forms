@@ -44,13 +44,28 @@ angular.module('hf').config(function($stateProvider, $urlRouterProvider) {
     $stateProvider.state('applications.serviceHistory', {
         url: '/serviceHistory',
         templateUrl: 'templates/service_history.html',
-        controller: 'ServiceHistoryController as serviceHistory'
+        controller: 'ServiceHistoryController as serviceHistory',
+        resolve: {
+          forceResource: 'Force',
+          serviceBranches: function(forceResource){
+            return forceResource.query({object_type: 'service_branches'});
+          },
+          serviceRankTypes: function(forceResource){
+            return forceResource.query({object_type: 'service_rank_types'});
+          },
+        }
     });
 
     $stateProvider.state('applications.serviceAwards', {
         url: '/serviceAwards',
         templateUrl: 'templates/service_awards.html',
-        controller: 'ServiceAwardsController as serviceAwards'
+        controller: 'ServiceAwardsController as serviceAwards',
+        resolve: {
+          forceResource: 'Force',
+          serviceAwards: function(forceResource){
+            return forceResource.query({object_type: 'service_awards'});
+          }
+        }
     });
 
     $stateProvider.state('applications.medicalCondition', {

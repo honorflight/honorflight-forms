@@ -1,5 +1,5 @@
 function Force($resource){
-  var force = $resource('/api/force/:object_type', {}, {
+  var force = $resource('http://localhost/api/force/:object_type', {}, {
     'query': {method: 'GET', isArray: true },
     'get': {method: 'GET'}
   });

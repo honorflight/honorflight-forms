@@ -18,6 +18,9 @@ function query_salesforce($object_name){
   $queries["service_awards"] = "SELECT Id, SERVICE_AWARD_NM__c from SERVICE_AWARD__c";
   $queries["relationship_types"] = "SELECT Id, RELATIONSHIP_TYPE_NM__c from RELATIONSHIP_TYPE__c";
   $queries["service_branches"] = "SELECT Id, SERVICE_BRANCH_NM__c from SERVICE_BRANCH__c";
+  $queries["service_rank_types"] = "SELECT Id, SERVICE_RANK_TYPE_NM__c from SERVICE_RANK_TYPE__c";
+  $queries["service_ranks"] = "SELECT Id, SERVICE_RANK_NM__c, SERVICE_RANK_TYPE_NM__c from SERVICE_RANK__c";
+
 
   $query = $queries[$object_name];
 
@@ -28,7 +31,9 @@ function query_salesforce($object_name){
   $names["service_awards"] = "SERVICE_AWARD_NM__c"; 
   $names["relationship_types"] = "RELATIONSHIP_TYPE_NM__c";
   $names["service_branches"] = "SERVICE_BRANCH_NM__c";
-  
+  $names["service_rank_types"] = "SERVICE_RANK_TYPE_NM__c";
+  $names["service_ranks"] = array("name" => "SERVICE_RANK_NM__c", "serviceRankTypeName" => "SERVICE_RANK_TYPE_NM__c");
+
   // $query = sprintf("SELECT %s from %s", "id, RELATIONSHIP_TYPE_NM__c", addslashes("RELATIONSHIP_TYPE__c"));
   $result;$error;
   try {
@@ -41,6 +46,12 @@ function query_salesforce($object_name){
       $new_record->id = $record->Id;
 
       // Map special (sforce retarded name) to name for json
+      // Check type of $record->$names[$object_name]
+      // If new record is array, map multiple fields
+      // id, name
+      // id, name, rankTypeName
+      // $newRecord->$key = $value   $record
+      // else just do name
       $new_record->name = $record->$names[$object_name];
 
       array_push($records, $new_record);
