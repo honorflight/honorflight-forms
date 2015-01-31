@@ -3,10 +3,11 @@ function ContactInfoController($log, $state, wars){
     $log.debug("ContactInfoController::Begin");
 
     model.wars = wars;
-    model.contactType = $state.params.contactType;
+
+    model.promises = [wars];
 
     model.goTo = function() {
-        $state.transitionTo('applications.address', {contactType: model.contactType});
+        $state.transitionTo('applications.serviceHistory', $state.params);
     };
 
     $log.debug("ContactInfoController::End");

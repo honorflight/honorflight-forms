@@ -1,4 +1,4 @@
-<div class="pad-bottom" cg-busy="serviceHistory.promises">
+<div cg-busy="serviceHistory.promises">
   <div class="row">
     <div class="col-xs-12 col-sm-12">
       <h1>Service History</h1>
@@ -7,7 +7,7 @@
 
   <div class="row">
     <div class="col-xs-6 col-sm-6">
-      <div>
+      <div class="form-group">
         <label class="control-label">Start Year</label>
         <input type="text" ng-model="contact.startDate" class="form-control"
         placeholder="YYYY" ui-mask="9999">
@@ -24,7 +24,7 @@
 
   <div class="row">
     <div class="col-xs-12 col-sm-12">
-      <div>
+      <div class="form-group">
         <label class="control-label">Activity</label>
         <input type="text" ng-model="contact.activity"
         class="form-control"
@@ -37,7 +37,7 @@
 
   <div class="row">
     <div class="col-xs-12 col-sm-12">
-      <div>
+      <div class="form-group">
         <label class="control-label">Your Story</label>
         <textarea class="form-control" placeholder="Tell us more about your time in the service(s)" ng-model="contact.theater"
         tabindex="4" ng-trim="true" rows="3">
@@ -48,7 +48,7 @@
 
   <div class="row">
     <div class="col-xs-4 col-sm-4">
-      <div> 
+      <div class="form-group"> 
         <label class="control-label">Branch</label>
         <select class="form-control"
         ng-model="contact.branch"
@@ -60,7 +60,7 @@
       </div>
     </div>
     <div class="col-xs-4 col-sm-4">
-      <div>
+      <div class="form-group">
         <label class="control-label">Rank Type</label>
         <select class="form-control"
         ng-model="contact.rankType"
@@ -72,7 +72,7 @@
       </div>
     </div>
     <div class="col-xs-4 col-sm-4">
-      <div>
+      <div class="form-group">
         <label class="control-label">Rank</label>
         <select class="form-control"
         ng-model="contact.rank"

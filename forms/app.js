@@ -35,12 +35,6 @@ angular.module('hf').config(function($stateProvider, $urlRouterProvider) {
       }
     });
 
-    $stateProvider.state('applications.address', {
-        url: '/address',
-        templateUrl: 'templates/address.html',
-        controller: 'AddressController as address'
-    });
-
     $stateProvider.state('applications.serviceHistory', {
         url: '/serviceHistory',
         templateUrl: 'templates/service_history.html',
