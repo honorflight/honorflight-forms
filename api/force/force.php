@@ -10,7 +10,7 @@ $sforce_connection->createConnection(SALESFORCE_TOOLKIT_ROOT . "soapclient/enter
 
 function query_salesforce($object_name){
   global $sforce_connection;
-  
+
   // All of the reference data queries
   $queries = array();
   $queries["wars"]="SELECT id, WAR_NM__c from WAR__c";
@@ -27,8 +27,8 @@ function query_salesforce($object_name){
   // Array here will map back to json 'name' field
   $names = array();
   $names["shirt_sizes"] = "SHIRT_SIZE_CD__c";
-  $names["wars"] = "WAR_NM__c"; 
-  $names["service_awards"] = "SERVICE_AWARD_NM__c"; 
+  $names["wars"] = "WAR_NM__c";
+  $names["service_awards"] = "SERVICE_AWARD_NM__c";
   $names["relationship_types"] = "RELATIONSHIP_TYPE_NM__c";
   $names["service_branches"] = "SERVICE_BRANCH_NM__c";
   $names["service_rank_types"] = "SERVICE_RANK_TYPE_NM__c";
@@ -48,11 +48,21 @@ function query_salesforce($object_name){
       // Map special (sforce retarded name) to name for json
       // Check type of $record->$names[$object_name]
       // If new record is array, map multiple fields
-      // id, name
-      // id, name, rankTypeName
+      if ((array) $new_record !== $new_record  ){
+
+        foreach($records->$name as $ServiceRank){
+          $ServiceRank->name = $record->names[$object_name];
+        }
+
+      }
+    else{
+      $new_record->name = $record->$names[$object_name];
+
+    }// id, name
+        // id, name, rankTypeName
       // $newRecord->$key = $value   $record
       // else just do name
-      $new_record->name = $record->$names[$object_name];
+
 
       array_push($records, $new_record);
     }
