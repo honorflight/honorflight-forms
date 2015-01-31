@@ -1,10 +1,12 @@
-function ServiceHistoryController($log, $state, serviceBranches, serviceRankTypes, serviceRanks){
+function ServiceHistoryController($log, $state, $scope, serviceBranches, serviceRankTypes, serviceRanks){
     var model = this;
     $log.debug("ServiceHistoryController::Begin");
 
     model.contactType = $state.params.contactType;
 
-    model.branches = serviceBranches;
+    model.promises = [serviceBranches.$promise, serviceRankTypes.$promise, serviceRanks.$promise];
+
+    model.branches = serviceBranches; // [] || {}
     model.rankTypes = serviceRankTypes;
     model.ranks = serviceRanks;
 

@@ -1,4 +1,4 @@
-angular.module('hf', ['ui.bootstrap', 'ui.utils', 'ui.router', 'ui.select', 'ngAnimate', 'ngResource', 'angular.filter', 'contact']);
+angular.module('hf', ['ui.bootstrap', 'ui.utils', 'ui.router', 'ui.select', 'ngAnimate', 'ngResource', 'angular.filter', 'cgBusy', 'contact']);
 
 function MainController($log){
   $log.debug("MainController::Begin");
@@ -48,7 +48,7 @@ angular.module('hf').config(function($stateProvider, $urlRouterProvider) {
         resolve: {
           forceResource: 'Force',
           serviceBranches: function(forceResource){
-            return forceResource.query({object_type: 'service_branches'}).$promise;
+            return forceResource.query({object_type: 'service_branches'});
           },
           serviceRankTypes: function(forceResource){
             return forceResource.query({object_type: 'service_rank_types'});
