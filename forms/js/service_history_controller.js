@@ -1,4 +1,4 @@
-function ServiceHistoryController($log, $state, serviceBranches, serviceRankTypes){//, conditionInfo){
+function ServiceHistoryController($log, $state, serviceBranches, serviceRankTypes, serviceRanks){
     var model = this;
     $log.debug("ServiceHistoryController::Begin");
 
@@ -6,7 +6,7 @@ function ServiceHistoryController($log, $state, serviceBranches, serviceRankType
 
     model.branches = serviceBranches;
     model.rankTypes = serviceRankTypes;
-    model.ranks = [{id:567, name:"Admiral", rankTypeId:345}, {id:678, name:"Private", rankTypeId:456}];
+    model.ranks = serviceRanks;
 
     model.goTo = function() {
         $state.transitionTo('applications.serviceAwards', {contactType: model.contactType});

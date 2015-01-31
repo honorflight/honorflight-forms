@@ -3,6 +3,10 @@
 rm -rf build/*
 mkdir build/tmp
 
+cd forms/
+grunt build
+cd ..
+
 # Don't copy build folder
 rsync -av . --exclude 'build*' \
   --exclude '.idea*' \

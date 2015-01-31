@@ -1,4 +1,4 @@
-function ContactController($log, $state, person) {
+function ContactController($log, $state, $scope, person) {
     $log.debug("ContactController::Begin");
     var model = this;
     var conditionCount = 0;
@@ -76,6 +76,15 @@ function ContactController($log, $state, person) {
     };
 
     $log.debug("Contact type is: " + model.contactType);
+
+    // Not real functional, but leaving it as an example
+    $scope.$watch(angular.bind(this, function(){
+        return model.rankType;
+    }), function(n,o){
+        if (angular.isDefined(n)){
+            $log.debug("Contact rankType changed to: " + JSON.stringify(n));
+        }
+    });
     $log.debug("ContactController::End");
 }
 angular.module('hf').controller('ContactController', ContactController);
