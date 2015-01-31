@@ -32,7 +32,7 @@ function query_salesforce($object_name){
   $names["relationship_types"] = "RELATIONSHIP_TYPE_NM__c";
   $names["service_branches"] = "SERVICE_BRANCH_NM__c";
   $names["service_rank_types"] = "SERVICE_RANK_TYPE_NM__c";
-  $names["service_ranks"] = array("name" => "SERVICE_RANK_NM__c", "serviceRankTypeName" => "SERVICE_RANK_TYPE_NM__c");
+  $names["service_ranks"] = array("name" => "SERVICE_RANK_NM__c", "serviceRankTypeId" => "SERVICE_RANK_TYPE_NM__c");
 
   // $query = sprintf("SELECT %s from %s", "id, RELATIONSHIP_TYPE_NM__c", addslashes("RELATIONSHIP_TYPE__c"));
   $result;$error;
@@ -42,24 +42,22 @@ function query_salesforce($object_name){
 
     $records = array();
     foreach($response->records as $record){
-      $new_record = new stdClass;
-      $new_record->id = $record->Id;
+      $new_record = array();
+      $new_record['id'] = $record->Id;
 
       // Map special (sforce retarded name) to name for json
       // Check type of $record->$names[$object_name]
       // If new record is array, map multiple fields
-      if ((array) $new_record !== $new_record  ){
-
-        foreach($records->$name as $ServiceRank){
-          $ServiceRank->name = $record->names[$object_name];
+      if (is_array($names[$object_name])){
+        foreach($names[$object_name] as $key => $value){
+          $new_record[$key] = $record->{$value};
         }
-
       }
-    else{
-      $new_record->name = $record->$names[$object_name];
-
-    }// id, name
-        // id, name, rankTypeName
+      else{
+        $new_record['name'] = $record->$names[$object_name];
+      }
+      // id, name
+      // id, name, rankTypeName
       // $newRecord->$key = $value   $record
       // else just do name
 
