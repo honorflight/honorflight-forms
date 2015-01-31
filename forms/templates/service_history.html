@@ -1,88 +1,95 @@
-<div class="row pad-bottom">
+<div class="pad-bottom" cg-busy="serviceHistory.promises">
+  <div class="row">
     <div class="col-xs-12 col-sm-12">
-        <h1>Service History</h1>
+      <h1>Service History</h1>
     </div>
-</div>
+  </div>
 
-<div class="row pad-bottom">
-    <div class="col-xs-4 col-sm-4">
-        <div>
-            <label class="control-label">Branch</label>
-            <select class="form-control"
-                    ng-model="contact.branch"
-                    required
-                    tabindex="1"
-                    ng-options="branch as branch.name for branch in serviceHistory.branches">
-                <option value="">Select One</option>
-            </select>
-        </div>
-    </div>
-    <div class="col-xs-4 col-sm-4">
-        <div>
-            <label class="control-label">Rank Type</label>
-            <select class="form-control"
-                    ng-model="contact.rankType"
-                    required
-                    tabindex="2"
-                    ng-options="type as type.name for type in serviceHistory.rankTypes">
-                <option value="">Select One</option>
-            </select>
-        </div>
-    </div>
-    <div class="col-xs-4 col-sm-4">
-        <div>
-            <label class="control-label">Rank</label>
-            <select class="form-control"
-                    ng-model="contact.rank"
-                    required
-                    tabindex="3"
-                    ng-options="rank as rank.name for rank in serviceHistory.ranks | filter: {serviceRankTypeId: contact.rankType.id}">
-                <option value="">Select One</option>
-            </select>
-        </div>
-    </div>
-</div>
-<div class="row pad-bottom">
-    <div class="col-xs-12 col-sm-12">
-        <div>
-            <label class="control-label">Theater (Location of Duty)</label>
-            <input type="text" ng-model="contact.theater" class="form-control"
-                   tabindex="4" ng-trim="true">
-        </div>
-    </div>
-</div>
-<div class="row pad-bottom">
-    <div class="col-xs-12 col-sm-12">
-        <div>
-            <label class="control-label">Activity</label>
-            <input type="text" ng-model="contact.activity"
-                   class="form-control"
-                   tabindex="5" ng-trim="true">
-        </div>
-    </div>
-</div>
-
-<div class="row pad-bottom">
+  <div class="row">
     <div class="col-xs-6 col-sm-6">
-        <div>
-            <label class="control-label">Start date</label>
-            <input type="text" ng-model="contact.startDate" class="form-control"
-                   placeholder="MM/YYYY" ui-mask="99/9999">
-        </div>
+      <div>
+        <label class="control-label">Start Year</label>
+        <input type="text" ng-model="contact.startDate" class="form-control"
+        placeholder="YYYY" ui-mask="9999">
+      </div>
     </div>
     <div class="col-xs-6 col-sm-6">
-        <div>
-            <label class="control-label">End date</label>
-            <input type="text" ng-model="contact.endDate" class="form-control"
-                   placeholder="MM/YYYY" ui-mask="99/9999">
-        </div>
+      <div>
+        <label class="control-label">End Year</label>
+        <input type="text" ng-model="contact.endDate" class="form-control"
+        placeholder="YYYY" ui-mask="9999">
+      </div>
     </div>
-</div>
+  </div>
 
-<div class="row pad-bottom">
-    <div class="col-xs-3 col-sm-3">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12">
+      <div>
+        <label class="control-label">Activity</label>
+        <input type="text" ng-model="contact.activity"
+        class="form-control"
+        tabindex="5" ng-trim="true">
+      </div>
     </div>
-    <div class="col-xs-3 col-sm-3 pull-right text-right">
-        <button class="btn btn-primary" ng-click="serviceHistory.goTo()">Next</button>
+  </div>
+
+
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-12">
+      <div>
+        <label class="control-label">Your Story</label>
+        <textarea class="form-control" placeholder="Tell us more about your time in the service(s)" ng-model="contact.theater"
+        tabindex="4" ng-trim="true" rows="3">
+        </textarea>
+      </div>
     </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-4 col-sm-4">
+      <div> 
+        <label class="control-label">Branch</label>
+        <select class="form-control"
+        ng-model="contact.branch"
+        required
+        tabindex="1"
+        ng-options="branch.id as branch.name for branch in serviceHistory.branches">
+          <option value="">Select One</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-xs-4 col-sm-4">
+      <div>
+        <label class="control-label">Rank Type</label>
+        <select class="form-control"
+        ng-model="contact.rankType"
+        required
+        tabindex="2"
+        ng-options="type.id as type.name for type in serviceHistory.rankTypes">
+          <option value="">Select One</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-xs-4 col-sm-4">
+      <div>
+        <label class="control-label">Rank</label>
+        <select class="form-control"
+        ng-model="contact.rank"
+        required
+        tabindex="3"
+        ng-disabled="contact.hasRankType()"
+        ng-options="rank.id as rank.name for rank in serviceHistory.ranks | filter: {serviceRankTypeId: contact.rankType}">
+          <option value="">Select One</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class=" actions col-xs-12 text-right">
+      <button class="btn btn-primary" ng-click="serviceHistory.goTo()">Next</button>
+    </div>
+  </div>
 </div>

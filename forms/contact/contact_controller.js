@@ -13,6 +13,9 @@ function ContactController($log, $state, $scope, person) {
         $log.debug("if Contact ID is not null, update");
     };
 
+    model.hasRankType = function(){
+        return !(angular.isDefined(model.rankType));
+    };
 
     function MedicalCondition(type, name, date, comment){
         this.conditionType = type;
@@ -81,6 +84,7 @@ function ContactController($log, $state, $scope, person) {
     $scope.$watch(angular.bind(this, function(){
         return model.rankType;
     }), function(n,o){
+        $log.debug("is there: " + !(angular.isDefined(n) && angular.isDefined(n.id)));
         if (angular.isDefined(n)){
             $log.debug("Contact rankType changed to: " + JSON.stringify(n));
         }
