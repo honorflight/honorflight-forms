@@ -10,7 +10,7 @@ function MedicalConditionController($log, $state){//, conditionInfo){
         {id:654, name:"Insulin", conditionType:456}];
 
     model.goTo = function() {
-        $state.transitionTo('applications.serviceHistory', {contactType: model.contactType});
+        // $state.transitionTo('applications.serviceHistory', {contactType: model.contactType});
     };
 
     $log.debug("MedicalConditionController::End");

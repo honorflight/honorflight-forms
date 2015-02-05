@@ -1,9 +1,9 @@
-<div class="row pad-bottom">
+<div class="row">
     <div class="col-xs-12 col-sm-12">
-        <h3>Awards</h3>
+        <h3>Service Awards</h3>
     </div>
 </div>
-<div class="row pad-bottom">
+<div class="row">
     <div class="col-xs-4 col-sm-4">
         <label class="control-label">Name</label>
     </div>
@@ -15,7 +15,7 @@
     </div>
 </div>
 <div ng-repeat="award in contact.serviceAwards">
-    <div class="row pad-bottom">
+    <div class="row">
         <div class="col-xs-4 col-sm-4">
             {{award.awardName}}
         </div>
@@ -31,7 +31,7 @@
     </div>
 </div>
 
-<div class="row pad-bottom">
+<div class="row">
     <div class="col-xs-4 col-sm-4">
         <div>
             <select class="form-control"
@@ -54,12 +54,12 @@
         </div>
     </div>
 </div>
-<div class="row pad-bottom">
+<div class="row">
     <div class="col-xs-3 col-sm-3">
         <button class="btn btn-primary" ng-click="contact.addAward()" ng-disabled="contact.canAddToList('serviceAwards')">Add Award</button>
     </div>
 
     <div class="col-xs-3 col-sm-3 pull-right text-right">
-        <button class="btn btn-primary" ng-click="serviceAward.goTo()">Next</button>
+        <button class="btn btn-primary" ng-click="serviceAwards.goTo()">Next</button>
     </div>
 </div>
