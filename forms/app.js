@@ -42,13 +42,13 @@ angular.module('hf').config(function($stateProvider, $urlRouterProvider) {
         resolve: {
           forceResource: 'Force',
           serviceBranches: function(forceResource){
-            return forceResource.query({object_type: 'service_branches'});
+            return forceResource.query({object_type: 'branches'});
           },
           serviceRankTypes: function(forceResource){
-            return forceResource.query({object_type: 'service_rank_types'});
+            return forceResource.query({object_type: 'rank_types'});
           },
           serviceRanks: function(forceResource){
-            return forceResource.query({object_type: 'service_ranks'});
+            return forceResource.query({object_type: 'ranks'});
           },
         }
     });
@@ -60,7 +60,7 @@ angular.module('hf').config(function($stateProvider, $urlRouterProvider) {
         resolve: {
           forceResource: 'Force',
           serviceAwards: function(forceResource){
-            return forceResource.query({object_type: 'service_awards'});
+            return forceResource.query({object_type: 'awards'});
           }
         }
     });

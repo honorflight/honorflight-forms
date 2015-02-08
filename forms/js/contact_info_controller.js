@@ -6,9 +6,11 @@ function ContactInfoController($log, $state, wars){
 
     model.promises = [wars];
 
-    model.goTo = function() {
-        $state.transitionTo('applications.serviceHistory', $state.params);
-    };
+    // model.goTo = function() {
+    //   contact.submit().then(function(){
+    //     $state.transitionTo('applications.serviceHistory', $state.params);
+    //   });
+    // };
 
     $log.debug("ContactInfoController::End");
 }

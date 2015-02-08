@@ -7,10 +7,23 @@ function ContactController($log, $state, $scope, person) {
     model.applicationTypes = ['veteran', 'guardian', 'volunteer'];
     model.contactType = $state.params.contactType;
 
-    model.submit = function(){
-        $log.debug("if Contact ID is null, create");
-        $log.debug(person.hello());
-        $log.debug("if Contact ID is not null, update");
+    model.person = {};
+
+    model.submit = function(transitionTo){
+        $log.debug("if Contact ID is null, create: " + JSON.stringify(model));
+        if (angular.isDefined(model.person.id) && model.person.id !== null){
+            $log.debug("Update contact");
+        } else {
+            $log.debug("Create contact");
+            person.save(model.person);
+        }
+
+        $state.transitionTo(transitionTo, $state.params);
+        // Call to service
+        // person.create(model);
+        // .then(function(){
+        //     $state.transitionTo('applications.serviceHistory', $state.params);
+        // });
     };
 
     model.hasRankType = function(){

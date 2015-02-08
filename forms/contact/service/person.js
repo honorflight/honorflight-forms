@@ -1,9 +1,10 @@
-angular.module('contact').factory('person',function() {
-	var person = {};
+function Person($resource){
+  var person = $resource('/api/people', {}, {
+    'query': {method: 'GET', isArray: true },
+    'get': {method: 'GET'}
+  });
 
-  person.hello = function(){
-    return "World";
-  };
+  return person;
+}
 
-	return person;
-});
+angular.module('hf').factory('person',Person);

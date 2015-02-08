@@ -39,8 +39,6 @@ class api_page {
 
 
 require_once "api/routes.php";
-
-include 'honorflight-forms-plugin/php/salesforce-api.php';
 include 'honorflight-forms-plugin/php/honorflight-data.php';
 
 ?>

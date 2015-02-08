@@ -79,7 +79,7 @@
         required
         tabindex="3"
         ng-disabled="contact.hasRankType()"
-        ng-options="rank.id as rank.name for rank in serviceHistory.ranks | filter: {serviceRankTypeId: contact.rankType}">
+        ng-options="rank.id as rank.name for rank in serviceHistory.ranks | filter: {rank_type_id: contact.rankType}">
           <option value="">Select One</option>
         </select>
       </div>

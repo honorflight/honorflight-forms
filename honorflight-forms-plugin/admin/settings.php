@@ -9,17 +9,20 @@
     $opt_user = 'sforce_api_user';
     $opt_password = 'sforce_api_password';
     $opt_secret = 'sforce_api_secret';
+    $opt_apikey = 'apikey';
 
     $hidden_field_name = 'sf_submit_hidden';
 
     $data_field_user = 'sforce_api_user';
     $data_field_password = 'sforce_api_password';
     $data_field_secret = 'sforce_api_secret';
+    $data_apikey = 'apikey';
 
     // Read in existing option value from database
     $opt_val_user = get_option( $opt_user );
     $opt_val_password = get_option( $opt_password );
     $opt_val_secret = get_option( $opt_secret );
+    $opt_val_apikey = get_option( $opt_apikey );
 
     $updated = false;
     if( isset($_POST[ $hidden_field_name ]) && $_POST[ $hidden_field_name ] == 'Y' ) {
@@ -38,6 +41,11 @@
         if (isset($_POST[ $data_field_secret ])) {
           $opt_val_secret = $_POST[ $data_field_secret ];
           update_option( $opt_secret, $opt_val_secret );
+          $updated = true;
+        }
+        if (isset($_POST[ $data_apikey ])) {
+          $opt_val_apikey = $_POST[ $data_apikey ];
+          update_option( $opt_apikey, $opt_val_apikey );
           $updated = true;
         }
         // Put an settings updated message on the screen
@@ -74,6 +82,10 @@
 
   <p><?php _e("Secret Token:", 'menu-test' ); ?> 
     <input type="password" name="<?php echo $data_field_secret; ?>" value="<?php echo $opt_val_secret; ?>" size="20">
+  </p>
+
+  <p><?php _e("API Key:", 'menu-test' ); ?> 
+    <input type="password" name="<?php echo $data_apikey; ?>" value="<?php echo $opt_val_apikey; ?>" size="20">
   </p>
 
   <p class="submit">
