@@ -16,5 +16,5 @@ Wordpress Installation
 2. Upload the Theme replacement files (header and footer.php) in theme_updates to their honorflightstl theme
 3. Compile plugin
 4. Install plugin through uploading zip file in build/
-5. Configure plugin by browsing to Settings -> Honor Flight Options and inputting the Salesforce User/Email, Password and Token
+5. Configure plugin by browsing to Settings -> Honor Flight Options and inputting the proper APIKEY
 6. Add page called "Application" with content where you would like the form to live [[vetapp]]
