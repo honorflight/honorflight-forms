@@ -1,8 +1,31 @@
-<div class="row pad-bottom">
-    <div class="col-xs-12 col-sm-12">
+<div class="row">
+    <div class="col-xs-12">
         <h1>Medical Conditions</h1>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-xs-4">
+        <div class="form-group">
+            <label class="control-label">Quantity</label>
+            <input type="text" ng-model="contact.awardQuantity" class="form-control">
+        </div>
+    </div>
+    <div class="col-xs-4">
+        <div class="form-group">
+            <label class="control-label">Quantity</label>
+            <input type="text" ng-model="contact.awardQuantity" class="form-control">
+        </div>
+    </div>
+    <div class="col-xs-4">
+        <div class="form-group">
+            <label class="control-label">Quantity</label>
+            <input type="text" ng-model="contact.awardQuantity" class="form-control">
+        </div>
+    </div>
+</div>
+
+
 <div class="row pad-bottom">
     <div class="col-xs-12 col-sm-12">
         <h5>This information will help Honor Flight serve you best on the trip by meeting all of your needs. The medical information
@@ -49,7 +72,7 @@ you provide WILL NOT disqualify you from going on a flight. Information is used 
                 ng-model="contact.conditionType"
                 required
                 tabindex="6"
-                ng-options="type.name for type in medicalCondition.types">
+                ng-options="type.id as type.name for type in medicalCondition.medicalConditionTypes">
             <option value="">Select One</option>
         </select>
     </div>
@@ -58,7 +81,7 @@ you provide WILL NOT disqualify you from going on a flight. Information is used 
                 ng-model="contact.conditionName"
                 required
                 tabindex="6"
-                ng-options="conditionName.name for conditionName in medicalCondition.conditionNames">
+                ng-options="conditionName.id as conditionName.name for conditionName in medicalCondition.medicalConditionNames |  filter: {medical_condition_type_id: contact.conditionType}">
             <option value="">Select One</option>
         </select>
     </div>

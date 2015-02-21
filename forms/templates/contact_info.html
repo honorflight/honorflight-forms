@@ -50,7 +50,20 @@
     </div>
   </div>
   <div class="row">
-    <div class="form-group col-xs-6 col-sm-6">
+    <div class="form-group col-xs-4">
+      <label class="control-label">Shirt Size</label>
+      <select class="form-control"
+              ng-model="contact.shirt_size_id"
+              tabindex="6"
+              ng-options="shirtSize.id as shirtSize.name for shirtSize in contactInfo.shirtSizes">
+              <option value="">Select One</option>
+      </select>
+    </div>
+    <div class="form-group col-xs-4">
+      <label class="control-label">Birthday</label>
+      <input type="text" ng-model="contact.person.birth_date" class="form-control" tabindex="7" placeholder="MM/DD/YYYY" ui-mask="99/99/9999">
+    </div>
+    <div class="form-group col-xs-4">
       <label class="control-label">War</label>
       <select class="form-control"
               ng-model="contact.war_id"
@@ -59,10 +72,6 @@
               ng-options="war.id as war.name for war in contactInfo.wars">
               <option value="">Select One</option>
       </select>
-    </div>
-    <div class="form-group col-xs-6 col-sm-6">
-      <label class="control-label">Birthday</label>
-      <input type="text" ng-model="contact.person.birth_date" class="form-control" tabindex="7" placeholder="MM/DD/YYYY" ui-mask="99/99/9999">
     </div>
   </div>
   <div class="row">

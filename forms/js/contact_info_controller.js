@@ -1,10 +1,11 @@
-function ContactInfoController($log, $state, wars){
+function ContactInfoController($log, $state, wars, shirtSizes){
     var model = this;
     $log.debug("ContactInfoController::Begin");
 
     model.wars = wars;
+    model.shirtSizes = shirtSizes;
 
-    model.promises = [wars];
+    model.promises = [wars, shirtSizes];
 
     // model.goTo = function() {
     //   contact.submit().then(function(){

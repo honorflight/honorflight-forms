@@ -1,8 +1,8 @@
-describe('Force', function() {
+describe('Reference', function() {
 
   beforeEach(module('hf'));
 
-  it('should ...', inject(function(Force) {
+  it('should ...', inject(function(Reference) {
 
 	//expect(force.doSomething()).toEqual('something');
 

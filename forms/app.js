@@ -28,9 +28,12 @@ angular.module('hf').config(function($stateProvider, $urlRouterProvider) {
       templateUrl: 'templates/contact_info.html',
       controller: 'ContactInfoController as contactInfo',
       resolve: {
-        forceResource: 'Force',
-        wars: function(forceResource){
-          return forceResource.query({object_type: 'wars'});
+        referenceResource: 'Reference',
+        wars: function(referenceResource){
+          return referenceResource.query({object_type: 'wars'});
+        },
+        shirtSizes: function(referenceResource){
+          return referenceResource.query({object_type: 'shirt_sizes'});
         }
       }
     });
@@ -40,15 +43,15 @@ angular.module('hf').config(function($stateProvider, $urlRouterProvider) {
         templateUrl: 'templates/service_history.html',
         controller: 'ServiceHistoryController as serviceHistory',
         resolve: {
-          forceResource: 'Force',
-          serviceBranches: function(forceResource){
-            return forceResource.query({object_type: 'branches'});
+          referenceResource: 'Reference',
+          serviceBranches: function(referenceResource){
+            return referenceResource.query({object_type: 'branches'});
           },
-          serviceRankTypes: function(forceResource){
-            return forceResource.query({object_type: 'rank_types'});
+          serviceRankTypes: function(referenceResource){
+            return referenceResource.query({object_type: 'rank_types'});
           },
-          serviceRanks: function(forceResource){
-            return forceResource.query({object_type: 'ranks'});
+          serviceRanks: function(referenceResource){
+            return referenceResource.query({object_type: 'ranks'});
           },
         }
     });
@@ -58,9 +61,9 @@ angular.module('hf').config(function($stateProvider, $urlRouterProvider) {
         templateUrl: 'templates/service_awards.html',
         controller: 'ServiceAwardsController as serviceAwards',
         resolve: {
-          forceResource: 'Force',
-          serviceAwards: function(forceResource){
-            return forceResource.query({object_type: 'awards'});
+          referenceResource: 'Reference',
+          serviceAwards: function(referenceResource){
+            return referenceResource.query({object_type: 'awards'});
           }
         }
     });
@@ -68,14 +71,16 @@ angular.module('hf').config(function($stateProvider, $urlRouterProvider) {
     $stateProvider.state('applications.medicalCondition', {
         url: '/medicalCondition',
         templateUrl: 'templates/veteran/medical_condition.html',
-        controller: 'MedicalConditionController as medicalCondition'
-        //,
-        //resolve: {
-        //    forceResource: 'Force',
-        //    conditionInfo: function(forceResource){
-        //        return forceResource.query({object_type: 'conditionInfo'});
-        //    }
-        //}
+        controller: 'MedicalConditionController as medicalCondition',
+        resolve: {
+           referenceResource: 'Reference',
+           medicalConditionTypes: function(referenceResource){
+               return referenceResource.query({object_type: 'medical_condition_types'});
+           },
+           medicalConditionNames: function(referenceResource){
+               return referenceResource.query({object_type: 'medical_condition_names'});
+           }
+        }
     });
 
     /* Add New States Above */
