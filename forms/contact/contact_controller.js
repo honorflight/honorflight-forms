@@ -7,7 +7,19 @@ function ContactController($log, $state, $scope, person) {
     model.applicationTypes = ['veteran', 'guardian', 'volunteer'];
     model.contactType = $state.params.contactType;
 
-    model.person = {};
+    // regular
+    //model.person = {};
+
+    // stub person
+    var person_attributes = {
+      "first_name":"Jeff",
+      "last_name":"Ancel",
+      "email":"jancel@gmail.com",
+      "birth_date":"20-03-1979"
+    };
+    person.save(person_attributes, function(response){
+        model.person = response;
+    });
 
     model.submitContactInfo = function(transitionTo){
         $log.debug("if Contact ID is null, create: " + JSON.stringify(model));

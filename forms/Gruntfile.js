@@ -51,7 +51,7 @@ module.exports = function (grunt) {
             var middlewares = [];
 
             // Setup the proxy
-            // middlewares.push(modRewrite(['^/api/(.*)$ http://bigblur.com/api/$1 [P]']));
+            middlewares.push(modRewrite(['^/api/(.*)$ http://honorflight.dev/api/$1 [P]']));
             // middlewares.push(modRewrite(['^/admin/(.*)$ http://localhost:3000/admin/$1 [P]']));
 
             // Serve static files.

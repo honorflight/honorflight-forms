@@ -1,5 +1,5 @@
 function Reference($resource){
-  var reference = $resource('http://honorflight-rails.dev/api/v1/:object_type', {}, {
+  var reference = $resource('/api/:object_type', {}, {
     'query': {method: 'GET', isArray: true },
     'get': {method: 'GET'}
   });
