@@ -29,5 +29,5 @@ function route($app, $url_array){
     $app->response->setStatus(500);
     $app->response->setBody($result);
   }
-  
+}
 ?>

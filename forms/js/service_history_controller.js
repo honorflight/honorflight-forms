@@ -11,6 +11,7 @@ function ServiceHistoryController($log, $state, $scope, serviceBranches, service
     model.ranks = serviceRanks;
 
     model.goTo = function() {
+        // Create or update service histories
         $state.transitionTo('applications.serviceAwards', {contactType: model.contactType});
     };
 

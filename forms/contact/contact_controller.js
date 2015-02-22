@@ -9,7 +9,7 @@ function ContactController($log, $state, $scope, person) {
 
     model.person = {};
 
-    model.submit = function(transitionTo){
+    model.submitContactInfo = function(transitionTo){
         $log.debug("if Contact ID is null, create: " + JSON.stringify(model));
         if (angular.isDefined(model.person.id) && model.person.id !== null){
             $log.debug("Update contact");
@@ -23,11 +23,11 @@ function ContactController($log, $state, $scope, person) {
         }
 
         $state.transitionTo(transitionTo, $state.params);
-        // Call to service
-        // person.create(model);
-        // .then(function(){
-        //     $state.transitionTo('applications.serviceHistory', $state.params);
-        // });
+    };
+
+    model.submitServiceHistory = function(transitionTo){
+        $log.debug("if service history blank, create; otherwise, update");
+        $state.transitionTo(transitionTo, $state.params);
     };
 
     model.hasRankType = function(){
