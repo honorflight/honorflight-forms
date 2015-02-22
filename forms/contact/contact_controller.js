@@ -13,9 +13,13 @@ function ContactController($log, $state, $scope, person) {
         $log.debug("if Contact ID is null, create: " + JSON.stringify(model));
         if (angular.isDefined(model.person.id) && model.person.id !== null){
             $log.debug("Update contact");
+            person.update(model.person, {id: model.person.id});
         } else {
             $log.debug("Create contact");
-            person.save(model.person);
+            person.save(model.person, function(response){
+                model.person.id = response.id;
+                model.person.uuid = response.uuid;
+            });
         }
 
         $state.transitionTo(transitionTo, $state.params);

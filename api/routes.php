@@ -15,16 +15,13 @@ require 'person-proxy.php';
 
 //replace empty functions with handles
 add_action("slim_mapping", function($app){
-	header("Slim: Remap");
-  // $app->get('/api/force/:obj_type', function($object)use($app){
-  //   query_salesforce($object);
-  // });
+  header("Slim: Remap");
 
-  // /api/person -> function person()
-  $app->post('/api/:form_name', function($method)use($app){
-     //Pass App context to routing method
-     $method($app);
-   });
+  // Route will remap to api url and return results
+  $app->{$_SERVER['REQUEST_METHOD']}('/api/:route+', function($url_array)use($app){
+  	route($app, $url_array);
+  });
+
 });
 
 ?>

@@ -8,67 +8,64 @@
   <div class="row">
     <div class="form-group col-xs-5 col-sm-5">
       <label class="control-label">First Name</label>
-      <input type="text" ng-model="contact.person.first_name" class="form-control" tabindex="1">
+      <input type="text" ng-model="contact.person.first_name" class="form-control">
     </div>
     <div class="form-group col-xs-2 col-sm-2">
       <label class="control-label">Middle</label>
-      <input type="text" ng-model="contact.person.middle_name" class="form-control" tabindex="2">
+      <input type="text" ng-model="contact.person.middle_name" class="form-control">
     </div>
     <div class="form-group col-xs-5 col-sm-5">
       <label class="control-label">Last Name</label>
-      <input type="text" ng-model="contact.person.last_name" class="form-control" tabindex="3">
+      <input type="text" ng-model="contact.person.last_name" class="form-control">
     </div>
   </div>
   <div class="row">
       <div class="form-group col-xs-12 col-sm-12">
           <label class="control-label">Address</label>
-          <input type="text" ng-model="contact.address.street1" class="form-control" tabindex="1">
+          <input type="text" ng-model="contact.person.address_attributes.street1" class="form-control">
       </div>
   </div>
   <div class="row">
       <div class="form-group col-xs-6 col-sm-6">
           <label class="control-label">City</label>
-          <input type="text" ng-model="contact.address.city" class="form-control" tabindex="2">
+          <input type="text" ng-model="contact.person.address_attributes.city" class="form-control">
       </div>
       <div class="form-group col-xs-2 col-sm-2">
           <label class="control-label">State</label>
-          <input type="text" ng-model="contact.address.state" class="form-control" tabindex="3" ui-mask="AA">
+          <input type="text" ng-model="contact.person.address_attributes.state" class="form-control" ui-mask="AA">
       </div>
       <div class="form-group col-xs-4 col-sm-4">
           <label class="control-label">Zipcode</label>
-          <input type="text" ng-model="contact.address.zip" class="form-control" tabindex="4" ui-mask="99999">
+          <input type="text" ng-model="contact.person.address_attributes.zipcode" class="form-control" ui-mask="99999">
       </div>
   </div>
   <div class="row">
     <div class="form-group col-xs-6 col-sm-6">
       <label class="control-label">Email Address</label>
-      <input type="text" ng-model="contact.person.email" class="form-control" tabindex="4">
+      <input type="text" ng-model="contact.person.email" class="form-control">
     </div>
     <div class="form-group col-xs-6 col-sm-6">
       <label class="control-label">Phone Number</label>
-      <input type="text" ng-model="contact.person.phone" class="form-control" tabindex="5" ui-mask="(999) 999-9999">
+      <input type="text" ng-model="contact.person.phone" class="form-control" ui-mask="(999) 999-9999">
     </div>
   </div>
   <div class="row">
     <div class="form-group col-xs-4">
       <label class="control-label">Shirt Size</label>
       <select class="form-control"
-              ng-model="contact.shirt_size_id"
-              tabindex="6"
+              ng-model="contact.person.shirt_size_id"
               ng-options="shirtSize.id as shirtSize.name for shirtSize in contactInfo.shirtSizes">
               <option value="">Select One</option>
       </select>
     </div>
     <div class="form-group col-xs-4">
       <label class="control-label">Birthday</label>
-      <input type="text" ng-model="contact.person.birth_date" class="form-control" tabindex="7" placeholder="MM/DD/YYYY" ui-mask="99/99/9999">
+      <input type="date" ng-model="contact.person.birth_date" class="form-control" >
     </div>
     <div class="form-group col-xs-4">
       <label class="control-label">War</label>
       <select class="form-control"
-              ng-model="contact.war_id"
-              required
-              tabindex="6"
+              ng-model="contact.person.war_id"
               ng-options="war.id as war.name for war in contactInfo.wars">
               <option value="">Select One</option>
       </select>

@@ -1,7 +1,8 @@
 function Person($resource){
-  var person = $resource('/api/people', {}, {
+  var person = $resource('/api/people/:id', {}, {
     'query': {method: 'GET', isArray: true },
-    'get': {method: 'GET'}
+    'get': {method: 'GET'},
+    'update': {method: 'PUT'}
   });
 
   return person;

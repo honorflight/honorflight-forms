@@ -1,28 +1,33 @@
 <?php
 
-function people($app){
-
-  // Post stuff to api url with php curl 
-  // http://stackoverflow.com/questions/9802788/call-a-rest-api-in-php
-  // http://php.net/manual/en/book.curl.php
-  // http://www.lornajane.net/posts/2011/posting-json-data-with-php-curl
-  // $curl = curl_init("http://honorflight-rails.dev/api/v1/people");
+function route($app, $url_array){
   $apikey = get_option('apikey');
-  $data_string = $app->request->getBody(); 
-  $ch = curl_init("http://honorflight-rails.dev/api/v1/people");                                                                      
-  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
-  curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
+  $apiurl = get_option('apiurl');
+
+  $curl = $apiurl."/".implode("/", $url_array);
+  $data = $app->request->getBody();
+  $method = $_SERVER['REQUEST_METHOD'];
+
+  $ch = curl_init($curl);                                                                      
+  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);    
+  curl_setopt($ch, CURLOPT_POSTFIELDS, $data);                                                                  
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
   curl_setopt($ch, CURLOPT_HTTPHEADER, array(  
       "X_ADMIN_APIKEY: $apikey",                                                                        
-      'Content-Type: application/json',                                                                                
-      'Content-Length: ' . strlen($data_string))                                                                       
+      'Content-Type: application/json',
+      'Content-Length: ' . strlen($data))                                                                       
   );                                                                                                                   
    
+  // var_dump($ch);
   $result = curl_exec($ch);
-  echo $result;
 
-}
-
-
+  $app->response->headers->set('Content-Type', 'application/json');
+  if ($result) {
+    $app->response->setStatus(200);
+    $app->response->setBody($result);
+  } else {
+    $app->response->setStatus(500);
+    $app->response->setBody($result);
+  }
+  
 ?>
