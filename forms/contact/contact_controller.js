@@ -1,4 +1,4 @@
-function ContactController($log, $state, $scope, person) {
+function ContactController($log, $state, $scope, person, serviceHistory) {
     $log.debug("ContactController::Begin");
     var model = this;
     var conditionCount = 0;
@@ -10,6 +10,9 @@ function ContactController($log, $state, $scope, person) {
     // regular
     //model.person = {};
 
+
+    // debugging right now
+    // http://localhost:9001/#/applications/serviceHistory?contactType=veteran
     // stub person
     var person_attributes = {
       "first_name":"Jeff",
@@ -17,9 +20,12 @@ function ContactController($log, $state, $scope, person) {
       "email":"jancel@gmail.com",
       "birth_date":"20-03-1979"
     };
-    person.save(person_attributes, function(response){
-        model.person = response;
-    });
+
+    if (!angular.isDefined(model.person)){
+        person.save(person_attributes, function(response){
+            model.person = response;
+        });
+    }
 
     model.submitContactInfo = function(transitionTo){
         $log.debug("if Contact ID is null, create: " + JSON.stringify(model));
@@ -38,7 +44,20 @@ function ContactController($log, $state, $scope, person) {
     };
 
     model.submitServiceHistory = function(transitionTo){
-        $log.debug("if service history blank, create; otherwise, update");
+        $log.debug("if service history blank, create; otherwise, update: %s", JSON.stringify(model.person.serviceHistory));
+        if (angular.isDefined(model.person.serviceHistory)) {
+          if (angular.isDefined(model.person.serviceHistory.id)){
+            // update
+            serviceHistory.update({id: model.person.serviceHistory.id}, model.person.serviceHistory);
+          } else {
+            // create
+            serviceHistory.save({person_id: model.person.id}, model.person.serviceHistory, function(response){
+              model.person.serviceHistory.id = response.id;
+            });            
+          }
+        } 
+
+        // $log.debug("serviceHistory is: %s", JSON.stringify(model.person.serviceHistory));
         $state.transitionTo(transitionTo, $state.params);
     };
 
