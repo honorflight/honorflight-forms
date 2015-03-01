@@ -96,13 +96,67 @@
         <label class="control-label">Rank</label>
         <select class="form-control"
         ng-model="contact.person.serviceHistory.rank_id"
-        ng-options="rank.id as rank.name for rank in serviceHistory.ranks | filter: {rank_type_id: contact.person.serviceHistory.rank_type_id}">
+        ng-options="rank.id as rank.name for rank in serviceHistory.ranks | filter: {rank_type_id: contact.person.serviceHistory.rank_type_id, branch_id: contact.person.serviceHistory.branch_id}">
           <option value="">Select One</option>
         </select>
       </div>
     </div>
   </div>
 
+  <div class="row">
+    <div class="col-xs-12">
+      <h4>Service Awards</h4>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th colspan="2">Comment/Story</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <select class="form-control"
+                ng-model="contact.awardName"
+                required
+                tabindex="1"
+                ng-options="award.name for award in serviceHistory.awards | pick: 'branch_id === null'">
+                <!--WORKING THIS WHEN STOPPED-->
+                <option>Select One</option>
+              </select>
+            </td>
+            <td>
+              <input type="number" ng-model="contact.awardQuantity" class="form-control" style="width:75px;">
+            </td>
+            <td class="">
+              <input type="text" ng-model="contact.awardComment" class="form-control">
+            </td>
+            <td>
+              <button class="btn btn-primary form-control" ng-click="contact.addAward()">
+                <i class="fa fa-plus"></i>
+              </button>            
+            </td>
+          </tr>
+          <tr ng-repeat="award in contact.person.serviceHistory.service_awards_attributes ">
+            <td>{{serviceHistory.awardNameFor(award.award_id)}}</td>
+            <td>{{award.quantity}}</td>
+            <td>{{award.comment}}</td>
+            <td>
+              <button class="btn btn-primary form-control" ng-click="contact.removeAward($index)">
+                <i class="fa fa-trash-o"></i>
+              </button>            
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
   <div class="row">
     <div class="col-xs-12 text-right">

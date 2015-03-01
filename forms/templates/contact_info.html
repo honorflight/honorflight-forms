@@ -8,35 +8,35 @@
   <div class="row">
     <div class="form-group col-xs-5 col-sm-5">
       <label class="control-label">First Name</label>
-      <input type="text" ng-model="contact.person.first_name" class="form-control">
+      <input type="text" ng-model="contact.person.firstName" class="form-control">
     </div>
     <div class="form-group col-xs-2 col-sm-2">
       <label class="control-label">Middle</label>
-      <input type="text" ng-model="contact.person.middle_name" class="form-control">
+      <input type="text" ng-model="contact.person.middleName" class="form-control">
     </div>
     <div class="form-group col-xs-5 col-sm-5">
       <label class="control-label">Last Name</label>
-      <input type="text" ng-model="contact.person.last_name" class="form-control">
+      <input type="text" ng-model="contact.person.lastName" class="form-control">
     </div>
   </div>
   <div class="row">
       <div class="form-group col-xs-12 col-sm-12">
           <label class="control-label">Address</label>
-          <input type="text" ng-model="contact.person.address_attributes.street1" class="form-control">
+          <input type="text" ng-model="contact.person.address.street1" class="form-control">
       </div>
   </div>
   <div class="row">
       <div class="form-group col-xs-6 col-sm-6">
           <label class="control-label">City</label>
-          <input type="text" ng-model="contact.person.address_attributes.city" class="form-control">
+          <input type="text" ng-model="contact.person.address.city" class="form-control">
       </div>
       <div class="form-group col-xs-2 col-sm-2">
           <label class="control-label">State</label>
-          <input type="text" ng-model="contact.person.address_attributes.state" class="form-control" ui-mask="AA">
+          <input type="text" ng-model="contact.person.address.state" class="form-control" ui-mask="AA">
       </div>
       <div class="form-group col-xs-4 col-sm-4">
           <label class="control-label">Zipcode</label>
-          <input type="text" ng-model="contact.person.address_attributes.zipcode" class="form-control" ui-mask="99999">
+          <input type="text" ng-model="contact.person.address.zipcode" class="form-control" ui-mask="99999">
       </div>
   </div>
   <div class="row">
@@ -53,19 +53,19 @@
     <div class="form-group col-xs-4">
       <label class="control-label">Shirt Size</label>
       <select class="form-control"
-              ng-model="contact.person.shirt_size_id"
+              ng-model="contact.person.shirtSizeId"
               ng-options="shirtSize.id as shirtSize.name for shirtSize in contactInfo.shirtSizes">
               <option value="">Select One</option>
       </select>
     </div>
     <div class="form-group col-xs-4">
       <label class="control-label">Birthday</label>
-      <input type="date" ng-model="contact.person.birth_date" class="form-control" >
+      <input type="date" ng-model="contact.person.birthDate" class="form-control" >
     </div>
     <div class="form-group col-xs-4">
       <label class="control-label">War</label>
       <select class="form-control"
-              ng-model="contact.person.war_id"
+              ng-model="contact.person.warId"
               ng-options="war.id as war.name for war in contactInfo.wars">
               <option value="">Select One</option>
       </select>

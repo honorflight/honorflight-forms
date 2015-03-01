@@ -1,4 +1,4 @@
-angular.module('hf', ['ui.bootstrap', 'ui.utils', 'ui.router', 'ui.select', 'ngAnimate', 'ngResource', 'angular.filter', 'cgBusy', 'contact']);
+angular.module('hf', ['ui.bootstrap', 'ui.utils', 'ui.router', 'ui.select', 'ngAnimate', 'ngResource', 'rails', 'angular.filter', 'cgBusy', 'contact']);
 
 function MainController($log){
   $log.debug("MainController::Begin");
@@ -53,6 +53,9 @@ angular.module('hf').config(function($stateProvider, $urlRouterProvider) {
           serviceRanks: function(referenceResource){
             return referenceResource.query({object_type: 'ranks'});
           },
+          serviceAwards: function(referenceResource){
+            return referenceResource.query({object_type: 'awards'});
+          }
         }
     });
 

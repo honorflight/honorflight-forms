@@ -1,3 +1,5 @@
+
+// ngResource
 function Reference($resource){
   var reference = $resource('/api/:object_type', {}, {
     'query': {method: 'GET', isArray: true },

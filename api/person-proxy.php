@@ -11,19 +11,18 @@ function route($app, $url_array){
   $ch = curl_init($curl);                                                                      
   curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);    
   curl_setopt($ch, CURLOPT_POSTFIELDS, $data);                                                                  
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);   
   curl_setopt($ch, CURLOPT_HTTPHEADER, array(  
       "X_ADMIN_APIKEY: $apikey",                                                                        
       'Content-Type: application/json',
       'Content-Length: ' . strlen($data))                                                                       
   );                                                                                                                   
    
-  // var_dump($ch);
   $result = curl_exec($ch);
 
   $app->response->headers->set('Content-Type', 'application/json');
   if ($result) {
-    $app->response->setStatus(200);
+    $app->response->setStatus(curl_getinfo($ch, CURLINFO_HTTP_CODE));
     $app->response->setBody($result);
   } else {
     $app->response->setStatus(500);

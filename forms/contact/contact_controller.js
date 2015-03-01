@@ -1,46 +1,20 @@
-function ContactController($log, $state, $scope, person, serviceHistory) {
+function ContactController($log, $state, $scope, Person, ServiceHistory) {
     $log.debug("ContactController::Begin");
     var model = this;
     var conditionCount = 0;
-    var awardCount = 0;
 
     model.applicationTypes = ['veteran', 'guardian', 'volunteer'];
     model.contactType = $state.params.contactType;
 
-    // regular
-    //model.person = {};
-
-
-    // debugging right now
-    // http://localhost:9001/#/applications/serviceHistory?contactType=veteran
-    // stub person
-    var person_attributes = {
-      "first_name":"Jeff",
-      "last_name":"Ancel",
-      "email":"jancel@gmail.com",
-      "birth_date":"20-03-1979"
-    };
-
-    if (!angular.isDefined(model.person)){
-        person.save(person_attributes, function(response){
-            model.person = response;
-        });
-    }
+    model.person = new Person();
 
     model.submitContactInfo = function(transitionTo){
-        $log.debug("if Contact ID is null, create: " + JSON.stringify(model));
-        if (angular.isDefined(model.person.id) && model.person.id !== null){
-            $log.debug("Update contact");
-            person.update(model.person, {id: model.person.id});
-        } else {
-            $log.debug("Create contact");
-            person.save(model.person, function(response){
-                model.person.id = response.id;
-                model.person.uuid = response.uuid;
-            });
-        }
-
-        $state.transitionTo(transitionTo, $state.params);
+        model.person.save().then(function(response){
+            $log.debug("Success: %s", response);
+            $state.transitionTo(transitionTo, $state.params);
+        },function(response){
+            $log.debug("E-rror: %s", response);            
+        });
     };
 
     model.submitServiceHistory = function(transitionTo){
@@ -48,10 +22,10 @@ function ContactController($log, $state, $scope, person, serviceHistory) {
         if (angular.isDefined(model.person.serviceHistory)) {
           if (angular.isDefined(model.person.serviceHistory.id)){
             // update
-            serviceHistory.update({id: model.person.serviceHistory.id}, model.person.serviceHistory);
+            ServiceHistory.update({id: model.person.serviceHistory.id}, model.person.serviceHistory);
           } else {
             // create
-            serviceHistory.save({person_id: model.person.id}, model.person.serviceHistory, function(response){
+            ServiceHistory.save({person_id: model.person.id}, model.person.serviceHistory, function(response){
               model.person.serviceHistory.id = response.id;
             });            
           }
@@ -96,26 +70,13 @@ function ContactController($log, $state, $scope, person, serviceHistory) {
 
     model.serviceAwards = [];
 
-    function Award(name, quantity, comment) {
-        this.awardName = name;
-        this.awardQuantity = quantity;
-        this.awardComment = comment;
-        this.awardId = awardCount;
-    }
-
     model.addAward = function() {
-        model.serviceAwards.push(new Award(model.awardName.name, model.awardQuantity, model.awardComment));
+        model.person.serviceHistory.service_awards_attributes.push({award_id: model.awardName.id, quantity: model.awardQuantity, comment: model.awardComment});
         model.awardName = model.awardQuantity = model.awardComment = "";
-        awardCount++;
     };
 
     model.deleteAward = function(award) {
-        for(var i=0; i<model.serviceAwards.length; i++) {
-            if(model.serviceAwards[i].awardId === award.awardId) {
-                model.serviceAwards.splice(i, 1);
-                break;
-            }
-        }
+        
     };
 
     function formatDate(date) {
@@ -137,6 +98,16 @@ function ContactController($log, $state, $scope, person, serviceHistory) {
             $log.debug("Contact rankType changed to: " + JSON.stringify(n));
         }
     });
+
+    // Date's will need this watcher
+    // $scope.$watch(angular.bind(this, function(){
+    //     return model.person.birthDate;
+    // }), function(n,o){
+    //     if (angular.isDefined(n) && typeof n === "string"){
+    //         var parts = n.split('-');
+    //         model.person.birthDate = new Date(parts[0], parts[1]-1, parts[2]);
+    //     }
+    // });
     $log.debug("ContactController::End");
 }
 angular.module('hf').controller('ContactController', ContactController);
