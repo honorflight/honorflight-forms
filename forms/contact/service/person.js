@@ -18,12 +18,13 @@ angular.module('hf').factory('DateSerializer', DateSerializer);
 function PersonSerializer(railsSerializer, $log, DateSerializer){
 	var personSerializer = railsSerializer(function(){
 		this.nestedAttribute('address');
+		this.resource('serviceHistory', 'ServiceHistory');
 		this.serializeWith('birthDate', DateSerializer);
 	});
 
 	return personSerializer;
 }
-angular.module('hf').factory('PersonSerializer', PersonSerializer);
+angular.module('contact').factory('PersonSerializer', PersonSerializer);
 
 function Person(railsResourceFactory, railsSerializer, $log){
 
@@ -35,4 +36,4 @@ function Person(railsResourceFactory, railsSerializer, $log){
 
 	return person;
 }
-angular.module('hf').factory('Person',Person);
+angular.module('contact').factory('Person',Person);

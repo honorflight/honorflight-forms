@@ -1,4 +1,4 @@
-angular.module('hf', ['ui.bootstrap', 'ui.utils', 'ui.router', 'ui.select', 'ngAnimate', 'ngResource', 'rails', 'angular.filter', 'cgBusy', 'contact']);
+angular.module('hf', ['ui.bootstrap', 'ui.utils', 'ui.router', 'ui.select', 'ngAnimate', 'ngResource', 'rails', 'ngLodash', 'angular.filter', 'cgBusy', 'contact']);
 
 function MainController($log){
   $log.debug("MainController::Begin");

@@ -1,4 +1,4 @@
-function ContactController($log, $state, $scope, Person, ServiceHistory) {
+function ContactController($log, $state, $scope, $filter, Person, ServiceHistory) {
     $log.debug("ContactController::Begin");
     var model = this;
     var conditionCount = 0;
@@ -6,33 +6,66 @@ function ContactController($log, $state, $scope, Person, ServiceHistory) {
     model.applicationTypes = ['veteran', 'guardian', 'volunteer'];
     model.contactType = $state.params.contactType;
 
-    model.person = new Person();
+    // model.person = new Person();
+    // model.person.serviceHistory = new ServiceHistory();
+    model.person = new Person({firstName: "Jeff", lastName: "Ancel", email: "jancel@gmail.com", birth_date: "20-03-1979"}).save().then(function(response){
+      model.person = response;
+      model.person.serviceHistory = {};
+    });
 
     model.submitContactInfo = function(transitionTo){
         model.person.save().then(function(response){
             $log.debug("Success: %s", response);
             $state.transitionTo(transitionTo, $state.params);
         },function(response){
-            $log.debug("E-rror: %s", response);            
+            $log.debug("Error: %s", response);            
         });
     };
 
     model.submitServiceHistory = function(transitionTo){
-        $log.debug("if service history blank, create; otherwise, update: %s", JSON.stringify(model.person.serviceHistory));
-        if (angular.isDefined(model.person.serviceHistory)) {
-          if (angular.isDefined(model.person.serviceHistory.id)){
-            // update
-            ServiceHistory.update({id: model.person.serviceHistory.id}, model.person.serviceHistory);
-          } else {
-            // create
-            ServiceHistory.save({person_id: model.person.id}, model.person.serviceHistory, function(response){
-              model.person.serviceHistory.id = response.id;
-            });            
-          }
-        } 
+      $log.debug("save this service history: %s", JSON.stringify(model.person.serviceHistory));
+
+      var successFunction = function(success){
+        $log.debug("Success");
+        model.person.serviceHistory.id = success.id;
+        // here we also need to get the serviceAwards and persist their id's
+        // then we can delete them if the trash can is hit
+        $state.transitionTo(transitionTo, $state.params);
+      };
+ 
+      var errorFunction = function(error){
+        $log.debug("Failure");
+      };
+
+      if (angular.isDefined(model.person.serviceHistory.id)) {
+        // update
+        ServiceHistory.update({ id: model.person.serviceHistory.id}, model.person.serviceHistory, successFunction, errorFunction);
+      } else {
+        // create
+        ServiceHistory.save({person_id: model.person.id}, model.person.serviceHistory, successFunction, errorFunction);
+      }
+      
+
+        // model.person.serviceHistory.save().then(function(response){
+        //     $log.debug("Success: %s", response);
+        //     // $state.transitionTo(transitionTo, $state.params);
+        // },function(response){
+        //     $log.debug("Error: %s", response);            
+        // });
+        // if (angular.isDefined(model.person.serviceHistory)) {
+        //   if (angular.isDefined(model.person.serviceHistory.id)){
+        //     // update
+        //     ServiceHistory.update({id: model.person.serviceHistory.id}, model.person.serviceHistory);
+        //   } else {
+        //     // create
+        //     ServiceHistory.save({person_id: model.person.id}, model.person.serviceHistory, function(response){
+        //       model.person.serviceHistory.id = response.id;
+        //     });            
+        //   }
+        // } 
 
         // $log.debug("serviceHistory is: %s", JSON.stringify(model.person.serviceHistory));
-        $state.transitionTo(transitionTo, $state.params);
+        // $state.transitionTo(transitionTo, $state.params);
     };
 
     model.hasRankType = function(){
@@ -50,9 +83,9 @@ function ContactController($log, $state, $scope, Person, ServiceHistory) {
     model.medicalConditions = [];
 
     model.addCondition = function() {
-        model.medicalConditions.push(new MedicalCondition(model.conditionType.name, model.conditionName.name, formatDate(model.conditionDate), model.conditionComment));
-        model.conditionType = model.conditionName = model.conditionDate = model.conditionComment = "";
-        conditionCount++;
+        // model.medicalConditions.push(new MedicalCondition(model.conditionType.name, model.conditionName.name, formatDate(model.conditionDate), model.conditionComment));
+        // model.conditionType = model.conditionName = model.conditionDate = model.conditionComment = "";
+        // conditionCount++;
     };
 
     model.deleteCondition = function(condition) {
@@ -70,44 +103,23 @@ function ContactController($log, $state, $scope, Person, ServiceHistory) {
 
     model.serviceAwards = [];
 
+    model.showAwards = function(){
+      return angular.isDefined(model.person.serviceHistory);
+    };
+
     model.addAward = function() {
-        model.person.serviceHistory.service_awards_attributes.push({award_id: model.awardName.id, quantity: model.awardQuantity, comment: model.awardComment});
-        model.awardName = model.awardQuantity = model.awardComment = "";
+      // initialize
+      model.person.serviceHistory.service_awards_attributes = model.person.serviceHistory.service_awards_attributes || [];
+
+      model.person.serviceHistory.service_awards_attributes.push({award_id: model.awardName.id, quantity: model.awardQuantity || 1, comment: model.awardComment});
+      model.awardName = model.awardQuantity = model.awardComment = "";
     };
 
     model.deleteAward = function(award) {
-        
+      // add custom logic to remove award if there is an id associated
     };
 
-    function formatDate(date) {
-        return date.substring(0,2) + "/" + date.substring(2);
-    }
 
-    model.goTo = function(contactType){
-      $state.transitionTo('applications.contactInfo', {contactType: contactType});
-    };
-
-    $log.debug("Contact type is: " + model.contactType);
-
-    // Not real functional, but leaving it as an example
-    $scope.$watch(angular.bind(this, function(){
-        return model.rankType;
-    }), function(n,o){
-        $log.debug("is there: " + !(angular.isDefined(n) && angular.isDefined(n.id)));
-        if (angular.isDefined(n)){
-            $log.debug("Contact rankType changed to: " + JSON.stringify(n));
-        }
-    });
-
-    // Date's will need this watcher
-    // $scope.$watch(angular.bind(this, function(){
-    //     return model.person.birthDate;
-    // }), function(n,o){
-    //     if (angular.isDefined(n) && typeof n === "string"){
-    //         var parts = n.split('-');
-    //         model.person.birthDate = new Date(parts[0], parts[1]-1, parts[2]);
-    //     }
-    // });
     $log.debug("ContactController::End");
 }
 angular.module('hf').controller('ContactController', ContactController);
