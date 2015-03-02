@@ -9,7 +9,7 @@
     <div class="col-xs-6 col-sm-6">
       <div class="form-group">
         <label class="control-label">Start Year</label>
-        <input type="number" ng-model="contact.person.serviceHistory.start_year" class="form-control">
+        <input type="number" ng-model="contact.person.serviceHistory.startYear" class="form-control">
       </div>
       <!-- (Array) contact.person.serviceHistory.service_awards_attributes 
       t.integer :quantity
@@ -37,7 +37,7 @@
     <div class="col-xs-6 col-sm-6">
       <div>
         <label class="control-label">End Year</label>
-        <input type="number" ng-model="contact.person.serviceHistory.end_year" class="form-control">
+        <input type="number" ng-model="contact.person.serviceHistory.endYear" class="form-control">
       </div>
     </div>
   </div>
@@ -71,7 +71,7 @@
       <div class="form-group"> 
         <label class="control-label">Branch</label>
         <select class="form-control"
-        ng-model="contact.person.serviceHistory.branch_id"
+        ng-model="contact.person.serviceHistory.branchId"
         required
         ng-options="branch.id as branch.name for branch in serviceHistory.branches">
           <option value="">Select One</option>
@@ -82,7 +82,7 @@
       <div class="form-group">
         <label class="control-label">Rank Type</label>
         <select class="form-control"
-        ng-model="contact.person.serviceHistory.rank_type_id"
+        ng-model="contact.person.serviceHistory.rankTypeId"
         required
         ng-options="type.id as type.name for type in serviceHistory.rankTypes">
           <option value="">Select One</option>
@@ -93,8 +93,8 @@
       <div class="form-group">
         <label class="control-label">Rank</label>
         <select class="form-control"
-        ng-model="contact.person.serviceHistory.rank_id"
-        ng-options="rank.id as rank.name for rank in serviceHistory.ranks | filter: {rank_type_id: contact.person.serviceHistory.rank_type_id, branch_id: contact.person.serviceHistory.branch_id}">
+        ng-model="contact.person.serviceHistory.rankId"
+        ng-options="rank.id as rank.name for rank in serviceHistory.ranks | filter: {rank_type_id: contact.person.serviceHistory.rankTypeId, branch_id: contact.person.serviceHistory.branchId}">
           <option value="">Select One</option>
         </select>
       </div>
@@ -123,7 +123,7 @@
               <select class="form-control"
                 ng-model="contact.awardName"
                 required
-                ng-options="award.name for award in serviceHistory.awards | valueOrNull:'branch_id':contact.person.serviceHistory.branch_id">
+                ng-options="award.name for award in serviceHistory.awards | valueOrNull:'branch_id':contact.person.serviceHistory.branchId">
                 <!--WORKING THIS WHEN STOPPED-->
                 <option>Select One</option>
               </select>
@@ -140,12 +140,12 @@
               </button>            
             </td>
           </tr>
-          <tr ng-repeat="award in contact.person.serviceHistory.service_awards_attributes ">
-            <td>{{serviceHistory.awardNameFor(award.award_id)}}</td>
+          <tr ng-repeat="award in contact.person.serviceHistory.serviceAwards ">
+            <td>{{serviceHistory.awardNameFor(award.awardId)}}</td>
             <td>{{award.quantity}}</td>
             <td>{{award.comment}}</td>
             <td>
-              <button class="btn btn-primary form-control" ng-click="contact.removeAward($index)">
+              <button class="btn btn-primary form-control" ng-click="contact.deleteAward(award, $index)">
                 <i class="fa fa-trash-o"></i>
               </button>            
             </td>

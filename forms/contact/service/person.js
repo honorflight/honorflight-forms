@@ -15,6 +15,8 @@ function DateSerializer() {
 angular.module('hf').factory('DateSerializer', DateSerializer);
 
 
+
+
 function PersonSerializer(railsSerializer, $log, DateSerializer){
 	var personSerializer = railsSerializer(function(){
 		this.nestedAttribute('address');
@@ -26,14 +28,25 @@ function PersonSerializer(railsSerializer, $log, DateSerializer){
 }
 angular.module('contact').factory('PersonSerializer', PersonSerializer);
 
-function Person(railsResourceFactory, railsSerializer, $log){
 
+
+
+function Person($log, railsResourceFactory, railsSerializer, ServiceHistory){
 	var person = railsResourceFactory({
 		url: '/api/people',
 		name: 'person',
 		serializer: 'PersonSerializer'
 	});
 
+	person.prototype.saveServiceHistory = function(data){
+		return ServiceHistory.$post(this.$url('service_histories'), data);
+	};
+
 	return person;
 }
+
+
+// Person.prototype.saveServiceHistory = function(data){
+// 	return ServiceHistory.$put(this.$url('service_histories'), data);
+// };
 angular.module('contact').factory('Person',Person);

@@ -1,4 +1,4 @@
-function ContactController($log, $state, $scope, $filter, Person, ServiceHistory) {
+function ContactController($log, $state, $scope, $filter, Person, ServiceHistory, ServiceAward) {
     $log.debug("ContactController::Begin");
     var model = this;
     var conditionCount = 0;
@@ -6,12 +6,12 @@ function ContactController($log, $state, $scope, $filter, Person, ServiceHistory
     model.applicationTypes = ['veteran', 'guardian', 'volunteer'];
     model.contactType = $state.params.contactType;
 
-    // model.person = new Person();
-    // model.person.serviceHistory = new ServiceHistory();
-    model.person = new Person({firstName: "Jeff", lastName: "Ancel", email: "jancel@gmail.com", birth_date: "20-03-1979"}).save().then(function(response){
-      model.person = response;
-      model.person.serviceHistory = {};
-    });
+    model.person = new Person();
+    model.person.serviceHistory = new ServiceHistory();
+    // model.person = new Person({firstName: "Jeff", lastName: "Ancel", email: "jancel@gmail.com", birth_date: "20-03-1979"}).save().then(function(response){
+    //   model.person = response;
+    //   model.person.serviceHistory = {};
+    // });
 
     model.submitContactInfo = function(transitionTo){
         model.person.save().then(function(response){
@@ -23,49 +23,30 @@ function ContactController($log, $state, $scope, $filter, Person, ServiceHistory
     };
 
     model.submitServiceHistory = function(transitionTo){
-      $log.debug("save this service history: %s", JSON.stringify(model.person.serviceHistory));
-
       var successFunction = function(success){
         $log.debug("Success");
         model.person.serviceHistory.id = success.id;
         // here we also need to get the serviceAwards and persist their id's
         // then we can delete them if the trash can is hit
+        if (model.person.serviceHistory.serviceAwards.length !== 0){
+          model.person.serviceHistory.getServiceAwards().then(function(awards){
+            model.person.serviceHistory.serviceAwards = awards;
+          });
+        }
+
         $state.transitionTo(transitionTo, $state.params);
       };
- 
+
       var errorFunction = function(error){
         $log.debug("Failure");
       };
 
-      if (angular.isDefined(model.person.serviceHistory.id)) {
-        // update
-        ServiceHistory.update({ id: model.person.serviceHistory.id}, model.person.serviceHistory, successFunction, errorFunction);
+      if (angular.isDefined(model.person.serviceHistory.id)){
+        model.person.serviceHistory.save().then(successFunction, errorFunction);
       } else {
-        // create
-        ServiceHistory.save({person_id: model.person.id}, model.person.serviceHistory, successFunction, errorFunction);
+        model.person.serviceHistory = new ServiceHistory(model.person.serviceHistory);
+        model.person.saveServiceHistory(model.person.serviceHistory).then(successFunction, errorFunction);
       }
-      
-
-        // model.person.serviceHistory.save().then(function(response){
-        //     $log.debug("Success: %s", response);
-        //     // $state.transitionTo(transitionTo, $state.params);
-        // },function(response){
-        //     $log.debug("Error: %s", response);            
-        // });
-        // if (angular.isDefined(model.person.serviceHistory)) {
-        //   if (angular.isDefined(model.person.serviceHistory.id)){
-        //     // update
-        //     ServiceHistory.update({id: model.person.serviceHistory.id}, model.person.serviceHistory);
-        //   } else {
-        //     // create
-        //     ServiceHistory.save({person_id: model.person.id}, model.person.serviceHistory, function(response){
-        //       model.person.serviceHistory.id = response.id;
-        //     });            
-        //   }
-        // } 
-
-        // $log.debug("serviceHistory is: %s", JSON.stringify(model.person.serviceHistory));
-        // $state.transitionTo(transitionTo, $state.params);
     };
 
     model.hasRankType = function(){
@@ -109,14 +90,23 @@ function ContactController($log, $state, $scope, $filter, Person, ServiceHistory
 
     model.addAward = function() {
       // initialize
-      model.person.serviceHistory.service_awards_attributes = model.person.serviceHistory.service_awards_attributes || [];
+      model.person.serviceHistory.serviceAwards = model.person.serviceHistory.serviceAwards || [];
 
-      model.person.serviceHistory.service_awards_attributes.push({award_id: model.awardName.id, quantity: model.awardQuantity || 1, comment: model.awardComment});
+      model.person.serviceHistory.serviceAwards.push({awardId: model.awardName.id, quantity: model.awardQuantity || 1, comment: model.awardComment});
       model.awardName = model.awardQuantity = model.awardComment = "";
     };
 
-    model.deleteAward = function(award) {
+    model.deleteAward = function(award, index) {
+      $log.debug("index: %d", index);
+      $log.debug("award: %s", JSON.stringify(award));
       // add custom logic to remove award if there is an id associated
+      if (angular.isDefined(award) && angular.isDefined(award.id)){
+        // delete through apu
+        award.delete();
+      }
+
+      // splice from index
+      model.person.serviceHistory.serviceAwards.splice(index, 1);
     };
 
 
