@@ -68,10 +68,25 @@ you provide WILL NOT disqualify you from going on a flight. Information is used 
   </div>
 </div>
 
-<div>test</div>
-
-<div class="panel panel-default">
-  <div class="panel-body">
-    Basic panel example
-  </div>
+<div ng-controller="AccordionDemoCtrl">
+  <accordion close-others="oneAtATime">
+    <accordion-group is-open="status.isFirstOpen" >
+      <accordion-heading>
+        1. Condition Type - Condition Name <i class="pull-right fa fa-trash-o"></i>
+      </accordion-heading>
+      Date - Comments
+    </accordion-group>
+    <accordion-group >
+      <accordion-heading>
+        2. Condition Type - Condition Name <i class="pull-right fa fa-trash-o"></i>
+      </accordion-heading>
+      Date - Comments
+    </accordion-group>
+    <accordion-group>
+      <accordion-heading>
+        3. Condition Type - Condition Name <i class="pull-right fa fa-trash-o"></i>
+      </accordion-heading>
+      Date - Comments
+    </accordion-group>
+  </accordion>
 </div>
