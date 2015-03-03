@@ -4,28 +4,6 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-xs-4">
-        <div class="form-group">
-            <label class="control-label">Quantity</label>
-            <input type="text" ng-model="contact.awardQuantity" class="form-control">
-        </div>
-    </div>
-    <div class="col-xs-4">
-        <div class="form-group">
-            <label class="control-label">Quantity</label>
-            <input type="text" ng-model="contact.awardQuantity" class="form-control">
-        </div>
-    </div>
-    <div class="col-xs-4">
-        <div class="form-group">
-            <label class="control-label">Quantity</label>
-            <input type="text" ng-model="contact.awardQuantity" class="form-control">
-        </div>
-    </div>
-</div>
-
-
 <div class="row pad-bottom">
     <div class="col-xs-12 col-sm-12">
         <h5>This information will help Honor Flight serve you best on the trip by meeting all of your needs. The medical information
@@ -33,70 +11,67 @@ you provide WILL NOT disqualify you from going on a flight. Information is used 
     </div>
 </div>
 
-<div class="row">
-    <div class="col-xs-3 col-sm-3">
-        <label class="control-label">Condition Type</label>
-    </div>
-    <div class="col-xs-3 col-sm-3">
-        <label class="control-label">Condition Name</label>
-    </div>
-    <div class="col-xs-2 col-sm-2">
-        <label class="control-label">Last Date</label>
-    </div>
-    <div class="col-xs-3 col-sm-3">
-        <label class="control-label">Comments</label>
-    </div>
-</div>
-<div ng-repeat="medicalCondition in contact.medicalConditions">
-    <div class="row pad-bottom">
-        <div class="col-xs-3 col-sm-3">
-            {{medicalCondition.conditionType}}
-        </div>
-        <div class="col-xs-3 col-sm-3">
-            {{medicalCondition.conditionName}}
-        </div>
-        <div class="col-xs-2 col-sm-2">
-            {{medicalCondition.conditionDate}}
-        </div>
-        <div class="col-xs-3 col-sm-3">
-            {{medicalCondition.conditionComment}}
-        </div>
-        <div class="col-xs-1 col-sm-1">
-            <button class="btn btn-primary" ng-click="contact.deleteCondition(medicalCondition)">Delete</button>
-        </div>
-    </div>
-</div>
-<div class="row pad-bottom">
-    <div class="col-xs-3 col-sm-3">
-        <select class="form-control"
-                ng-model="contact.conditionType"
-                required
-                tabindex="6"
-                ng-options="type.id as type.name for type in medicalCondition.medicalConditionTypes">
+<div class="row" ng-show="contact.showAwards()">
+  <div class="col-xs-12">
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Condition Type</th>
+          <th>Condition Name</th>
+          <th>Last Date</th>
+          <th colspan="2">Comments</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <select class="form-control"
+            ng-model="contact.conditionType"
+            required
+            tabindex="6"
+            ng-options="type.id as type.name for type in medicalCondition.medicalConditionTypes">
             <option value="">Select One</option>
-        </select>
-    </div>
-    <div class="col-xs-3 col-sm-3">
-        <select class="form-control"
-                ng-model="contact.conditionName"
-                required
-                tabindex="6"
-                ng-options="conditionName.id as conditionName.name for conditionName in medicalCondition.medicalConditionNames |  filter: {medical_condition_type_id: contact.conditionType}">
-            <option value="">Select One</option>
-        </select>
-    </div>
-    <div class="col-xs-2 col-sm-2">
-        <input type="text" ng-model="contact.conditionDate" class="form-control" placeholder="MM/YYYY" ui-mask="99/9999">
-    </div>
-    <div class="col-xs-3 col-sm-3">
-        <input type="text" ng-model="contact.conditionComment" class="form-control">
-    </div>
+            </select>
+          </td>
+          <td>
+              <select class="form-control"
+              ng-model="contact.conditionName"
+              required
+              tabindex="6"
+              ng-options="conditionName.id as conditionName.name for conditionName in medicalCondition.medicalConditionNames |  filter: {medical_condition_type_id: contact.conditionType}">
+              <option value="">Select One</option>
+            </select>
+          </td>
+          <td>
+            <input type="text" ng-model="contact.conditionDate" class="form-control" placeholder="MM/YYYY" ui-mask="99/9999">
+          </td>
+          <td>
+            <input type="text" ng-model="contact.conditionComment" class="form-control">
+          </td>
+          <td>
+            <button class="btn btn-primary" ng-click="contact.addCondition()" ng-disabled="contact.canAddToList('medicalConditions')">
+              <i class="fa fa-plus"></i>
+            </button>
+          </td>
+        </tr>
+
+        <tr ng-repeat="medicalCondition in contact.medicalConditions">
+          <td>{{medicalCondition.conditionType}}</td>
+          <td>{{medicalCondition.conditionName}}</td>
+          <td>{{medicalCondition.conditionDate}}</td>
+          <td>{{medicalCondition.conditionComment}}</td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
-<div class="row">
-    <div class="col-xs-3 col-sm-3 pull-left text-left">
-        <button class="btn btn-primary" ng-click="contact.addCondition()" ng-disabled="contact.canAddToList('medicalConditions')">Add Condition</button>
-    </div>
-    <div class="col-xs-3 col-sm-3 pull-right text-right">
-        <button class="btn btn-primary" ng-click="medicalCondition.goTo()">Next</button>
-    </div>
+
+<div>test</div>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    Basic panel example
+  </div>
 </div>

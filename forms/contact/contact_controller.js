@@ -6,19 +6,19 @@ function ContactController($log, $state, $scope, $filter, Person, ServiceHistory
     model.applicationTypes = ['veteran', 'guardian', 'volunteer'];
     model.contactType = $state.params.contactType;
 
-    model.person = new Person();
-    model.person.serviceHistory = new ServiceHistory();
-    // model.person = new Person({firstName: "Jeff", lastName: "Ancel", email: "jancel@gmail.com", birth_date: "20-03-1979"}).save().then(function(response){
-    //   model.person = response;
-    //   model.person.serviceHistory = {};
-    // });
+    //model.person = new Person();
+    //model.person.serviceHistory = new ServiceHistory();
+    model.person = new Person({firstName: "Jeff", lastName: "Ancel", email: "jancel@gmail.com", birth_date: "20-03-1979"}).save().then(function(response){
+      model.person = response;
+      model.person.serviceHistory = {};
+    });
 
     model.submitContactInfo = function(transitionTo){
         model.person.save().then(function(response){
             $log.debug("Success: %s", response);
             $state.transitionTo(transitionTo, $state.params);
         },function(response){
-            $log.debug("Error: %s", response);            
+            $log.debug("Error: %s", response);
         });
     };
 
@@ -28,7 +28,7 @@ function ContactController($log, $state, $scope, $filter, Person, ServiceHistory
         model.person.serviceHistory.id = success.id;
         // here we also need to get the serviceAwards and persist their id's
         // then we can delete them if the trash can is hit
-        if (model.person.serviceHistory.serviceAwards.length !== 0){
+        if (angular.isDefined(model.person.serviceHistory.serviceAwards) && model.person.serviceHistory.serviceAwards.length !== 0){
           model.person.serviceHistory.getServiceAwards().then(function(awards){
             model.person.serviceHistory.serviceAwards = awards;
           });
@@ -41,11 +41,15 @@ function ContactController($log, $state, $scope, $filter, Person, ServiceHistory
         $log.debug("Failure");
       };
 
-      if (angular.isDefined(model.person.serviceHistory.id)){
-        model.person.serviceHistory.save().then(successFunction, errorFunction);
+      if (angular.isDefined(model.person.serviceHistory)) {
+        if (angular.isDefined(model.person.serviceHistory.id)){
+          model.person.serviceHistory.save().then(successFunction, errorFunction);
+        } else {
+          model.person.serviceHistory = new ServiceHistory(model.person.serviceHistory);
+          model.person.saveServiceHistory(model.person.serviceHistory).then(successFunction, errorFunction);
+        }
       } else {
-        model.person.serviceHistory = new ServiceHistory(model.person.serviceHistory);
-        model.person.saveServiceHistory(model.person.serviceHistory).then(successFunction, errorFunction);
+        $state.transitionTo(transitionTo, $state.params);
       }
     };
 
