@@ -1,7 +1,7 @@
-Force.com-Toolkit-for-PHP/
-build/
-api/salesforce.ini
-salesforce.ini
+#Force.com-Toolkit-for-PHP/
+build/tmp/
+#api/salesforce.ini
+#salesforce.ini
 .idea/
 .DS_Store
 #dist/
