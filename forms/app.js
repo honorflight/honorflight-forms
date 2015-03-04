@@ -71,8 +71,8 @@ angular.module('hf').config(function($stateProvider, $urlRouterProvider) {
         }
     });
 
-    $stateProvider.state('applications.medicalCondition', {
-        url: '/medicalCondition',
+    $stateProvider.state('applications.medicalConditions', {
+        url: '/medicalConditions',
         templateUrl: 'templates/veteran/medical_condition.html',
         controller: 'MedicalConditionController as medicalCondition',
         resolve: {

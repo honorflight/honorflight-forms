@@ -41,7 +41,7 @@ function ContactController($log, $state, $scope, $filter, Person, ServiceHistory
         $log.debug("Failure");
       };
 
-      if (angular.isDefined(model.person.serviceHistory)) {
+      if (angular.isDefined(model.person.serviceHistory) && !angular.equals(new ServiceHistory(), model.person.serviceHistory)) {
         if (angular.isDefined(model.person.serviceHistory.id)){
           model.person.serviceHistory.save().then(successFunction, errorFunction);
         } else {
@@ -57,34 +57,23 @@ function ContactController($log, $state, $scope, $filter, Person, ServiceHistory
         return !(angular.isDefined(model.rankType));
     };
 
-    function MedicalCondition(type, name, date, comment){
-        this.conditionType = type;
-        this.conditionName = name;
-        this.conditionDate = date;
-        this.conditionComment = comment;
-        this.conditionId = conditionCount;
-    }
-
-    model.medicalConditions = [];
-
-    model.addCondition = function() {
-        // model.medicalConditions.push(new MedicalCondition(model.conditionType.name, model.conditionName.name, formatDate(model.conditionDate), model.conditionComment));
-        // model.conditionType = model.conditionName = model.conditionDate = model.conditionComment = "";
-        // conditionCount++;
+    /* Medical Condition */
+    model.medicalCondition = {};
+    model.addMedicalCondition = function() {
+      $log.debug("Adding medicalCondition");
+      if (!angular.isDefined(model.person.medicalConditions)){
+        model.person.medicalConditions = [];
+      }
+      model.person.medicalConditions.push(angular.copy(model.medicalCondition));
+      model.medicalCondition = {};
     };
 
-    model.deleteCondition = function(condition) {
-        for(var i=0; i<model.medicalConditions.length; i++) {
-            if(model.medicalConditions[i].conditionId === condition.conditionId) {
-                model.medicalConditions.splice(i, 1);
-                break;
-            }
-        }
-    };
+    model.deleteMedicalCondition = function(idx) {
 
-    model.canAddToList = function(listType) {
-        return model[listType].length >= 5;
     };
+    /* Medical Condition */
+
+
 
     model.serviceAwards = [];
 
@@ -101,8 +90,6 @@ function ContactController($log, $state, $scope, $filter, Person, ServiceHistory
     };
 
     model.deleteAward = function(award, index) {
-      $log.debug("index: %d", index);
-      $log.debug("award: %s", JSON.stringify(award));
       // add custom logic to remove award if there is an id associated
       if (angular.isDefined(award) && angular.isDefined(award.id)){
         // delete through apu

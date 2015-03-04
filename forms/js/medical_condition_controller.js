@@ -2,38 +2,27 @@ function MedicalConditionController($log, $state, medicalConditionTypes, medical
     var model = this;
     $log.debug("MedicalConditionController::Begin");
 
-    // model.conditionInfo = conditionInfo;
-    // model.contactType = $state.params.contactType;
-
     model.promises = [medicalConditionTypes, medicalConditionNames];
 
     model.medicalConditionTypes = medicalConditionTypes;
     model.medicalConditionNames = medicalConditionNames;
 
-    model.goTo = function() {
-        // $state.transitionTo('applications.serviceHistory', {contactType: model.contactType});
+    model.accordianSetting = {
+      isFirstOpen: true,
+      isFirstDisabled: false,
+      oneAtATime: true
+    };
+
+    model.nameFor = function(type, id){
+      var returning = {name: "undefined"};
+      angular.forEach(model[type], function(m){
+        if (m.id === id){ 
+          returning = m;
+        }
+      });
+      return returning;
     };
 
     $log.debug("MedicalConditionController::End");
 }
 angular.module('hf').controller('MedicalConditionController', MedicalConditionController);
-
-angular.module('ui.bootstrap').controller('AccordionDemoCtrl', function ($scope) {
-  $scope.oneAtATime = true;
-
-  $scope.groups = [
-  {
-    title: 'Dynamic Group Header - 1',
-    content: 'Dynamic Group Body - 1'
-  },
-  {
-    title: 'Dynamic Group Header - 2',
-    content: 'Dynamic Group Body - 2'
-  }
-  ];
-
-  $scope.status = {
-    isFirstOpen: true,
-    isFirstDisabled: false
-  };
-});
