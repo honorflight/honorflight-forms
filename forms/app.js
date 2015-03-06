@@ -87,7 +87,9 @@ angular.module('hf').config(function($stateProvider, $urlRouterProvider) {
     });
 
     /* Add New States Above */
-    $urlRouterProvider.otherwise('/applications/home');
+    // $urlRouterProvider.otherwise('/applications/home');\
+    // Initial release will only have one contact type
+    $urlRouterProvider.otherwise('/applications/contactInfo', {contactType: 'veteran'});
 
 });
 

@@ -100,7 +100,10 @@ function ContactController($log, $state, $scope, $filter, Person, ServiceHistory
       model.person.serviceHistory.serviceAwards.splice(index, 1);
     };
 
-
+    model.goTo = function(contactType){
+      $state.transitionTo('applications.contactInfo', {contactType: contactType});
+    };
+    
     $log.debug("ContactController::End");
 }
 angular.module('hf').controller('ContactController', ContactController);
