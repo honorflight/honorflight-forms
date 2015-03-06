@@ -6,12 +6,12 @@ function ContactController($log, $state, $scope, $filter, Person, ServiceHistory
     model.applicationTypes = ['veteran', 'guardian', 'volunteer'];
     model.contactType = $state.params.contactType;
 
-    //model.person = new Person();
-    //model.person.serviceHistory = new ServiceHistory();
-    model.person = new Person({firstName: "Jeff", lastName: "Ancel", email: "jancel@gmail.com", birth_date: "20-03-1979"}).save().then(function(response){
-      model.person = response;
-      model.person.serviceHistory = {};
-    });
+    model.person = new Person();
+    model.person.serviceHistory = new ServiceHistory();
+    // model.person = new Person({firstName: "Jeff", lastName: "Ancel", email: "jancel@gmail.com", birth_date: "20-03-1979"}).save().then(function(response){
+    //   model.person = response;
+    //   model.person.serviceHistory = {};
+    // });
 
     model.submitContactInfo = function(transitionTo){
         model.person.save().then(function(response){
