@@ -10,13 +10,13 @@ function MedicalConditionController($log, $state, medicalConditionTypes, medical
     model.accordianSetting = {
       isFirstOpen: true,
       isFirstDisabled: false,
-      oneAtATime: true
+      oneAtATime: true,
     };
 
     model.nameFor = function(type, id){
       var returning = {name: "undefined"};
       angular.forEach(model[type], function(m){
-        if (m.id === id){ 
+        if (m.id === id){
           returning = m;
         }
       });
