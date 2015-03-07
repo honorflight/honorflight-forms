@@ -1,3 +1,4 @@
+// extract eventually
 function DateSerializer() {
 		var dateSerializer = function(){};
     dateSerializer.prototype.serialize = function (value) {
@@ -31,7 +32,7 @@ angular.module('contact').factory('PersonSerializer', PersonSerializer);
 
 
 
-function Person($log, railsResourceFactory, railsSerializer, ServiceHistory){
+function Person($log, railsResourceFactory, railsSerializer, ServiceHistory, MedicalCondition){
 	var person = railsResourceFactory({
 		url: '/api/people',
 		name: 'person',
@@ -41,6 +42,14 @@ function Person($log, railsResourceFactory, railsSerializer, ServiceHistory){
 	person.prototype.saveServiceHistory = function(data){
 		return ServiceHistory.$post(this.$url('service_histories'), data);
 	};
+
+  person.prototype.saveMedicalCondition = function(data){
+    return MedicalCondition.$post(this.$url('medical_conditions'), data);
+  };
+
+  person.prototype.getMedicalConditions = function(){
+    return MedicalCondition.$get(this.$url('medical_conditions'));
+  }
 
 	return person;
 }

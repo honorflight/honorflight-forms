@@ -18,7 +18,7 @@
           <div class="form-group col-xs-4 col-sm-4">
             <label class="control-label">Condition Type</label>
             <select class="form-control"
-            ng-model="contact.medicalCondition.typeId"
+            ng-model="contact.medicalCondition.medicalConditionTypeId"
             required
             tabindex="6"
             ng-options="type.id as type.name for type in medicalCondition.medicalConditionTypes">
@@ -28,22 +28,22 @@
           <div class="form-group col-xs-4 col-sm-4">
             <label class="control-label">Condition Name</label>
             <select class="form-control"
-            ng-model="contact.medicalCondition.nameId"
+            ng-model="contact.medicalCondition.medicalConditionNameId"
             required
             tabindex="6"
-            ng-options="conditionName.id as conditionName.name for conditionName in medicalCondition.medicalConditionNames |  filter: {medical_condition_type_id: contact.medicalCondition.typeId}">
+            ng-options="conditionName.id as conditionName.name for conditionName in medicalCondition.medicalConditionNames |  filter: {medical_condition_type_id: contact.medicalCondition.medicalConditionTypeId}">
             <option value="">Select One</option>
             </select>
           </div>
           <div class="form-group col-xs-4 col-sm-4">
             <label class="control-label">Date Diagnosed</label>
-            <input type="text" ng-model="contact.medicalCondition.lastDate" class="form-control" placeholder="MM/YYYY" ui-mask="99/9999">
+            <input type="text" ng-model="contact.medicalCondition.diagnosedAt" class="form-control" placeholder="MM/YYYY" ui-mask="99/9999">
           </div>
         </div>
         <div class='row clearfix'>
           <div class="form-group col-9 col-sm-9">
             <label class="control-label">Comments</label>
-            <input type="text" ng-model="contact.medicalCondition.comment" class="form-control">
+            <input type="text" ng-model="contact.medicalCondition.description" class="form-control">
           </div>
           <div class="form-group col-xs-3 col-sm-3">
             <label class="control-label">&nbsp;</label>
@@ -67,12 +67,12 @@
               <button class="pull-right btn btn-primary"><i class="fa fa-trash-o"></i></button>
             </div>
           </span> -->
-          <div vertical-align="middle">{{$index + 1}}. {{medicalCondition.nameFor('medicalConditionTypes', condition.typeId).name}} -
-           {{medicalCondition.nameFor('medicalConditionNames', condition.nameId).name}}<button class="pull-right btn btn-primary" ng-click="contact.deleteMedicalCondition(MedicalCondition, $index)"><i class="fa fa-trash-o"></i></button> <div class="clearfix"></div>
+          <div vertical-align="middle">{{$index + 1}}. {{medicalCondition.nameFor('medicalConditionTypes', condition.medicalConditionTypeId).name}} -
+           {{medicalCondition.nameFor('medicalConditionNames', condition.medicalConditionNameId).name}}<button class="pull-right btn btn-primary" ng-click="contact.deleteMedicalCondition(condition)"><i class="fa fa-trash-o"></i></button> <div class="clearfix"></div>
            </div>
         </accordion-heading>
-          <div>Diagnosed: {{condition.lastDate}}</div>
-          <div>Comments: {{condition.comment}}</div>
+          <div>Diagnosed: {{condition.diagnosedAt}}</div>
+          <div>Comments: {{condition.description}}</div>
       </accordion-group>
     </accordion>
   </div>

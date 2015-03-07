@@ -6,12 +6,12 @@ function ContactController($log, $state, $scope, $filter, Person, ServiceHistory
     model.applicationTypes = ['veteran', 'guardian', 'volunteer'];
     model.contactType = $state.params.contactType;
 
-    model.person = new Person();
-    model.person.serviceHistory = new ServiceHistory();
-    // model.person = new Person({firstName: "Jeff", lastName: "Ancel", email: "jancel@gmail.com", birth_date: "20-03-1979"}).save().then(function(response){
-    //   model.person = response;
-    //   model.person.serviceHistory = {};
-    // });
+    // model.person = new Person();
+    // model.person.serviceHistory = new ServiceHistory();
+    model.person = new Person({firstName: "Jeff", lastName: "Ancel", phone: "314-703-8829", email: "jancel@gmail.com", birth_date: "20-03-1979"}).save().then(function(response){
+      model.person = response;
+      model.person.serviceHistory = {};
+    });
 
     model.submitContactInfo = function(transitionTo){
         model.person.save().then(function(response){
@@ -64,18 +64,23 @@ function ContactController($log, $state, $scope, $filter, Person, ServiceHistory
       if (!angular.isDefined(model.person.medicalConditions)){
         model.person.medicalConditions = [];
       }
-      model.person.medicalConditions.push(angular.copy(model.medicalCondition));
+      model.person.saveMedicalCondition(model.medicalCondition).then(function(success){
+        $log.debug("Success");
+        model.person.getMedicalConditions().then(function(data){
+          model.person.medicalConditions = data;
+        });
+      });
+      // model.person.medicalConditions.push(angular.copy(model.medicalCondition));
       model.medicalCondition = {};
     };
 
     model.deleteMedicalCondition = function(medicalCondition, index) {
-      if (angular.isDefined(medicalCondition) && angular.isDefined(medicalCondition.id)){
-        // delete through apu
-        medicalCondition.delete();
-      }
+      medicalCondition.delete().then(function(){
+        model.person.getMedicalConditions().then(function(data){
+          model.person.medicalConditions = data;
+        });
+      });
 
-      // splice from index
-      model.person.medicalConditions.splice(index, 1);
     };
     /* Medical Condition */
 
