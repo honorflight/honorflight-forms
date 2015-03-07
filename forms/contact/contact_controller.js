@@ -68,8 +68,14 @@ function ContactController($log, $state, $scope, $filter, Person, ServiceHistory
       model.medicalCondition = {};
     };
 
-    model.deleteMedicalCondition = function(idx) {
+    model.deleteMedicalCondition = function(medicalCondition, index) {
+      if (angular.isDefined(medicalCondition) && angular.isDefined(medicalCondition.id)){
+        // delete through apu
+        medicalCondition.delete();
+      }
 
+      // splice from index
+      model.person.medicalConditions.splice(index, 1);
     };
     /* Medical Condition */
 
