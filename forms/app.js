@@ -1,4 +1,4 @@
-angular.module('hf', ['ui.bootstrap', 'ui.utils', 'ui.router', 'ui.select', 'ngAnimate', 'ngResource', 'rails', 'ngLodash', 'angular.filter', 'cgBusy', 'contact']);
+angular.module('hf', ['ui.bootstrap', 'ui.utils', 'ui.router', 'ui.select', 'ngAnimate', 'ngResource', 'ngSanitize', 'rails', 'ngLodash', 'angular.filter', 'cgBusy', 'contact']);
 
 function MainController($log){
   $log.debug("MainController::Begin");
@@ -59,17 +59,6 @@ angular.module('hf').config(function($stateProvider, $urlRouterProvider) {
         }
     });
 
-    $stateProvider.state('applications.serviceAwards', {
-        url: '/serviceAwards',
-        templateUrl: 'templates/service_awards.html',
-        controller: 'ServiceAwardsController as serviceAwards',
-        resolve: {
-          referenceResource: 'Reference',
-          serviceAwards: function(referenceResource){
-            return referenceResource.query({object_type: 'awards'});
-          }
-        }
-    });
 
     $stateProvider.state('applications.medicalConditions', {
         url: '/medicalConditions',
@@ -86,9 +75,16 @@ angular.module('hf').config(function($stateProvider, $urlRouterProvider) {
         }
     });
 
-    $stateProvider.state('applications.thankyou', {
-      url: '/thankyou',
-      templateUrl: 'templates/thank_you.html',
+    $stateProvider.state('applications.thanks', {
+      url: '/thanks',
+      templateUrl: 'templates/simple_page.html',
+      controller: 'SimplePageController as simplePage',
+      resolve: {
+        simplePageResource: 'SimplePage',
+        simplePage: function(simplePageResource){
+          return simplePageResource.get({key: "thank_you"});
+        }
+      }
     });
 
 

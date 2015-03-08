@@ -49,7 +49,7 @@ function Person($log, railsResourceFactory, railsSerializer, ServiceHistory, Med
 
   person.prototype.getMedicalConditions = function(){
     return MedicalCondition.$get(this.$url('medical_conditions'));
-  }
+  };
 
 	return person;
 }

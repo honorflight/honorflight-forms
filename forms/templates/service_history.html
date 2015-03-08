@@ -13,28 +13,6 @@
         <label class="control-label">Start Year</label>
         <input type="number" ng-model="contact.person.serviceHistory.startYear" class="form-control">
       </div>
-      <!-- (Array) contact.person.serviceHistory.service_awards_attributes
-      t.integer :quantity
-      t.text :comment
-      t.references :service_history, index: true
-      t.references :award, index: true
-
-      [{"quantity":2, "comment":"some arbitrary comment", ..., "award_id":2}, ... ]
-      PUT http://honorflight.dev/api/service_histories/3
-      {"id":3,
- "start_year":null,
- "end_year":null,
- "activity":null,
- "story":null,
- "branch_id":1,
- "rank_id":null,
- "rank_type_id":null,
- "person_id":6,
- "service_awards_attributes": [
-   {"quantity":2, "comment":"some arbitrary comment", "award_id":1}
- ]
-}
-    -->
     </div>
     <div class="col-xs-6 col-sm-6">
       <div>
