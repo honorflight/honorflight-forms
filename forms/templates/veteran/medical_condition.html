@@ -37,7 +37,7 @@
           </div>
           <div class="form-group col-xs-4 col-sm-4">
             <label class="control-label">Date Diagnosed</label>
-            <input type="text" ng-model="contact.medicalCondition.diagnosedAt" class="form-control" placeholder="MM/YYYY" ui-mask="99/9999">
+            <input type="date" ng-model="contact.medicalCondition.diagnosedAt" class="form-control" placeholder="MM/YYYY" ui-mask="99/9999">
           </div>
         </div>
         <div class='row clearfix'>
@@ -80,7 +80,7 @@
 
 <div class="row">
   <div class="col-xs-12 text-right">
-    <button class="btn btn-primary" ng-click="contact.submitMedicalCondition('applications.thankyou')">Next</button>
+    <button class="btn btn-primary" ng-click="contact.formFinish('applications.thankyou')">Finish</button>
   </div>
 </div>
 </div>

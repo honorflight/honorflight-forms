@@ -86,6 +86,12 @@ angular.module('hf').config(function($stateProvider, $urlRouterProvider) {
         }
     });
 
+    $stateProvider.state('applications.thankyou', {
+      url: '/thankyou',
+      templateUrl: 'templates/thank_you.html',
+    });
+
+
     /* Add New States Above */
     // $urlRouterProvider.otherwise('/applications/home');\
     // Initial release will only have one contact type

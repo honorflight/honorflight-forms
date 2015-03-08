@@ -82,6 +82,9 @@ function ContactController($log, $state, $scope, $filter, Person, ServiceHistory
       });
 
     };
+    model.formFinish = function(transitionTo){
+        $state.transitionTo(transitionTo, $state.params);
+      }
     /* Medical Condition */
 
 
@@ -114,7 +117,7 @@ function ContactController($log, $state, $scope, $filter, Person, ServiceHistory
     model.goTo = function(contactType){
       $state.transitionTo('applications.contactInfo', {contactType: contactType});
     };
-    
+
     $log.debug("ContactController::End");
 }
 angular.module('hf').controller('ContactController', ContactController);
