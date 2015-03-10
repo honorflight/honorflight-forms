@@ -12,7 +12,7 @@ function ContactInfoController($log, $state, $modal, wars, shirtSizes, SimplePag
 
         var modalInstance = $modal.open({
           templateUrl: 'templates/simple_page_modal.html',
-          controller: 'SimplePageController as simplePage',
+          controller: 'SimplePageModalController as simplePage',
           size: 'lg',
           windowClass: 'bootstrap',
           resolve: {

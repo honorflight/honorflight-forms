@@ -1,4 +1,4 @@
-function SimplePageController($log, $sce, $modalInstance, simplePage){
+function SimplePageController($log, $sce, simplePage){
   $log.debug("SimplePageController::Begin");
   var model = this;
 
@@ -6,14 +6,6 @@ function SimplePageController($log, $sce, $modalInstance, simplePage){
 
   model.trustedHtml = function(){
     return $sce.trustAsHtml(model.page.html);
-  };
-
-  model.accept = function(){
-    $modalInstance.close('accepted');
-  };
-
-  model.cancel = function(){
-    $modalInstance.dismiss('cancel');
   };
 
   $log.debug("SimplePageController::End");
