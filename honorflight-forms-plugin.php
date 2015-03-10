@@ -33,8 +33,6 @@ require "api/routes.php";
 
 function inject_css() {
     if (is_page('Application')) {
-        /* Jeff\'s CRAP */;
-        /* PUKE */
         $custom_css_path = "/wp-content/plugins/honorflight-forms/honorflight-forms-plugin/dist/app.full.min.css";
         ?><link rel='stylesheet' href='<?php echo $custom_css_path; ?>' type='text/css' /> <?php
         echo '';
@@ -65,7 +63,7 @@ function app_type($content)
         $vet='[[vetapp]]';
 
         if (strpos($content, $vet) !== false) {
-            return str_replace("[[vetapp]]", "<div ng-app='hf' ng-controller='MainController as main' class='bootstrap'><div id='content' class='container'><div class='row'><div ui-view=''></div></div></div></div>", $content);
+            return str_replace("[[vetapp]]", "<div ng-app='hf' ng-controller='MainController as main'><div class='container'><div class='row'><div ui-view=''></div></div></div></div>", $content);
         } 
         else {
             //else on blog page / home page etc, just return content as usual.
