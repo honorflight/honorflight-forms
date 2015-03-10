@@ -14,13 +14,16 @@ function ContactController($log, $state, $scope, $filter, Person, ServiceHistory
     //   model.person.serviceHistory = {};
     // });
 
-    model.submitContactInfo = function(transitionTo){
-        model.person.save().then(function(response){
-            $log.debug("Success: %s", response);
-            $state.transitionTo(transitionTo, $state.params);
-        },function(response){
-            $log.debug("Error: %s", response);
-        });
+    model.submitContactInfo = function(form, transitionTo){
+        if(form.$valid) {
+            model.person.save().then(function (response) {
+                $log.debug("Success: %s", response);
+                $state.transitionTo(transitionTo, $state.params);
+            }, function (response) {
+                model.nameError = "Test";
+                $log.debug("Error: %s", response);
+            });
+        }
     };
 
     model.submitServiceHistory = function(transitionTo){
