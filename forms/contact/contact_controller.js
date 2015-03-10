@@ -122,6 +122,10 @@ function ContactController($log, $state, $scope, $filter, Person, ServiceHistory
       $state.transitionTo('applications.contactInfo', {contactType: contactType});
     };
 
+    model.goBack = function(transitionTo) {
+        $state.transitionTo(transitionTo, $state.params);
+    };
+
     $log.debug("ContactController::End");
 }
 angular.module('hf').controller('ContactController', ContactController);
