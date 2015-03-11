@@ -85,6 +85,18 @@
       </select>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" ng-model="contact.person.releaseInfo">
+          I would like to share my contact information with other veterans on the same flight. <a ng-click="contactInfo.open('veteran_release_info')">More details...</a>
+        </label>
+      </div>
+    </div>
+  </div>
+
   <div class="row">
     <div class="col-xs-10"><p>By clicking next, I am stating that I have reviewed and I accept the <a ng-click="contactInfo.open('terms_conditions')">terms and conditions</a> and <a ng-click="contactInfo.open('privacy')">privacy policy</a>.</p></div>
       <div class="col-xs-2 pull-right text-right">
