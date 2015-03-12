@@ -1,8 +1,8 @@
 <div class="modal-header">
-  <h3 class="modal-title">{{simplePage.page.title}}</h3>
+  <h3 class="modal-title text-left">{{simplePage.page.title}}</h3>
 </div>
 <div class="modal-body">
-  <div ng-bind-html="simplePage.trustedHtml()"></div>
+  <div ng-bind-html="simplePage.trustedHtml()" class="text-left"></div>
 </div>
 <div class="modal-footer">
   <button class="btn btn-primary" ng-click="simplePage.accept()">OK</button>
