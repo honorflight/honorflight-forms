@@ -6,13 +6,13 @@ function ContactController($log, $state, $scope, $filter, Person, ServiceHistory
     model.applicationTypes = ['veteran', 'guardian', 'volunteer'];
     model.contactType = $state.params.contactType;
 
-    model.person = new Person();
-    model.person.serviceHistory = new ServiceHistory();
+    // model.person = new Person();
+    // model.person.serviceHistory = new ServiceHistory();
     // MOCK IT (toggle above and below to fake a person)
-    // model.person = new Person({firstName: "Jeff", lastName: "Ancel", phone: "314-703-8829", email: "jancel@gmail.com", birth_date: "20-03-1979"}).save().then(function(response){
-    //   model.person = response;
-    //   model.person.serviceHistory = {};
-    // });
+    model.person = new Person({firstName: "Jeff", lastName: "Ancel", phone: "314-703-8829", email: "jancel@gmail.com", birth_date: "20-03-1979"}).save().then(function(response){
+      model.person = response;
+      model.person.serviceHistory = {};
+    });
 
     model.submitContactInfo = function(form, transitionTo){
         if(form.$valid) {
