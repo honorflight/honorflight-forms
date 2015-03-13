@@ -8,20 +8,20 @@
   </div>
 
   <div class="row">
-    <div class="form-group col-xs-5 col-sm-5">
+    <div class="form-group col-xs-4 col-sm-4">
       <label class="control-label">First Name</label>
-      <input type="text" ng-model="contact.person.firstName" name="fName" class="form-control" required>
+      <input type="text" ng-model="contact.person.firstName" name="fName" class="form-control" placeholder="John"required>
         <div ng-show="generalInfoForm.$submitted || generalInfoForm.fName.$touched">
             <div ng-show="generalInfoForm.fName.$error.required" class="errorMessage">First Name is Required.</div>
         </div>
     </div>
-    <div class="form-group col-xs-2 col-sm-2">
-      <label class="control-label">Middle</label>
-      <input type="text" ng-model="contact.person.middleName" class="form-control">
+    <div class="form-group col-xs-4 col-sm-4">
+      <label class="control-label">Middle Name</label>
+      <input type="text" ng-model="contact.person.middleName" class="form-control" placeholder="Alfred">
     </div>
-    <div class="form-group col-xs-5 col-sm-5">
+    <div class="form-group col-xs-4 col-sm-4">
       <label class="control-label">Last Name</label>
-      <input type="text" ng-model="contact.person.lastName" name="lName" class="form-control" required>
+      <input type="text" ng-model="contact.person.lastName" name="lName" class="form-control" placeholder="Doe" required>
         <div ng-show="generalInfoForm.$submitted || generalInfoForm.lName.$touched">
             <div ng-show="generalInfoForm.lName.$error.required" class="errorMessage">Last Name is Required.</div>
         </div>
@@ -30,13 +30,13 @@
   <div class="row">
       <div class="form-group col-xs-12 col-sm-12">
           <label class="control-label">Address</label>
-          <input type="text" ng-model="contact.person.address.street1" class="form-control">
+          <input type="text" ng-model="contact.person.address.street1" class="form-control" placeholder="1234 Somewhere Dr.">
       </div>
   </div>
   <div class="row">
       <div class="form-group col-xs-6 col-sm-6">
           <label class="control-label">City</label>
-          <input type="text" ng-model="contact.person.address.city" class="form-control">
+          <input type="text" ng-model="contact.person.address.city" class="form-control" placeholder="Springfield">
       </div>
       <div class="form-group col-xs-2 col-sm-2">
           <label class="control-label">State</label>
@@ -50,7 +50,7 @@
   <div class="row">
     <div class="form-group col-xs-6 col-sm-6">
       <label class="control-label">Email Address</label>
-      <input type="text" ng-model="contact.person.email" name="email" class="form-control">
+      <input type="text" ng-model="contact.person.email" name="email" class="form-control" placeholder="John.A.Doe@example.com">
     </div>
     <div class="form-group col-xs-6 col-sm-6">
       <label class="control-label">Phone Number</label>
@@ -70,7 +70,7 @@
       </select>
     </div>
     <div class="form-group col-xs-4">
-      <label class="control-label">Birthday</label>
+      <label class="control-label">Date of Birth</label>
       <input type="date" ng-model="contact.person.birthDate" name="birthDate" class="form-control" required>
         <div ng-show="generalInfoForm.$submitted || generalInfoForm.birthDate.$touched">
             <div ng-show="generalInfoForm.birthDate.$error.required" class="errorMessage">Birth Date is Required.</div>
