@@ -81,7 +81,7 @@
       <label class="control-label">War</label>
       <select class="form-control"
               ng-model="contact.person.warId"
-              ng-options="war.id as war.name for war in contactInfo.wars">
+              ng-options="war.id as war.name_with_years for war in contactInfo.wars">
               <option value="">Select One</option>
       </select>
     </div>
