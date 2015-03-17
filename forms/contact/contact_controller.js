@@ -9,7 +9,7 @@ function ContactController($log, $state, $scope, $filter, Person, ServiceHistory
     // model.person = new Person();
     // model.person.serviceHistory = new ServiceHistory();
     // MOCK IT (toggle above and below to fake a person)
-    model.person = new Person({firstName: "Jeff", lastName: "Ancel", phone: "314-703-8829", email: "jancel@gmail.com", birth_date: "20-03-1979"}).save().then(function(response){
+    model.person = new Person({firstName: "Jeff", lastName: "Ancel", phone: "314-703-8829", email: "jancel@gmail.com", birth_date: "03/20/1979"}).save().then(function(response){
       model.person = response;
       model.person.serviceHistory = {};
     });
