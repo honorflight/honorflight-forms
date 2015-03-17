@@ -99,10 +99,20 @@ function ContactController($log, $state, $scope, $filter, Person, ServiceHistory
 
     model.addAward = function() {
       // initialize
-      model.person.serviceHistory.serviceAwards = model.person.serviceHistory.serviceAwards || [];
+        var quantity = parseInt(model.awardQuantity, 10);
+        if(quantity < 1 || quantity > 100) {
+            model.serviceAwardError = true;
+        } else {
+            model.serviceAwardError = false;
+            model.person.serviceHistory.serviceAwards = model.person.serviceHistory.serviceAwards || [];
 
-      model.person.serviceHistory.serviceAwards.push({awardId: model.awardName.id, quantity: model.awardQuantity || 1, comment: model.awardComment});
-      model.awardName = model.awardQuantity = model.awardComment = "";
+            model.person.serviceHistory.serviceAwards.push({
+                awardId: model.awardName.id,
+                quantity: model.awardQuantity || 1,
+                comment: model.awardComment
+            });
+            model.awardName = model.awardQuantity = model.awardComment = "";
+        }
     };
 
     model.deleteAward = function(award, index) {
