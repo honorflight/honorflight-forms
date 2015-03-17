@@ -110,7 +110,7 @@
               </select>
             </td>
             <td>
-              <input type="text" ng-model="contact.awardQuantity" ui-mask="9" class="form-control" style="width:75px;" >
+              <input type="text" ng-model="contact.awardQuantity" class="form-control" style="width:75px;" >
             </td>
             <td class="">
               <input type="text" ng-model="contact.awardComment" class="form-control" placeholder="Tell us the story about this award...">
@@ -121,6 +121,9 @@
               </button>
             </td>
           </tr>
+          <div ng-show="contact.serviceAwardError">
+              <div ng-show="contact.serviceAwardError" class="errorMessage">Quantity must be between 1 and 100.</div>
+          </div>
           <tr ng-repeat="award in contact.person.serviceHistory.serviceAwards ">
             <td>{{serviceHistory.awardNameFor(award.awardId)}}</td>
             <td>{{award.quantity}}</td>
