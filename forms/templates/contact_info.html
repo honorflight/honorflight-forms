@@ -67,7 +67,7 @@
       <label class="control-label">Shirt Size</label>
       <select class="form-control"
               ng-model="contact.person.shirtSizeId"
-              ng-options="shirtSize.id as shirtSize.name for shirtSize in contactInfo.shirtSizes">
+              ng-options="shirtSize.id as shirtSize.abbreviation for shirtSize in contactInfo.shirtSizes">
               <option value="">Select One</option>
       </select>
     </div>
