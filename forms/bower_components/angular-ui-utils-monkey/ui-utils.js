@@ -473,7 +473,8 @@ angular.module('ui.mask', [])
             originalPlaceholder = iAttrs.placeholder,
             originalMaxlength = iAttrs.maxlength,
           // Vars used exclusively in eventHandler()
-            oldValue, oldValueUnmasked, oldCaretPosition, oldSelectionLength;
+            oldValue, oldValueUnmasked, oldCaretPosition, oldSelectionLength,
+            useViewValue;
 
           function initialize(maskAttr){
             if (!angular.isDefined(maskAttr)) {
@@ -526,6 +527,8 @@ angular.module('ui.mask', [])
             if (value === '' && controller.$error.required !== undefined) {
               controller.$setValidity('required', false);
             }
+            if (useViewValue)
+              value = value.length ? maskValue(value) : '';
             return isValid ? value : undefined;
           }
 
@@ -553,6 +556,9 @@ angular.module('ui.mask', [])
           }
 
           iAttrs.$observe('uiMask', initialize);
+          iAttrs.$observe('uiMaskUseViewvalue', function (useVVal) {
+            useViewValue = useVVal == 'true';
+          });
           iAttrs.$observe('placeholder', initPlaceholder);
           controller.$formatters.push(formatter);
           controller.$parsers.push(parser);

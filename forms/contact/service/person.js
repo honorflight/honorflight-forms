@@ -2,7 +2,10 @@
 function DateSerializer() {
 		var dateSerializer = function(){};
     dateSerializer.prototype.serialize = function (value) {
-        return value;
+      var parts = value.split('/');
+      return new Date(parseInt(parts[2], 10),
+                  parseInt(parts[0], 10) - 1,
+                  parseInt(parts[1], 10));
     };
     dateSerializer.prototype.deserialize = function (jsonDate) {
         if (angular.isDate(jsonDate)) {
