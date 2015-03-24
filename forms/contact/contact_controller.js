@@ -8,11 +8,6 @@ function ContactController($log, $state, $scope, $filter, Person, ServiceHistory
 
     model.person = new Person();
     model.person.serviceHistory = new ServiceHistory();
-    // MOCK IT (toggle above and below to fake a person)
-    // model.person = new Person({firstName: "Jeff", lastName: "Ancel", phone: "314-703-8829", email: "jancel@gmail.com", birth_date: "03/20/1979"}).save().then(function(response){
-    //   model.person = response;
-    //   model.person.serviceHistory = {};
-    // });
 
     model.submitContactInfo = function(form, transitionTo){
         if(form.$valid) {
@@ -43,6 +38,10 @@ function ContactController($log, $state, $scope, $filter, Person, ServiceHistory
         $log.debug("Failure");
       };
 
+      if (model.awardQuantity !== "" || model.awardName !== "" || model.awardComment !== "") {
+        model.addAward();
+      }
+
       if (angular.isDefined(model.person.serviceHistory) && !angular.equals(new ServiceHistory(), model.person.serviceHistory)) {
         if (angular.isDefined(model.person.serviceHistory.id)){
           model.person.serviceHistory.save().then(successFunction, errorFunction);
@@ -54,6 +53,52 @@ function ContactController($log, $state, $scope, $filter, Person, ServiceHistory
         $state.transitionTo(transitionTo, $state.params);
       }
     };
+
+    model.serviceAwards = [];
+
+    model.showAwards = function(){
+      return angular.isDefined(model.person.serviceHistory);
+    };
+
+    model.addAward = function() {
+      // initialize
+        var quantity = parseInt(model.awardQuantity, 10);
+        if(quantity < 1 || quantity > 100) {
+            model.serviceAwardError = true;
+        } else {
+            model.serviceAwardError = false;
+            model.person.serviceHistory.serviceAwards = model.person.serviceHistory.serviceAwards || [];
+
+            var serviceAward = null;
+            if (angular.isUndefined(model.awardName)){
+              serviceAward = new ServiceAward({
+                quantity: model.awardQuantity || 1,
+                comment: model.awardComment
+              });
+            } else {
+              serviceAward = new ServiceAward({
+                awardId: model.awardName.id,
+                quantity: model.awardQuantity || 1,
+                comment: model.awardComment
+              });
+            }
+
+            model.person.serviceHistory.serviceAwards.push(serviceAward);
+            model.awardName = model.awardQuantity = model.awardComment = "";
+        }
+    };
+
+    model.deleteAward = function(award, index) {
+      // add custom logic to remove award if there is an id associated
+      if (angular.isDefined(award) && angular.isDefined(award.id)){
+        // delete through apu
+        award.delete();
+      }
+
+      // splice from index
+      model.person.serviceHistory.serviceAwards.splice(index, 1);
+    };
+
 
     model.hasRankType = function(){
         return !(angular.isDefined(model.rankType));
@@ -84,47 +129,18 @@ function ContactController($log, $state, $scope, $filter, Person, ServiceHistory
       });
 
     };
-    model.formFinish = function(transitionTo){
+
+    model.submitMedicalConditions = function(transitionTo){
+      if (!angular.equals(model.medicalCondition, {})){
+        model.addMedicalCondition();
+      }
       $state.transitionTo(transitionTo, $state.params);
-    };
+    }
     /* Medical Condition */
 
 
 
-    model.serviceAwards = [];
 
-    model.showAwards = function(){
-      return angular.isDefined(model.person.serviceHistory);
-    };
-
-    model.addAward = function() {
-      // initialize
-        var quantity = parseInt(model.awardQuantity, 10);
-        if(quantity < 1 || quantity > 100) {
-            model.serviceAwardError = true;
-        } else {
-            model.serviceAwardError = false;
-            model.person.serviceHistory.serviceAwards = model.person.serviceHistory.serviceAwards || [];
-
-            model.person.serviceHistory.serviceAwards.push({
-                awardId: model.awardName.id,
-                quantity: model.awardQuantity || 1,
-                comment: model.awardComment
-            });
-            model.awardName = model.awardQuantity = model.awardComment = "";
-        }
-    };
-
-    model.deleteAward = function(award, index) {
-      // add custom logic to remove award if there is an id associated
-      if (angular.isDefined(award) && angular.isDefined(award.id)){
-        // delete through apu
-        award.delete();
-      }
-
-      // splice from index
-      model.person.serviceHistory.serviceAwards.splice(index, 1);
-    };
 
     model.goTo = function(contactType){
       $state.transitionTo('applications.contactInfo', {contactType: contactType});
