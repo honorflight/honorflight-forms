@@ -75,7 +75,7 @@
         <label class="control-label">Rank</label>
         <select class="form-control"
         ng-model="contact.person.serviceHistory.rankId"
-        ng-options="rank.id as rank.name for rank in serviceHistory.ranks | filter: {rank_type_id: contact.person.serviceHistory.rankTypeId, branch_id: contact.person.serviceHistory.branchId}">
+        ng-options="rank.id as rank.name for rank in serviceHistory.ranks | filter: {rank_type_id: contact.person.serviceHistory.rankTypeId, branch_id: contact.person.serviceHistory.branchId}:true">
           <option value="">Select One</option>
         </select>
       </div>
