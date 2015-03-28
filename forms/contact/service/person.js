@@ -35,16 +35,20 @@ angular.module('contact').factory('PersonSerializer', PersonSerializer);
 
 
 
-function Person($log, railsResourceFactory, railsSerializer, ServiceHistory, MedicalCondition){
+function Person($log, railsResourceFactory, railsSerializer, AlternateContact, ServiceHistory, MedicalCondition){
 	var person = railsResourceFactory({
 		url: '/api/people',
 		name: 'person',
 		serializer: 'PersonSerializer'
 	});
 
-	person.prototype.saveServiceHistory = function(data){
-		return ServiceHistory.$post(this.$url('service_histories'), data);
-	};
+  person.prototype.saveAlternateContact = function(data){
+    return AlternateContact.$post(this.$url('contacts'), data);
+  };
+
+  person.prototype.saveServiceHistory = function(data){
+    return ServiceHistory.$post(this.$url('service_histories'), data);
+  };
 
   person.prototype.saveMedicalCondition = function(data){
     return MedicalCondition.$post(this.$url('medical_conditions'), data);

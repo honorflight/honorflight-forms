@@ -1,4 +1,4 @@
-function ContactController($log, $state, $scope, $filter, Person, ServiceHistory, ServiceAward) {
+function ContactController($log, $state, $scope, $filter, Person, AlternateContact, ServiceHistory, ServiceAward) {
     $log.debug("ContactController::Begin");
     var model = this;
     var conditionCount = 0;
@@ -6,22 +6,39 @@ function ContactController($log, $state, $scope, $filter, Person, ServiceHistory
     model.applicationTypes = ['veteran', 'guardian', 'volunteer'];
     model.contactType = $state.params.contactType;
 
-    // model.person = new Person();
-    // model.person.serviceHistory = new ServiceHistory();
+    model.person = new Person();
+    model.person.alternateContact = new AlternateContact();
+    model.person.serviceHistory = new ServiceHistory();
     // MOCK IT (toggle above and below to fake a person)
-    model.person = new Person({firstName: "Jeff", lastName: "Ancel", phone: "314-703-8829", email: "jancel@gmail.com", birth_date: "03/20/1979"}).save().then(function(response){
-      model.person = response;
-      model.person.serviceHistory = {};
-    });
+    // model.person = new Person({firstName: "Jeff", lastName: "Ancel", phone: "314-703-8829", email: "jancel@gmail.com", birth_date: "03/20/1979"}).save().then(function(response){
+    //   model.person = response;
+    //   model.person.serviceHistory = {};
+    // });
+
 
     model.submitContactInfo = function(form, transitionTo){
         if(form.$valid) {
-            model.person.save().then(function (response) {
-                $state.transitionTo(transitionTo, $state.params);
-            }, function (response) {
-                // Do nothing
-            });
+          model.person.save().then(function (response) {
+            // $state.transitionTo(transitionTo, $state.params);
+          }, function (response) {
+              // Do nothing
+          });
+          $state.transitionTo(transitionTo, $state.params);
         }
+    };
+
+    model.submitAlternateContact = function(form, transitionTo){
+      if (form.$valid){
+        $log.debug("Submitting and then moving on");
+        if (angular.isDefined(model.person.alternateContact.id)){
+          model.person.alternateContact.save();
+        } else {
+          model.person.saveAlternateContact(model.person.alternateContact).then(function(data){
+            model.person.alternateContact.id = data.id;
+          });
+        }
+        $state.transitionTo(transitionTo, $state.params);
+      }
     };
 
     model.submitServiceHistory = function(transitionTo){

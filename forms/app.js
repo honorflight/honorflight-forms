@@ -20,7 +20,7 @@ angular.module('hf').config(function($stateProvider, $urlRouterProvider) {
 
     $stateProvider.state('applications.home', {
       url: '/home',
-      templateUrl: 'templates/home.html'
+      templateUrl: 'templates/home.html',
     });
 
     $stateProvider.state('applications.contactInfo', {
@@ -34,6 +34,18 @@ angular.module('hf').config(function($stateProvider, $urlRouterProvider) {
         },
         shirtSizes: function(referenceResource){
           return referenceResource.query({object_type: 'shirt_sizes'});
+        }
+      }
+    });
+
+    $stateProvider.state('applications.alternateContact', {
+      url: '/alternateContact',
+      templateUrl: 'templates/alternate_contact.html',
+      controller: 'AlternateContactController as alternateContact',
+      resolve: {
+        referenceResource: 'Reference',
+        contactRelationships: function(referenceResource){
+          return referenceResource.query({object_type: 'contact_relationships'});
         }
       }
     });
