@@ -15,7 +15,7 @@
     <div class="panel panel-default">
       <div class="panel-body ">
         <div class="row">
-          <div class="form-group col-xs-3">
+          <div class="form-group col-xs-4">
             <label class="control-label">Condition Type</label>
             <select class="form-control"
             ng-model="contact.medicalCondition.medicalConditionTypeId"
@@ -23,63 +23,83 @@
             tabindex="6"
             ng-options="type.id as type.name for type in medicalCondition.medicalConditionTypes">
             <option value="">Select One</option>
-            </select>
-          </div>
-          <div class="form-group col-xs-3">
-            <label class="control-label">Condition Name</label>
-            <select class="form-control"
-            ng-model="contact.medicalCondition.medicalConditionNameId"
-            required
-            tabindex="6"
-            ng-options="conditionName.id as conditionName.name for conditionName in medicalCondition.medicalConditionNames |  filter: {medical_condition_type_id: contact.medicalCondition.medicalConditionTypeId}">
-            <option value="">Select One</option>
-            </select>
-          </div>
-          <div class="form-group col-xs-3">
-            <label class="control-label">Date Diagnosed</label>
-            <input type="text" ng-model="contact.medicalCondition.diagnosedAt" class="form-control" placeholder="MM/YYYY" ui-mask="99/9999">
-          </div>
-          <div class="form-group col-xs-3">
-            <label class="control-label">Last Occurrence</label>
-            <input type="text" ng-model="contact.medicalCondition.diagnosedLast" class="form-control" placeholder="MM/YYYY" ui-mask="99/9999">
-          </div>
+          </select>
         </div>
-        <div class='row clearfix'>
-          <div class="form-group col-9 col-sm-9">
-            <label class="control-label">Comments</label>
-            <input type="text" ng-model="contact.medicalCondition.description" class="form-control">
-          </div>
-          <div class="form-group col-xs-3 col-sm-3">
-            <label class="control-label">&nbsp;</label>
-            <button class="btn btn-primary form-control" ng-click="contact.addMedicalCondition()">
-              <i class="fa fa-plus"></i>
-            </button>
-          </div>
-        </div>
+        <div class="form-group col-xs-4">
+          <label class="control-label">Condition Name</label>
+          <select class="form-control"
+          ng-model="contact.medicalCondition.medicalConditionNameId"
+          required
+          tabindex="6"
+          ng-options="conditionName.id as conditionName.name for conditionName in medicalCondition.medicalConditionNames |  filter: {medical_condition_type_id: contact.medicalCondition.medicalConditionTypeId}">
+          <option value="">Select One</option>
+        </select>
+      </div>
+      <div class="form-group col-xs-4">
+        <label class="control-label">Last Occurrence</label>
+        <input type="text" ng-model="contact.medicalCondition.diagnosedLast" class="form-control" placeholder="MM/YYYY" ui-mask="99/9999">
+      </div>
+    </div>
+    <div class='row clearfix'>
+      <div class="form-group col-9 col-sm-9">
+        <label class="control-label">Comments</label>
+        <input type="text" ng-model="contact.medicalCondition.description" class="form-control">
+      </div>
+      <div class="form-group col-xs-3 col-sm-3">
+        <label class="control-label">&nbsp;</label>
+        <button class="btn btn-primary form-control" ng-click="contact.addMedicalCondition()">
+          <i class="fa fa-plus"></i>
+        </button>
       </div>
     </div>
   </div>
 </div>
+</div>
+</div>
 
 <div class="row">
   <div class="col-xs-12">
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Condition Type</th>
+          <th>Condition Name</th>
+          <th>last occurance</th>
+          <th colspan="2">Comments</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="condition in contact.person.medicalConditions">
+          <td>{{medicalCondition.nameFor('medicalConditionTypes', condition.medicalConditionTypeId).name}}</td>
+          <td>{{medicalCondition.nameFor('medicalConditionNames', condition.medicalConditionNameId).name}}</td>
+          <td>{{condition.diagnosedLast}}</td>
+          <td>{{condition.description}}</td>
+          <td>
+            <button class="pull-right btn btn-primary" ng-click="contact.deleteMedicalCondition(condition)"><i class="fa fa-trash-o"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <!-- <div class="col-xs-12">
     <accordion close-others="true">
-      <accordion-group is-open="true" ng-repeat="condition in contact.person.medicalConditions">
-        <accordion-heading>
-          <div vertical-align="middle">{{$index + 1}}. {{medicalCondition.nameFor('medicalConditionTypes', condition.medicalConditionTypeId).name}} -
-           {{medicalCondition.nameFor('medicalConditionNames', condition.medicalConditionNameId).name}}<button class="pull-right btn btn-primary" ng-click="contact.deleteMedicalCondition(condition)"><i class="fa fa-trash-o"></i></button> <div class="clearfix"></div>
-           </div>
-        </accordion-heading>
-          <div>Diagnosed: {{condition.diagnosedAt}}</div>
-          <div>Comments: {{condition.description}}</div>
-      </accordion-group>
-    </accordion>
+    <accordion-group is-open="true" ng-repeat="condition in contact.person.medicalConditions">
+    <accordion-heading>
+    <div vertical-align="middle">{{$index + 1}}. {{medicalCondition.nameFor('medicalConditionTypes', condition.medicalConditionTypeId).name}} -
+    {{medicalCondition.nameFor('medicalConditionNames', condition.medicalConditionNameId).name}}<button class="pull-right btn btn-primary" ng-click="contact.deleteMedicalCondition(condition)"><i class="fa fa-trash-o"></i></button> <div class="clearfix"></div>
   </div>
+</accordion-heading>
+<div>Diagnosed: {{condition.diagnosedAt}}</div>
+<div>Comments: {{condition.description}}</div>
+</accordion-group>
+</accordion>
+</div> -->
 </div>
 
 <div class="row">
   <div class="col-xs-12 text-right">
-      <button class="btn btn-secondary" ng-click="contact.goBack('applications.serviceHistory')">Back</button>
+    <button class="btn btn-secondary" ng-click="contact.goBack('applications.serviceHistory')">Back</button>
     <button class="btn btn-primary" ng-click="contact.submitMedicalConditions('applications.thanks')">Finish</button>
   </div>
 </div>
