@@ -20,7 +20,7 @@
     <div class="form-group col-xs-4 col-sm-4">
       <label class="control-label">Relationship to Veteran</label>
       <select class="form-control"
-              ng-model="contact.person.alternateContact.contactRelationship"
+              ng-model="contact.person.alternateContact.contactRelationshipId"
               ng-options="contactRelationship.id as contactRelationship.name for contactRelationship in alternateContact.contactRelationships">
               <option value="">Select One</option>
       </select>    </div>
@@ -56,7 +56,7 @@
   <div class="row">
     <div class="col-xs-12 text-right">
         <button class="btn ptn-secondary" ng-click="contact.goBack('applications.contactInfo')">Back</button>
-      <button class="btn btn-primary" ng-click="contact.submitAlternateContact(generalInfoForm, 'applications.serviceHistory')">Next</button>
+      <button class="btn btn-primary" ng-click="contact.submitAlternateContact(generalInfoForm, 'applications.serviceHistory')" ng-disabled="contact.promises.length !== 0"><i ng-show="contact.promises.length !== 0" class="fa fa-spinner fa-spin"></i>&nbsp;Next</button>
     </div>
   </div>
 </div>

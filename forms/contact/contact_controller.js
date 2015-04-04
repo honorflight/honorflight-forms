@@ -2,7 +2,7 @@ function ContactController($log, $state, $scope, $filter, Person, AlternateConta
     $log.debug("ContactController::Begin");
     var model = this;
     var conditionCount = 0;
-
+    model.promises = [];
     model.applicationTypes = ['veteran', 'guardian', 'volunteer'];
     model.contactType = $state.params.contactType;
 
@@ -18,23 +18,33 @@ function ContactController($log, $state, $scope, $filter, Person, AlternateConta
 
     model.submitContactInfo = function(form, transitionTo){
         if(form.$valid) {
-          model.person.save().then(function (response) {
-            // $state.transitionTo(transitionTo, $state.params);
+          var promise = model.person.save();
+          model.promises = [promise];
+          promise.then(function (response) {
+            model.promises = [];
+            $state.transitionTo(transitionTo, $state.params);
           }, function (response) {
               // Do nothing
           });
-          $state.transitionTo(transitionTo, $state.params);
         }
     };
 
     model.submitAlternateContact = function(form, transitionTo){
       if (form.$valid){
         $log.debug("Submitting and then moving on");
+        var promise = null;
         if (angular.isDefined(model.person.alternateContact.id)){
-          model.person.alternateContact.save();
+          promise = model.person.alternateContact.save();
+          model.promises = [promise];
+          promise.then(function(){
+            model.promises = [];
+          });
         } else {
-          model.person.saveAlternateContact(model.person.alternateContact).then(function(data){
+          promise = model.person.saveAlternateContact(model.person.alternateContact);
+          model.promises = [promise];
+          promise.then(function(data){
             model.person.alternateContact.id = data.id;
+            model.promises = [];
           });
         }
         $state.transitionTo(transitionTo, $state.params);
@@ -48,8 +58,11 @@ function ContactController($log, $state, $scope, $filter, Person, AlternateConta
         // here we also need to get the serviceAwards and persist their id's
         // then we can delete them if the trash can is hit
         if (angular.isDefined(model.person.serviceHistory.serviceAwards) && model.person.serviceHistory.serviceAwards.length !== 0){
-          model.person.serviceHistory.getServiceAwards().then(function(awards){
+          var promise = model.person.serviceHistory.getServiceAwards();
+          model.promises = [promise];
+          promise.then(function(awards){
             model.person.serviceHistory.serviceAwards = awards;
+            model.promises = [];
           });
         }
 
@@ -58,6 +71,7 @@ function ContactController($log, $state, $scope, $filter, Person, AlternateConta
 
       var errorFunction = function(error){
         $log.debug("Failure");
+        model.promises = [];
       };
 
       if (model.awardQuantity !== "" || model.awardName !== "" || model.awardComment !== "") {
@@ -65,11 +79,16 @@ function ContactController($log, $state, $scope, $filter, Person, AlternateConta
       }
 
       if (angular.isDefined(model.person.serviceHistory) && !angular.equals(new ServiceHistory(), model.person.serviceHistory)) {
+        var promise = null;
         if (angular.isDefined(model.person.serviceHistory.id)){
-          model.person.serviceHistory.save().then(successFunction, errorFunction);
+          promise = model.person.serviceHistory.save();
+          model.promises = [promise];
+          promise.then(successFunction, errorFunction);
         } else {
           model.person.serviceHistory = new ServiceHistory(model.person.serviceHistory);
-          model.person.saveServiceHistory(model.person.serviceHistory).then(successFunction, errorFunction);
+          promise = model.person.saveServiceHistory(model.person.serviceHistory);
+          model.promises = [promise];
+          promise.then(successFunction, errorFunction);
         }
       } else {
         $state.transitionTo(transitionTo, $state.params);
