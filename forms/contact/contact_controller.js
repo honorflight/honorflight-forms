@@ -149,9 +149,8 @@ function ContactController($log, $state, $scope, $filter, Person, AlternateConta
     model.medicalCondition = {};
     model.addMedicalCondition = function() {
       $log.debug("Adding medicalCondition");
-      if (!angular.isDefined(model.person.medicalConditions)){
-        model.person.medicalConditions = [];
-      }
+
+      model.person.medicalConditions = model.person.medicalConditions || [];
       model.person.saveMedicalCondition(model.medicalCondition).then(function(success){
         $log.debug("Success");
         model.person.getMedicalConditions().then(function(data){
