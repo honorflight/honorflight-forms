@@ -43,6 +43,7 @@ module.exports = function (grunt) {
       main: {
         options: {
           port: 9001,
+          hostname: '0.0.0.0',
           middleware: function(connect, options){
             if (!Array.isArray(options.base)) {
                 options.base = [options.base];

@@ -112,6 +112,10 @@ angular.module('hf').config(function(uiSelectConfig) {
   uiSelectConfig.resetSearchInput = true;
 });
 
+// angular.module('hf').config(function(httpRequestInterceptorCacheBusterProvider){
+//   httpRequestInterceptorCacheBusterProvider.setMatchlist([/.*people.*/,/.*medical_conditions.*/],true);
+// });
+
 angular.module('hf').run(function($rootScope) {
 
     $rootScope.safeApply = function(fn) {

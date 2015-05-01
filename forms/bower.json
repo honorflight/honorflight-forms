@@ -25,7 +25,8 @@
     "select2": "~3.5.2",
     "ui-select": "*",
     "angular-ui-select2": "~0.0.5",
-    "angular-ui-select": "~0.9.6"
+    "angular-ui-select": "~0.9.6",
+    "angular-cache-buster": "~0.4.3"
   },
   "resolutions": {
     "select2": "~3.5.2"

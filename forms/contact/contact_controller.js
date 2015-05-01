@@ -3,7 +3,8 @@ function ContactController($log, $state, $scope, $filter, Person, AlternateConta
     var model = this;
     var conditionCount = 0;
     model.promises = [];
-    model.applicationTypes = ['veteran', 'guardian', 'volunteer'];
+    model.applicationTypes = ['Veteran', 'Guardian', 'Volunteer'];
+
     model.contactType = $state.params.contactType;
 
     model.person = new Person();
@@ -57,7 +58,7 @@ function ContactController($log, $state, $scope, $filter, Person, AlternateConta
         model.person.serviceHistory.id = success.id;
         // here we also need to get the serviceAwards and persist their id's
         // then we can delete them if the trash can is hit
-        if (angular.isDefined(model.person.serviceHistory.serviceAwards) && model.person.serviceHistory.serviceAwards.length !== 0){
+        if (angular.isDefined(model.person.serviceHistory.serviceAwards) && model.person.serviceHistory.serviceAwards !== null && model.person.serviceHistory.serviceAwards.length !== 0){
           var promise = model.person.serviceHistory.getServiceAwards();
           model.promises = [promise];
           promise.then(function(awards){
@@ -74,7 +75,9 @@ function ContactController($log, $state, $scope, $filter, Person, AlternateConta
         model.promises = [];
       };
 
-      if (model.awardQuantity !== "" || model.awardName !== "" || model.awardComment !== "") {
+      if ((angular.isDefined(model.awardQuantity) && model.awardQuantity !== "") ||
+        (angular.isDefined(model.awardName) && model.awardName !== "") ||
+        (angular.isDefined(model.awardComment) && model.awardComment !== "")){
         model.addAward();
       }
 
@@ -153,9 +156,7 @@ function ContactController($log, $state, $scope, $filter, Person, AlternateConta
       model.person.medicalConditions = model.person.medicalConditions || [];
       model.person.saveMedicalCondition(model.medicalCondition).then(function(success){
         $log.debug("Success");
-        model.person.getMedicalConditions().then(function(data){
-          model.person.medicalConditions = data;
-        });
+        model.person.medicalConditions.push(success);
       });
       // model.person.medicalConditions.push(angular.copy(model.medicalCondition));
       model.medicalCondition = {};
@@ -163,9 +164,7 @@ function ContactController($log, $state, $scope, $filter, Person, AlternateConta
 
     model.deleteMedicalCondition = function(medicalCondition, index) {
       medicalCondition.delete().then(function(){
-        model.person.getMedicalConditions().then(function(data){
-          model.person.medicalConditions = data;
-        });
+        model.person.medicalConditions.splice(index, 1);
       });
 
     };
