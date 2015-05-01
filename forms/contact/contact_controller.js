@@ -63,10 +63,10 @@ function ContactController($log, $state, $scope, $filter, Person, AlternateConta
           model.promises = [promise];
           promise.then(function(awards){
             model.person.serviceHistory.serviceAwards = awards;
-            model.promises = [];
           });
         }
 
+        model.promises = [];
         $state.transitionTo(transitionTo, $state.params);
       };
 

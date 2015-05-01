@@ -72,7 +72,7 @@
         <tr ng-repeat="condition in contact.person.medicalConditions">
           <td>{{medicalCondition.nameFor('medicalConditionTypes', condition.medicalConditionTypeId).name}}</td>
           <td>{{medicalCondition.nameFor('medicalConditionNames', condition.medicalConditionNameId).name}}</td>
-          <td>{{condition.diagnosedLast}}</td>
+          <td>{{condition.diagnosedLast | monthYearDate}}</td>
           <td>{{condition.description}}</td>
           <td>
             <button class="pull-right btn btn-primary" ng-click="contact.deleteMedicalCondition(condition)"><i class="fa fa-trash-o"></i></button>
