@@ -34,6 +34,9 @@ angular.module('hf').config(function($stateProvider, $urlRouterProvider) {
         },
         shirtSizes: function(referenceResource){
           return referenceResource.query({object_type: 'shirt_sizes'});
+        },
+        nameSuffixes: function(referenceResource){
+          return referenceResource.query({object_type: 'name_suffixes'});
         }
       }
     });

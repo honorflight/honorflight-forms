@@ -1,11 +1,12 @@
-function ContactInfoController($log, $state, $modal, wars, shirtSizes, SimplePage){
+function ContactInfoController($log, $state, $modal, wars, shirtSizes, nameSuffixes, SimplePage){
     var model = this;
     $log.debug("ContactInfoController::Begin");
 
     model.wars = wars;
     model.shirtSizes = shirtSizes;
+    model.nameSuffixes = nameSuffixes;
 
-    model.promises = [wars, shirtSizes];
+    model.promises = [wars, shirtSizes, nameSuffixes];
 
     model.open = function(modalContext){
         $log.debug("Opening: " + modalContext);
