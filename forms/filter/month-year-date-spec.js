@@ -13,7 +13,11 @@ describe('monthYearDate', function() {
     expect(filter('032012')).toEqual('03/2012');
     expect(filter('011999')).toEqual('01/1999');
     expect(filter(date)).toEqual('03/2000');
-
+    expect(filter(null)).toEqual('');
+    expect(filter("/")).toEqual('');
+    expect(filter("")).toEqual('');
+    expect(filter("03")).toEqual('');
+    expect(filter("2012")).toEqual('');
 	}));
 
 });
