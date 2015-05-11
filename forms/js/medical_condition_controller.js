@@ -14,7 +14,7 @@ function MedicalConditionController($log, $state, medicalConditionTypes, medical
     };
 
     model.nameFor = function(type, id){
-      var returning = {name: "undefined"};
+      var returning = {name: ""};
       angular.forEach(model[type], function(m){
         if (m.id === id){
           returning = m;
