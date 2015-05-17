@@ -90,6 +90,23 @@ angular.module('hf').config(function($stateProvider, $urlRouterProvider) {
         }
     });
 
+    $stateProvider.state('applications.volunteerInfo', {
+      url: '/volunteerInfo',
+      templateUrl: 'templates/volunteer_info.html'
+    });
+
+    $stateProvider.state('applications.thanksVolunteers', {
+      url: '/thanks_volunteers',
+      templateUrl: 'templates/simple_page.html',
+      controller: 'SimplePageController as simplePage',
+      resolve: {
+        simplePageResource: 'SimplePage',
+        simplePage: function(simplePageResource){
+          return simplePageResource.get({key: "thanks_volunteers"});
+        }
+      }
+    });
+
     $stateProvider.state('applications.thanks', {
       url: '/thanks',
       templateUrl: 'templates/simple_page.html',
@@ -106,7 +123,7 @@ angular.module('hf').config(function($stateProvider, $urlRouterProvider) {
     /* Add New States Above */
     // $urlRouterProvider.otherwise('/applications/home');\
     // Initial release will only have one contact type
-    $urlRouterProvider.otherwise('/applications/contactInfo', {contactType: 'veteran'});
+    $urlRouterProvider.otherwise('/applications/contactInfo?contactType=veteran');
 
 });
 

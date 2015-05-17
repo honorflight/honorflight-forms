@@ -2,8 +2,10 @@
   <div class="row">
     <div class="col-xs-12 col-sm-12">
       <div>
-        <h1>Alternate Contact Information</h1>
-        <h5>Please provide us with a contact that we can talk to on behalf of the veteran</h5>
+        <h1>Alternate Contact &amp; Special Request</h1>
+
+        <h2>Alternate Contact Information</h2>
+        <h5>Please provide us with a contact that we can talk to on behalf of the {{contact.contactType}}</h5>
         <h6>* Required Field</h6>
       </div>
     </div>
@@ -53,10 +55,25 @@
           <input type="text" ng-model="contact.person.alternateContact.address.zipcode" class="form-control" ui-mask="99999">
       </div>
   </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-12">
+
+      <h2>Special Request</h2>
+      <h5>{{alternateContact.specialRequestText[contact.person.type]}}</h5>
+    </div>
+  </div>
+  <div class="row">
+      <div class="form-group col-xs-10 col-sm-10">
+        <label class="control-label"></label>
+        <textarea ng-model="contact.person.specialRequest" class="form-control" ></textarea>
+      </div>
+
+  </div>
   <div class="row">
     <div class="col-xs-12 text-right">
-        <button class="btn ptn-secondary" ng-click="contact.goBack('applications.contactInfo')">Back</button>
-      <button class="btn btn-primary" ng-click="contact.submitAlternateContact(generalInfoForm, 'applications.serviceHistory')" ng-disabled="contact.promises.length !== 0"><i ng-show="contact.promises.length !== 0" class="fa fa-spinner fa-spin"></i>&nbsp;Next</button>
+        <button class="btn ptn-secondary" ng-click="contact.goBack(contact.contactSteps[contact.contactType]['alternateContact']['back'])">Back</button>
+      <button class="btn btn-primary" ng-click="contact.submitAlternateContact(generalInfoForm, contact.contactSteps[contact.contactType]['alternateContact']['forward'])" ng-disabled="contact.promises.length !== 0"><i ng-show="contact.promises.length !== 0" class="fa fa-spinner fa-spin"></i>&nbsp;Next</button>
     </div>
   </div>
 </div>

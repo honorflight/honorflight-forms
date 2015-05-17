@@ -2,8 +2,8 @@
   <div class="row">
     <div class="col-xs-12 col-sm-12">
       <div>
-        <h1>Veteran Contact Information</h1>
-        <h5>Please provide us with the information about the veteran who is applying for an Honor Flight</h5>
+        <h1>{{contact.contactType | titlecase}} Contact Information</h1>
+        <h5>Please provide us with the information about the {{contact.contactType}} who is applying for an Honor Flight</h5>
           <h6>* Required Field</h6>
       </div>
     </div>
@@ -96,7 +96,7 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row" ng-show="contact.contactType=='veteran'">
     <div class="col-xs-12">
       <div class="checkbox">
         <label>
@@ -110,7 +110,7 @@
   <div class="row">
     <div class="col-xs-10"><p>By clicking next, I am stating that I have reviewed and I accept the <a ng-click="contactInfo.open('terms_conditions')">terms and conditions</a>, <a ng-click="contactInfo.open('indemnity_agreement')">covenant not to sue and indemnity agreement</a> and <a ng-click="contactInfo.open('privacy')">privacy policy</a>.</p></div>
       <div class="col-xs-2 pull-right text-right">
-          <button class="btn btn-primary" ng-click="contact.submitContactInfo(generalInfoForm, 'applications.alternateContact')" ng-disabled="contact.promises.length !== 0"><i ng-show="contact.promises.length !== 0" class="fa fa-spinner fa-spin"></i>&nbsp;Next</button>
+          <button class="btn btn-primary" ng-click="contact.submitContactInfo(generalInfoForm, contact.contactSteps[contact.contactType]['contactInfo']['forward'])" ng-disabled="contact.promises.length !== 0"><i ng-show="contact.promises.length !== 0" class="fa fa-spinner fa-spin"></i>&nbsp;Next</button>
       </div>
   </div>
 </div>

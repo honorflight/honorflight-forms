@@ -83,12 +83,12 @@
     </div>
 
 
-</div>
-
-<div class="row">
-  <div class="col-xs-12 text-right">
-      <button class="btn btn-secondary" ng-click="contact.goBack('applications.serviceHistory')">Back</button>
-    <button class="btn btn-primary" ng-click="contact.submitMedicalConditions('applications.thanks')" ng-disabled="contact.promises.length !== 0"><i ng-show="contact.promises.length !== 0" class="fa fa-spinner fa-spin"></i>&nbsp;Finish</button>
   </div>
-</div>
+
+  <div class="row">
+    <div class="col-xs-12 text-right">
+        <button class="btn btn-secondary" ng-click="contact.goBack(contact.contactSteps[contact.contactType]['medicalConditions']['back'])">Back</button>
+      <button class="btn btn-primary" ng-click="contact.submitMedicalConditions(contact.contactSteps[contact.contactType]['medicalConditions']['forward'])" ng-disabled="contact.promises.length !== 0"><i ng-show="contact.promises.length !== 0" class="fa fa-spinner fa-spin"></i>&nbsp;Finish</button>
+    </div>
+  </div>
 </div>

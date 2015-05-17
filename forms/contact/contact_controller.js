@@ -5,16 +5,35 @@ function ContactController($log, $state, $scope, $filter, Person, AlternateConta
     model.promises = [];
     model.applicationTypes = ['Veteran', 'Guardian', 'Volunteer'];
 
-    model.contactType = $state.params.contactType;
+    model.contactType = $state.params.contactType || 'veteran';
 
     model.person = new Person();
+    model.person.type = model.contactType;
     model.person.alternateContact = new AlternateContact();
     model.person.serviceHistory = new ServiceHistory();
-    // MOCK IT (toggle above and below to fake a person)
-    // model.person = new Person({firstName: "Jeff", lastName: "Ancel", phone: "314-703-8829", email: "jancel@gmail.com", birth_date: "03/20/1979"}).save().then(function(response){
-    //   model.person = response;
-    //   model.person.serviceHistory = {};
-    // });
+
+    model.contactSteps = {
+      'veteran': {
+        'contactInfo':{'back': null, 'forward': 'applications.alternateContact'},
+        'alternateContact':{'back': 'applications.contactInfo', 'forward': 'applications.serviceHistory'},
+        'serviceHistory':{'back': 'applications.alternateContact', 'forward': 'applications.medicalConditions'},
+        'medicalConditions':{'back': 'applications.serviceHistory', 'forward': 'applications.thanks'},
+        'thanks': {'back': 'applications.medicalConditions', 'forward': null}
+      },
+      'guardian': {
+        'contactInfo': {'back': null, 'forward': 'applications.alternateContact'},
+        'alternateContact': {'back': 'applications.contactInfo', 'forward': 'applications.serviceHistory'},
+        'serviceHistory': {'back': 'applications.alternateContact', 'forward': 'applications.volunteerInfo'},
+        'volunteerInfo': {'back': 'applications.serviceHistory', 'forward': 'applications.thanksVolunteers'},
+        'thanksVolunteers': {'back': 'applications.volunteerInfo', 'forward': null}
+      },
+      'volunteer': {
+        'contactInfo': {'back': null, 'forward': 'applications.serviceHistory'},
+        'serviceHistory': {'back': 'applications.contactInfo', 'forward': 'applications.volunteerInfo'},
+        'volunteerInfo': {'back': 'applications.serviceHistory', 'forward': 'applications.thanksVolunteers'},
+        'thanksVolunteers': {'back': 'applications.volunteerInfo', 'forward': null}
+      }
+    };
 
 
     model.submitContactInfo = function(form, transitionTo){
@@ -48,6 +67,7 @@ function ContactController($log, $state, $scope, $filter, Person, AlternateConta
             model.promises = [];
           });
         }
+        model.person.save();
         $state.transitionTo(transitionTo, $state.params);
       }
     };
@@ -177,6 +197,11 @@ function ContactController($log, $state, $scope, $filter, Person, AlternateConta
     };
     /* Medical Condition */
 
+
+    model.submitVolunteerExperience = function(transitionTo){
+      model.person.save();
+      $state.transitionTo(transitionTo, $state.params);
+    };
 
 
     /* debugging */
