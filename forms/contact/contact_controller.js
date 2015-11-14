@@ -1,4 +1,4 @@
-function ContactController($log, $state, $scope, $filter, Person, AlternateContact, ServiceHistory, ServiceAward) {
+function ContactController($log, $state, $scope, $filter, lodash, Person, AlternateContact, ServiceHistory, ServiceAward) {
     $log.debug("ContactController::Begin");
     var model = this;
     var conditionCount = 0;
@@ -124,6 +124,11 @@ function ContactController($log, $state, $scope, $filter, Person, AlternateConta
       return angular.isDefined(model.person.serviceHistory);
     };
 
+
+    model.canAddAward = function () {
+      return angular.isDefined(model.awardName) && !lodash.isEmpty(model.awardName);
+    };
+
     model.addAward = function() {
       // initialize
         var quantity = parseInt(model.awardQuantity, 10);
@@ -134,13 +139,19 @@ function ContactController($log, $state, $scope, $filter, Person, AlternateConta
             model.person.serviceHistory.serviceAwards = model.person.serviceHistory.serviceAwards || [];
 
             var serviceAward = null;
-            if (angular.isUndefined(model.awardName)){
+            $log.debug("Service award is: ", model.awardName);
+
+            // If it's custom, add Text for the award CUSTOM award
+            // If it's a model selected, move along
+            if (lodash.isString(model.awardName)) {
               serviceAward = new ServiceAward({
+                name: model.awardName,
                 quantity: model.awardQuantity || 1,
                 comment: model.awardComment
               });
             } else {
               serviceAward = new ServiceAward({
+                name: model.awardName.name,
                 awardId: model.awardName.id,
                 quantity: model.awardQuantity || 1,
                 comment: model.awardComment

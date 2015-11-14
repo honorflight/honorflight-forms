@@ -11,17 +11,6 @@ function ServiceHistoryController($log, $state, $scope, serviceBranches, service
     model.ranks = serviceRanks;
     model.awards = serviceAwards;
 
-
-    model.awardNameFor = function(award_id){
-        var name = "unknown";
-        angular.forEach(model.awards, function(award){
-            if (award_id === award.id){
-                name = award.name;
-            }
-        });
-        return name;
-    };
-
     model.goTo = function() {
         // Create or update service histories
         $state.transitionTo('applications.serviceAwards', {contactType: model.contactType});

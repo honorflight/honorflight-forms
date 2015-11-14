@@ -101,13 +101,7 @@
         <tbody>
           <tr>
             <td>
-              <select class="form-control"
-                ng-model="contact.awardName"
-                required
-                ng-options="award.name for award in serviceHistory.awards | valueOrNull:'branch_id':contact.person.serviceHistory.branchId">
-                <!--WORKING THIS WHEN STOPPED-->
-                <option>Select One</option>
-              </select>
+              <input type="text" ng-model="contact.awardName" typeahead="award as award.name for award in serviceHistory.awards | valueOrNull:'branch_id':contact.person.serviceHistory.branchId" class="form-control">
             </td>
             <td>
               <input type="text" ng-model="contact.awardQuantity" class="form-control" style="width:75px;" >
@@ -116,7 +110,7 @@
               <input type="text" ng-model="contact.awardComment" class="form-control" placeholder="Tell us the story about this award...">
             </td>
             <td>
-              <button class="btn btn-primary form-control" ng-click="contact.addAward()">
+              <button class="btn btn-primary form-control" ng-click="contact.addAward()" ng-disabled="!contact.canAddAward()">
                 <i class="fa fa-plus"></i>
               </button>
             </td>
@@ -125,7 +119,7 @@
               <div ng-show="contact.serviceAwardError" class="errorMessage">Quantity must be between 1 and 100.</div>
           </div>
           <tr ng-repeat="award in contact.person.serviceHistory.serviceAwards ">
-            <td>{{serviceHistory.awardNameFor(award.awardId)}}</td>
+            <td>{{award.name}}</td>
             <td>{{award.quantity}}</td>
             <td>{{award.comment}}</td>
             <td>
