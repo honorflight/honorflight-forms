@@ -107,10 +107,10 @@
               <input type="text" ng-model="contact.awardQuantity" class="form-control" style="width:75px;" >
             </td>
             <td class="">
-              <input type="text" ng-model="contact.awardComment" class="form-control" placeholder="Tell us the story about this award...">
+              <input type="textarea" ng-model="contact.awardComment" class="form-control" placeholder="Tell us the story about this award...">
             </td>
             <td>
-              <button class="btn btn-primary form-control" ng-click="contact.addAward()" ng-disabled="!contact.canAddAward()">
+              <button class="btn btn-primary form-control" ng-click="contact.addAward()" ng-disabled="!contact.canAddAward()"> Add Award &nbsp;
                 <i class="fa fa-plus"></i>
               </button>
             </td>
