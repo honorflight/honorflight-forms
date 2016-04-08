@@ -68,7 +68,7 @@
       <input type="text" ng-model="contact.person.email" name="email" class="form-control" placeholder="John.A.Doe@example.com">
     </div>
   </div>
-  <div class="row">
+  <div class="row" ng-if="contact.contactType !== 'veteran'">
     <div class="form-group col-xs-6 col-sm-6">
       <label class="control-label">* Cell Phone</label>
       <input type="text" ng-model="contact.person.cellPhone" class="form-control" name="phone" ui-mask="(999) 999-9999" required>
@@ -79,6 +79,19 @@
     <div class="form-group col-xs-6 col-sm-6">
       <label class="control-label">Alternate Phone</label>
       <input type="text" ng-model="contact.person.phone" class="form-control" name="phone" ui-mask="(999) 999-9999">
+    </div>
+  </div>
+  <div class="row" ng-if="contact.contactType === 'veteran'">
+    <div class="form-group col-xs-6 col-sm-6">
+      <label class="control-label">* Home Phone</label>
+      <input type="text" ng-model="contact.person.phone" class="form-control" name="phone" ui-mask="(999) 999-9999" required>
+        <div ng-show="generalInfoForm.$submitted || generalInfoForm.phone.$touched">
+            <div ng-show="generalInfoForm.phone.$error.required" class="errorMessage">Home is Required.</div>
+        </div>
+    </div>
+    <div class="form-group col-xs-6 col-sm-6">
+      <label class="control-label">Cell Phone</label>
+      <input type="text" ng-model="contact.person.cellPhone" class="form-control" name="cell-phone" ui-mask="(999) 999-9999">
     </div>
   </div>
   <div class="row">
