@@ -4,6 +4,7 @@ rm -rf build/*
 mkdir build/tmp
 
 cd forms/
+npm install grunt && npm install
 grunt build
 cd ..
 
