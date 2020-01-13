@@ -132,7 +132,7 @@
   </div>
 
   <div class="row">
-    <div class="col-xs-10"><p>By clicking next, I understand that The Board of Directors of the Greater St. Louis Honor Flight reserves the right to deny, solely at its discretion, any application to travel, for any reason whatsoever. In addition, I have reviewed and I accept the <a ng-click="contactInfo.open('terms_conditions')">terms and conditions</a>, <a ng-click="contactInfo.open('indemnity_agreement')">covenant not to sue and indemnity agreement</a> and <a ng-click="contactInfo.open('privacy')">privacy policy</a>.</p></div>
+    <div class="col-xs-10"><p>By clicking next, I understand that The Board of Directors of the Greater St. Louis Honor Flight reserves the right to deny, solely at its discretion, any application to travel, for any reason whatsoever. Additionally, I am agreeing that I have reviewed and I accept the <a ng-click="contactInfo.open('terms_conditions')">terms and conditions</a>, <a ng-click="contactInfo.open('indemnity_agreement')">covenant not to sue and indemnity agreement</a> and <a ng-click="contactInfo.open('privacy')">privacy policy</a>.</p></div>
       <div class="col-xs-2 pull-right text-right">
           <button class="btn btn-primary" ng-click="contact.submitContactInfo(generalInfoForm, contact.contactSteps[contact.contactType]['contactInfo']['forward'])" ng-disabled="contact.promises.length !== 0"><i ng-show="contact.promises.length !== 0" class="fa fa-spinner fa-spin"></i>&nbsp;Next</button>
       </div>

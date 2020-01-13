@@ -38,7 +38,7 @@ function inject_css() {
         echo '';
     }
 }
-add_filter('css_injection', 'inject_css');
+add_action('wp_head', 'inject_css');
 
 function inject_javascripts() {
     if (is_page('Application')) {
@@ -46,7 +46,7 @@ function inject_javascripts() {
         ?><script type='text/javascript' src='<?php echo $custom_js_path; ?>'></script> <?php
     }
 }
-add_filter('javascript_injection', 'inject_javascripts');
+add_action('wp_head', 'inject_javascripts');
 
 function skip_title($title, $id){
     if (is_page('Application')) {
@@ -63,8 +63,8 @@ function app_type($content)
         $vet='[[vetapp]]';
 
         if (strpos($content, $vet) !== false) {
-            return str_replace("[[vetapp]]", "<div ng-app='hf' ng-controller='MainController as main'><div class='container'><div class='row'><div ui-view=''></div></div></div></div>", $content);
-        } 
+            return str_replace("[[vetapp]]", "<div ng-app='hf' ng-controller='MainController as main'><div><div class='row'><div ui-view=''></div></div></div></div>", $content);
+        }
         else {
             //else on blog page / home page etc, just return content as usual.
             return $content;
