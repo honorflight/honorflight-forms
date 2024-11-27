@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "html-minifier": "^0.6.9",
-    "lodash": "^2.4.1",
+    "lodash": "^4.17.19",
     "ng-annotate": "^0.15.1"
   }
 }
